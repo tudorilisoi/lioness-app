@@ -1,4 +1,5 @@
 // https://www.npmjs.com/package/faker
+
 const faker = require('faker')
 faker.seed(123);
 const { parse, stringify } = require('flatted/cjs');
@@ -32,7 +33,7 @@ for (let i = 0; i < 30; i++) {
         email: unique(faker.internet.email, users, 'email'),
         username: unique(faker.internet.userName, users, 'username'),
         full_name: faker.name.findName(),
-        phone: faker.internet.phone,
+        phone: faker.phone.phoneNumber,
 
         //associated objects
         role: randomRole, //the role Object corresponding to the role_id
@@ -58,19 +59,19 @@ for (let i = 0; i < 30; i++) {
 const projectManager=projectManagers[Math.floor(Math.random() * projectManagers.length)]
 const status=["estimate", "in progress", "billed", "other"]
 const projectStatus=status[Math.floor(Math.random()*status.length)]
-if(projects.status==='"in progress"'){
-    projects.estimatedDueDate=== faker.date.between('2019-06-01', '2019-08-31')
-}else
-projects.estimatedDueDate===null;
+const beginDate = faker.date.recent(60);
+const estimatedDate = faker.date.between(beginDate,faker.date.recent() )
+const billedDate = faker.date.between(estimatedDate, faker.date.recent() )
     const project = {
         //fields
         id: i,
-        title: unique(faker.internet.userName, projects, 'title'),
+        title: unique(faker.company.companyName, projects, 'title'),
         description:unique(faker.lorem.sentence, projects,'description'), 
         budget: unique(faker.finance.amount, projects, 'budget'),
         status: projectStatus,
-        startDate:faker.date.between('2019-01-01', '2019-05-31'),
-        estimatedDueDate: null,
+        startDate: beginDate,
+        estimatedDueDate: (projectStatus === 'in progress' )||(projectStatus === 'billed') ? estimatedDate : null,
+        completionDate: projectStatus === 'billed' ? billedDate : null,
         //associated objects
         client: [client], //relation based on client_id
         contractors: [contractor1, contractor2],
@@ -79,23 +80,31 @@ projects.estimatedDueDate===null;
 
     contractor1.projects = [project]
     contractor2.projects = [project]
+    client.projects=[project]
+    projectManager.projects=[project]
 
     projects.push(project)
 }
-console.log(parse(stringify(projects, null, 2)))
+console.log(projects, null, 2)
 // console.log(util.inspect(projects,false, null, true))
-
-
-//fake API
-function getProjects(options = {
-    dateStart:null,
-    dateEnd:null,
-    status:null,
-
-}) {
+// function GetProjects(){
+//     return console.log(projects)
+// }
+function GetProjects(){
     let ret = [...projects]
-    if(options.dateStart){
-        ret = ret.filter(user=>dayjs().isAfter()) //TODO fix this
-    }
     return Promise.resolve(ret)
 }
+// fake API
+// function getProjects(options = {
+//     dateStart:null,
+//     dateEnd:null,
+//     status:null,
+
+// }) {
+//     let ret = [...projects]
+//     if(options.dateStart){
+//         ret = ret.filter(user=>dayjs().isAfter()) //TODO fix this
+//     }
+//     return Promise.resolve(ret)
+// }
+export default GetProjects
