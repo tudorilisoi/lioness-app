@@ -85,12 +85,12 @@ const billedDate = faker.date.between(estimatedDate, faker.date.recent() )
 
     projects.push(project)
 }
-console.log(projects, null, 2)
+console.log(projects)
 // console.log(util.inspect(projects,false, null, true))
 // function GetProjects(){
 //     return console.log(projects)
 // }
-function GetProjects(){
+export const GetProjects= ()=>{
     let ret = [...projects]
     return Promise.resolve(ret)
 }
@@ -107,4 +107,3 @@ function GetProjects(){
 //     }
 //     return Promise.resolve(ret)
 // }
-export default GetProjects
