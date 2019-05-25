@@ -1,0 +1,27 @@
+.LoginPageContainer{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+  }
+  .LoginForm{
+      display: flex;
+      flex-direction: column;
+    margin:auto;
+    width:75%;
+  }
+  h2{
+    text-align: center;
+  }
+  .LoginForm label{
+    font-size: 18px;
+  }
+  .LoginForm input{
+    margin-bottom: 10px;
+  }
+  .LoginForm button{
+    display:block;
+    margin:auto;
+    width: 30%;
+    
+  }

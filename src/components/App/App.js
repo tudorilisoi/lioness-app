@@ -4,6 +4,7 @@ import DataLoader from "../DataLoader/DataLoader";
 import config from "../../config";
 import { Route, withRouter } from "react-router-dom";
 import LandingPage from "../LandingPage/LandingPage";
+import LoginForm from '../LoginForm/LoginForm'
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +48,7 @@ class App extends Component {
         />
 
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/login" component={LoginForm} />
       </div>
     );
   }
