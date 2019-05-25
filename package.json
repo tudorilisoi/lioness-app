@@ -5,9 +5,11 @@
   "dependencies": {
     "faker": "^4.1.0",
     "flatted": "^2.0.0",
+    "history": "^4.9.0",
     "prettyjson": "^1.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "typescript": "^3.4.5",
     "util": "^0.12.0"

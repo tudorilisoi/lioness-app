@@ -24,32 +24,52 @@ const roles = [
 
 
 const users = []
-for (let i = 0; i < 30; i++) {
-    const randomRole = roles[Math.floor(Math.random() * roles.length)]
-    const user = {
-
-        //fields
-        id: i,
+for(let i=0; i < 2; i++){
+    const adminRole= roles[0]
+    const admin={
+        id: faker.random.uuid(), 
         email: unique(faker.internet.email, users, 'email'),
         username: unique(faker.internet.userName, users, 'username'),
         full_name: faker.name.findName(),
-        phone: faker.phone.phoneNumber,
+        phone: faker.phone.phoneNumberFormat(),
+        password:faker.internet.password(),
+        //associated objects
+        role: adminRole, //the role Object corresponding to the role_id
+        isAdmin: true,
+        projects: [],
+    
+    }
+    users.push(admin)
+}
+   
+for (let i = 0; i < 20; i++) {
+    const remainingRoles= [...roles]
+    remainingRoles.shift()
+    const randomRole = remainingRoles[Math.floor(Math.random() * remainingRoles.length)]
+    const user = {
 
+        //fields
+        id: faker.random.uuid(),
+        email: unique(faker.internet.email, users, 'email'),
+        username: unique(faker.internet.userName, users, 'username'),
+        full_name: faker.name.findName(),
+        phone: faker.phone.phoneNumberFormat(),
+        password:faker.internet.password(),
+        isAdmin: false,
         //associated objects
         role: randomRole, //the role Object corresponding to the role_id
         projects: [],
     }
     users.push(user)
 }
-
-const clients= users.filter(user=>{
-    return user.role.id===2;
+const clients = users.filter(user=>{
+    return user.role.id === 2;
 });
-const contractors= users.filter(user=>{
-    return user.role.id===4;
+const contractors = users.filter(user=>{
+    return user.role.id === 4;
 });
-const projectManagers=users.filter(user=>{
-    return user.role.id===3;
+const projectManagers = users.filter(user=>{
+    return user.role.id === 3;
 });
 const projects = []
 for (let i = 0; i < 30; i++) {
@@ -85,11 +105,12 @@ const billedDate = faker.date.between(estimatedDate, faker.date.recent() )
 
     projects.push(project)
 }
-console.log(projects)
-// console.log(util.inspect(projects,false, null, true))
-// function GetProjects(){
-//     return console.log(projects)
-// }
+
+
+export const GetUsers=()=>{
+    let result=[...users]
+    return Promise.resolve(result)
+}
 export const GetProjects= ()=>{
     let ret = [...projects]
     return Promise.resolve(ret)

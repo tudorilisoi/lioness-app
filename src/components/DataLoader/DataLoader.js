@@ -1,28 +1,33 @@
 import React, { Component } from "react";
-import {GetProjects} from '../STORE/fakerdata'
+
 export default class DataLoader extends Component{
 
 constructor(props){
     super(props);
     this.state={
         error: false,
-        projects: []
+        
     }
 }
 
 componentDidMount(){
-    GetProjects()
-    
+    if(this.props.onBeforeFetch){
+        this.props.onBeforeFetch(this.props.url)
+    }
+    //this.props.url is a mock API made from a function that creates a response in fakerdata.js
+    this.props.url
     .then(resJson=>{
-        this.setState({projects:resJson})
+        this.props.onDataLoaded(resJson)
+    }).catch(error=>{
+        this.setState({error})
     })
 }
 render(){
-    return(
-        <div>
-            hi!
-        </div>
-    )
+    const {error} = this.state
+    if(error){
+        throw error
+    }
+    return null
 }
 
 }

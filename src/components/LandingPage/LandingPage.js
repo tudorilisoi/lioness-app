@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 export default class LandingPage extends Component{
     render(){
@@ -8,7 +9,9 @@ export default class LandingPage extends Component{
             <p>Lioness is a project management tool,
                 built to organize your organization's 
                 clients, project managers and contractors</p>
+           <Link to={`/login`}>
            <button>Log In</button>
+           </Link>
             </div>
         )
     }
