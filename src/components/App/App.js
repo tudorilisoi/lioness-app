@@ -43,6 +43,7 @@ class App extends Component {
       projectsLoaded: this.state.projectsLoaded,
       usersLoaded: this.state.usersLoaded,
       currentUser:this.state.currentUser,
+      history: this.props.history,
     };
     return (
       <div className="App">

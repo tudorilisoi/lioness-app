@@ -10,6 +10,7 @@ export default class LoginForm extends Component {
     this.state = {
       email: "",
       password: "",
+      currentUser: null,
       emailValid: false,
       passwordValid: false,
       formValid: null,
@@ -37,6 +38,11 @@ if(!userEmails){
     fieldErrors= "Email does not match any users"
     hasError= true;
 }else{
+    this.setState(
+        {
+            currentUser:userEmails
+        }
+    )
     fieldErrors= "";
     hasError = !hasError
     
@@ -61,14 +67,14 @@ if(fieldValue.length===0){
   hasError= true;
 }
 else{
-const userPasswords =this.context.users.find(user=>user.password===this.state.password)
-if(!userPasswords){
-  fieldErrors = "Password does not match any users"
+const currentUserPassword = this.state.currentUser.password
+if(this.state.password!== currentUserPassword){
+  fieldErrors = "Wrong Password, please try again"
   hasError= true;
 }else{
   fieldErrors= "";
   hasError =false;
-  console.log(userPasswords)
+
 }
 }
 this.setState(
@@ -79,18 +85,27 @@ this.setState(
   this.formValid
 )
 }
-
+formValid(){
+    this.setState({
+        formValid: this.state.emailValid && this.state.passwordValid
+    })
+}
+isAdmin(){
+    if(this.state.currentUser.isAdmin){
+       this.props.history.push('/admin-dash')
+    }
+}
 handleLoginSubmit(e){
     e.preventDefault();
     const {email, password} = this.state
 this.validateLoginEmail(email);
 this.validateLoginPassword(password);
-
+if(this.state.emailValid && this.state.passwordValid && this.state.currentUser.isAdmin){
+    this.props.history.push('/admin-dash')
+}
 }
   render() {
-    //   const testEmail= "Chris8@yahoo.com"
-    // const userEmails=this.context.users.find(user=>user.email===testEmail)
-
+    
     return (
       <div className="LoginForm-Container">
         <h2>Login</h2>

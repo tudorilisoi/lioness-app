@@ -5,6 +5,7 @@ const LionessContext =React.createContext(
         users:[],
         projectsLoaded: false,
         usersLoaded:false,
+        history:{}
     }
 )
 export default LionessContext;
