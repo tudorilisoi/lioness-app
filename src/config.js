@@ -1,4 +1,4 @@
-import { GetProjects, GetUsers } from "./components/STORE/fakerdata";
+import { GetProjects, GetUsers } from "./STORE/fakerdata";
 
 export default{
 TEST_PROJECTS: GetProjects(),

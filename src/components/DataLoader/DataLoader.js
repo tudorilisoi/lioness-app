@@ -1,7 +1,12 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 
 export default class DataLoader extends Component{
-
+    static propTypes = {
+        // url: PropTypes.string.isRequired,
+        onDataLoaded: PropTypes.func.isRequired,
+        onBeforeFetch: PropTypes.func,
+    }
 constructor(props){
     super(props);
     this.state={
