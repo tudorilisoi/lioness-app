@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./LoginForm.css";
+import { Link } from 'react-router-dom';
 import LionessContext from "../../LionessContext/LionessContext";
 import ValidationErrors from '../ValidationErrors/ValidationErrors'
 export default class LoginForm extends Component {
@@ -44,7 +45,7 @@ if(!userEmails){
 this.setState(
     {
         emailValidationMessage:fieldErrors,
-        emailValid: true
+        emailValid: hasError
     },
     this.formValid
 )
@@ -73,11 +74,12 @@ if(!userPasswords){
 this.setState(
   {
     passwordValidationMessage:fieldErrors,
-     passwordValid:!hasError
+     passwordValid: hasError
   },
   this.formValid
 )
 }
+
 handleLoginSubmit(e){
     e.preventDefault();
     const {email, password} = this.state
@@ -100,7 +102,7 @@ this.validateLoginPassword(password);
             onChange={e => this.emailChanged(e.target.value)}
           />
           <ValidationErrors 
-          hasError= {!this.state.emailValid}
+          hasError= {this.state.emailValid}
           message={this.state.emailValidationMessage}
           />
           <label htmlFor="password"> Password:</label>
@@ -110,9 +112,10 @@ this.validateLoginPassword(password);
             onChange={e => this.passwordChanged(e.target.value)}
           />
           <ValidationErrors 
-          hasError= {!this.state.passwordValid}
+          hasError= {this.state.passwordValid}
           message={this.state.passwordValidationMessage}
           />
+          {/* <Link to={'/admin-dash'}></Link> */}
           <button type="submit">Submit</button>
         </form>
       </div>
