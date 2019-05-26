@@ -3,6 +3,7 @@ import "./LoginForm.css";
 import { Link } from 'react-router-dom';
 import LionessContext from "../../LionessContext/LionessContext";
 import ValidationErrors from '../ValidationErrors/ValidationErrors'
+import { thisTypeAnnotation } from "@babel/types";
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -10,7 +11,7 @@ export default class LoginForm extends Component {
     this.state = {
       email: "",
       password: "",
-      currentUser: null,
+      currentUser: {},
       emailValid: false,
       passwordValid: false,
       formValid: null,
@@ -24,6 +25,7 @@ export default class LoginForm extends Component {
   passwordChanged(password) {
     this.setState({ password });
   }
+
   validateLoginEmail(fieldValue){
       let fieldErrors = {...this.state.emailValidationMessage }
 let hasError= false;
@@ -33,19 +35,24 @@ if(fieldValue.length === 0){
     hasError= true;
 }
 else{
-const userEmails=this.context.users.find(user=>user.email===this.state.email)
+const userEmails=this.context.users.find(user=>user.email === this.state.email)
 if(!userEmails){
     fieldErrors= "Email does not match any users"
     hasError= true;
+    console.log("Email Validation Failed: No Such User!");
 }else{
-    this.setState(
-        {
-            currentUser:userEmails
-        }
-    )
+  this.setState({
+    currentUser: userEmails
+  }, console.log(this.state.currentUser)
+  );
     fieldErrors= "";
     hasError = !hasError
-    
+    console.log("Email Validation Successful!");
+   // this.setState(
+    //     {
+    //         currentUser: userEmails,
+    //     }
+    // 
 }
 }
 this.setState(
@@ -85,6 +92,9 @@ this.setState(
   this.formValid
 )
 }
+validateLogin(email, password){
+  
+}
 formValid(){
     this.setState({
         formValid: this.state.emailValid && this.state.passwordValid
@@ -100,9 +110,10 @@ handleLoginSubmit(e){
     const {email, password} = this.state
 this.validateLoginEmail(email);
 this.validateLoginPassword(password);
-if(this.state.emailValid && this.state.passwordValid && this.state.currentUser.isAdmin){
-    this.props.history.push('/admin-dash')
-}
+// if(this.state.emailValid && this.state.passwordValid && this.state.currentUser.isAdmin){
+//     this.props.history.push('/admin-dash')
+// }
+
 }
   render() {
     

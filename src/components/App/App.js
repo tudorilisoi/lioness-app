@@ -8,6 +8,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import AdminDash from '../AdminDash/AdminDash'
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import LionessContext from "../../LionessContext/LionessContext";
+import './App.css'
 class App extends Component {
   constructor(props) {
     super(props);
