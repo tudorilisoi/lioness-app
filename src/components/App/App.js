@@ -5,6 +5,7 @@ import config from "../../config";
 import { Route, withRouter } from "react-router-dom";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
+import AdminDash from '../AdminDash/AdminDash'
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import LionessContext from "../../LionessContext/LionessContext";
 class App extends Component {
@@ -61,6 +62,7 @@ class App extends Component {
         <LionessContext.Provider value={contextValue}>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />
+          <Route exact path='/admin-dash' component={AdminDash}/>
         </LionessContext.Provider>
       </div>
     );

@@ -12,10 +12,8 @@ export default class LoginForm extends Component {
       emailValid: false,
       passwordValid: false,
       formValid: null,
-      validationMessages: {
-        email: "",
-        password: "",
-      }
+      emailValidationMessage:"",
+      passwordValidationMessage:"",
     };
   }
   emailChanged(email) {
@@ -25,55 +23,56 @@ export default class LoginForm extends Component {
     this.setState({ password });
   }
   validateLoginEmail(fieldValue){
-      const fieldErrors = {...this.state.validationMessages }
+      let fieldErrors = {...this.state.emailValidationMessage }
 let hasError= false;
 fieldValue = fieldValue.trim();
 if(fieldValue.length === 0){
-    fieldErrors.email= "Login email is required";
+    fieldErrors= "Login email is required";
     hasError= true;
 }
 else{
 const userEmails=this.context.users.find(user=>user.email===this.state.email)
 if(!userEmails){
-    fieldErrors.email= "Email does not match any users"
+    fieldErrors= "Email does not match any users"
     hasError= true;
 }else{
-    fieldErrors.email= "";
+    fieldErrors= "";
     hasError = !hasError
     
 }
 }
 this.setState(
     {
-        validationMessages:fieldErrors,
+        emailValidationMessage:fieldErrors,
         emailValid: true
     },
     this.formValid
 )
   }
+
   validateLoginPassword(fieldValue){
-    const fieldErrors = {...this.state.validationMessages 
+    let fieldErrors = {...this.state.passwordValidationMessage 
 }
 let hasError= false;
 fieldValue = fieldValue.trim();
 if(fieldValue.length===0){
-  fieldErrors.password= "Login password is required";
+  fieldErrors= "Login password is required";
   hasError= true;
 }
 else{
 const userPasswords =this.context.users.find(user=>user.password===this.state.password)
 if(!userPasswords){
-  fieldErrors.password= "Password does not match any users"
+  fieldErrors = "Password does not match any users"
   hasError= true;
 }else{
-  fieldErrors.password= "";
+  fieldErrors= "";
   hasError =false;
   console.log(userPasswords)
 }
 }
 this.setState(
   {
-      validationMessages:fieldErrors,
+    passwordValidationMessage:fieldErrors,
      passwordValid:!hasError
   },
   this.formValid
@@ -102,7 +101,7 @@ this.validateLoginPassword(password);
           />
           <ValidationErrors 
           hasError= {!this.state.emailValid}
-          message={this.state.validationMessages.email}
+          message={this.state.emailValidationMessage}
           />
           <label htmlFor="password"> Password:</label>
           <input
@@ -112,7 +111,7 @@ this.validateLoginPassword(password);
           />
           <ValidationErrors 
           hasError= {!this.state.passwordValid}
-          message={this.state.validationMessages.password}
+          message={this.state.passwordValidationMessage}
           />
           <button type="submit">Submit</button>
         </form>
