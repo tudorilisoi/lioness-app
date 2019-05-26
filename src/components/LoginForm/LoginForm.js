@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./LoginForm.css";
 import LionessContext from "../../LionessContext/LionessContext";
+import ValidationErrors from '../ValidationErrors/ValidationErrors'
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -13,7 +14,7 @@ export default class LoginForm extends Component {
       formValid: null,
       validationMessages: {
         email: "",
-        password: ""
+        password: "",
       }
     };
   }
@@ -24,26 +25,28 @@ export default class LoginForm extends Component {
     this.setState({ password });
   }
   validateLoginEmail(fieldValue){
-      const fieldErrors = {...this.state.validationMessages 
-}
+      const fieldErrors = {...this.state.validationMessages }
 let hasError= false;
 fieldValue = fieldValue.trim();
-if(fieldValue.length===0){
+if(fieldValue.length === 0){
     fieldErrors.email= "Login email is required";
     hasError= true;
 }
+else{
 const userEmails=this.context.users.find(user=>user.email===this.state.email)
 if(!userEmails){
-    fieldErrors.email= "Email does not match ay users"
+    fieldErrors.email= "Email does not match any users"
     hasError= true;
 }else{
-    fieldErrors.email="";
-    hasError =false;
+    fieldErrors.email= "";
+    hasError = !hasError
+    
+}
 }
 this.setState(
     {
         validationMessages:fieldErrors,
-        emailValid:!hasError
+        emailValid: true
     },
     this.formValid
 )
@@ -57,13 +60,16 @@ if(fieldValue.length===0){
   fieldErrors.password= "Login password is required";
   hasError= true;
 }
+else{
 const userPasswords =this.context.users.find(user=>user.password===this.state.password)
 if(!userPasswords){
-  fieldErrors.email= "Password does not match any users"
+  fieldErrors.password= "Password does not match any users"
   hasError= true;
 }else{
-  fieldErrors.email="";
+  fieldErrors.password= "";
   hasError =false;
+  console.log(userPasswords)
+}
 }
 this.setState(
   {
@@ -73,6 +79,13 @@ this.setState(
   this.formValid
 )
 }
+handleLoginSubmit(e){
+    e.preventDefault();
+    const {email, password} = this.state
+this.validateLoginEmail(email);
+this.validateLoginPassword(password);
+
+}
   render() {
     //   const testEmail= "Chris8@yahoo.com"
     // const userEmails=this.context.users.find(user=>user.email===testEmail)
@@ -80,18 +93,26 @@ this.setState(
     return (
       <div className="LoginForm-Container">
         <h2>Login</h2>
-        <form className="LoginForm">
+        <form className="LoginForm"onSubmit={e=>this.handleLoginSubmit(e)}>
           <label htmlFor="email"> Email:</label>
           <input
             type="text"
             id="email"
             onChange={e => this.emailChanged(e.target.value)}
           />
+          <ValidationErrors 
+          hasError= {!this.state.emailValid}
+          message={this.state.validationMessages.email}
+          />
           <label htmlFor="password"> Password:</label>
           <input
             type="password"
             id="password"
             onChange={e => this.passwordChanged(e.target.value)}
+          />
+          <ValidationErrors 
+          hasError= {!this.state.passwordValid}
+          message={this.state.validationMessages.password}
           />
           <button type="submit">Submit</button>
         </form>
