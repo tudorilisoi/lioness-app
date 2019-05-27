@@ -1,6 +1,7 @@
 /* eslint-disable import/first */
 import dataString from './flattenedData.json';
 import fjs from 'flatted/cjs';
+import { createEmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
 const { parse, stringify } = fjs
 // debugger;
 // console.log('data', dataString)
@@ -13,6 +14,15 @@ export default {
         // const result= parse(stringify(res))
         return Promise.resolve(res)
     },
+    getProjects:()=>{
+        let res=[...data.projects]
+        return Promise.resolve(res)
+    },
+    getUserLogin: (email, password)=>{
+        let users=[...data.users]
+        let findLoginUser= users.find(user=>user.email=== email && user.password === password)
+        return findLoginUser
+    }
     // getProjects: () => {}
 }
 

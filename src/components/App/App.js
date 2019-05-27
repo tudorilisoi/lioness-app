@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Header from "../Header/Header";
-import DataLoader from "../DataLoader/DataLoader";
 import ds from "../../STORE/dataservice";
 import config from "../../config";
 import { Route, withRouter } from "react-router-dom";
@@ -53,23 +52,13 @@ class App extends Component {
     };
     return (
       <div className="App">
-        <Header />
-        <ErrorBoundary>
-          <DataLoader
-            promise={getUsers()}
-            onBeforeFetch={() => this.setState({ projectsLoaded: false })}
-            onDataLoaded={this.setProjects}
-          />
-
-        </ErrorBoundary>
-        x
+        <Header />      
         <LionessContext.Provider value={contextValue}>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path='/admin-dash' component={AdminDash}/>
           <Route exact path='/clients' component={ClientPage}/>
           <Route exact path='/projects' component={ProjectPage}/>
-
         </LionessContext.Provider>
       </div>
     );

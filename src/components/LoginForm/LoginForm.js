@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import LionessContext from "../../LionessContext/LionessContext";
 import ValidationErrors from '../ValidationErrors/ValidationErrors'
 import { thisTypeAnnotation } from "@babel/types";
+import * as EmailValidator from 'email-validator'
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -12,8 +13,8 @@ export default class LoginForm extends Component {
       email: "",
       password: "",
       currentUser: {},
-      emailValid: false,
-      passwordValid: false,
+      emailValid: null,
+      passwordValid: null,
       formValid: null,
       emailValidationMessage:"",
       passwordValidationMessage:"",
@@ -26,75 +27,69 @@ export default class LoginForm extends Component {
     this.setState({ password });
   }
 
-  validateLoginEmail(fieldValue){
-      let fieldErrors = {...this.state.emailValidationMessage }
-let hasError= false;
-fieldValue = fieldValue.trim();
-if(fieldValue.length === 0){
-    fieldErrors= "Login email is required";
-    hasError= true;
+  validateLogin(email, password){
+      let emailErrors = {...this.state.emailValidationMessage }
+      let passwordErrors={...this.state.passwordValidationMessage}
+let isEmailValid= null
+let isPasswordValid= null
+email = email.trim();
+if(email.length === 0) {
+    emailErrors= "Login email is required";
+    isEmailValid= false;
+}else{
+  if(!EmailValidator.validate(email)){
+    emailErrors= "Please input a valid email";
+    isEmailValid= false;
+  }else{
+  emailErrors= "";
+  isEmailValid =true;
+}
+}
+if(password.length===0){
+  passwordErrors= "Login password is required";
+  isPasswordValid= false;
 }
 else{
-const userEmails=this.context.users.find(user=>user.email === this.state.email)
-if(!userEmails){
-    fieldErrors= "Email does not match any users"
-    hasError= true;
-    console.log("Email Validation Failed: No Such User!");
-}else{
-  this.setState({
-    currentUser: userEmails
-  }, console.log(this.state.currentUser)
-  );
-    fieldErrors= "";
-    hasError = !hasError
-    console.log("Email Validation Successful!");
-   // this.setState(
-    //     {
-    //         currentUser: userEmails,
-    //     }
-    // 
+  passwordErrors= "";
+  isPasswordValid = true;
+
 }
-}
+
 this.setState(
     {
-        emailValidationMessage:fieldErrors,
-        emailValid: hasError
+        emailValidationMessage:emailErrors,
+        emailValid: isEmailValid,
+        passwordValidationMessage:passwordErrors,
+        passwordValid: isPasswordValid
     },
     this.formValid
 )
   }
 
-  validateLoginPassword(fieldValue){
-    let fieldErrors = {...this.state.passwordValidationMessage 
-}
-let hasError= false;
-fieldValue = fieldValue.trim();
-if(fieldValue.length===0){
-  fieldErrors= "Login password is required";
-  hasError= true;
-}
-else{
-const currentUserPassword = this.state.currentUser.password
-if(this.state.password!== currentUserPassword){
-  fieldErrors = "Wrong Password, please try again"
-  hasError= true;
-}else{
-  fieldErrors= "";
-  hasError =false;
+//   validateLoginPassword(fieldValue){
+//     let fieldErrors = {...this.state.passwordValidationMessage 
+// }
+// let hasError= false;
+// fieldValue = fieldValue.trim();
+// if(fieldValue.length===0){
+//   fieldErrors= "Login password is required";
+//   hasError= true;
+// }
+// else{
+//   fieldErrors= "";
+//   hasError =false;
 
-}
-}
-this.setState(
-  {
-    passwordValidationMessage:fieldErrors,
-     passwordValid: hasError
-  },
-  this.formValid
-)
-}
-validateLogin(email, password){
-  
-}
+// }
+
+// this.setState(
+//   {
+//     passwordValidationMessage:fieldErrors,
+//      passwordValid: hasError
+//   },
+//   this.formValid
+// )
+// }
+
 formValid(){
     this.setState({
         formValid: this.state.emailValid && this.state.passwordValid
@@ -108,8 +103,10 @@ isAdmin(){
 handleLoginSubmit(e){
     e.preventDefault();
     const {email, password} = this.state
-this.validateLoginEmail(email);
-this.validateLoginPassword(password);
+    this.validateLogin(email,password)
+// this.validateLoginEmail(email);
+// this.validateLoginPassword(password);
+console.log(`this is login state`,this.state)
 // if(this.state.emailValid && this.state.passwordValid && this.state.currentUser.isAdmin){
 //     this.props.history.push('/admin-dash')
 // }
@@ -128,7 +125,7 @@ this.validateLoginPassword(password);
             onChange={e => this.emailChanged(e.target.value)}
           />
           <ValidationErrors 
-          hasError= {this.state.emailValid}
+          hasError= {!this.state.emailValid}
           message={this.state.emailValidationMessage}
           />
           <label htmlFor="password"> Password:</label>
@@ -138,7 +135,7 @@ this.validateLoginPassword(password);
             onChange={e => this.passwordChanged(e.target.value)}
           />
           <ValidationErrors 
-          hasError= {this.state.passwordValid}
+          hasError= {!this.state.passwordValid}
           message={this.state.passwordValidationMessage}
           />
           {/* <Link to={'/admin-dash'}></Link> */}
