@@ -66,30 +66,6 @@ this.setState(
 )
   }
 
-//   validateLoginPassword(fieldValue){
-//     let fieldErrors = {...this.state.passwordValidationMessage 
-// }
-// let hasError= false;
-// fieldValue = fieldValue.trim();
-// if(fieldValue.length===0){
-//   fieldErrors= "Login password is required";
-//   hasError= true;
-// }
-// else{
-//   fieldErrors= "";
-//   hasError =false;
-
-// }
-
-// this.setState(
-//   {
-//     passwordValidationMessage:fieldErrors,
-//      passwordValid: hasError
-//   },
-//   this.formValid
-// )
-// }
-
 formValid(){
     this.setState({
         formValid: this.state.emailValid && this.state.passwordValid
@@ -104,12 +80,8 @@ handleLoginSubmit(e){
     e.preventDefault();
     const {email, password} = this.state
     this.validateLogin(email,password)
-// this.validateLoginEmail(email);
-// this.validateLoginPassword(password);
-console.log(`this is login state`,this.state)
-// if(this.state.emailValid && this.state.passwordValid && this.state.currentUser.isAdmin){
-//     this.props.history.push('/admin-dash')
-// }
+console.log(`look st state`,this.state)
+
 
 }
   render() {
