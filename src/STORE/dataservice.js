@@ -20,8 +20,19 @@ export default {
     },
     getUserLogin: (email, password)=>{
         let users=[...data.users]
-        let findLoginUser= users.find(user=>user.email=== email && user.password === password)
-        return findLoginUser
+        let findUser=users.find(user=>user.email === email)
+        console.log(findUser)
+        if(!findUser){
+            throw (new Error('Email does not match any user, please reenter your email and password'))
+        }
+        if(password!==findUser.password){
+            throw (new Error('Password does not match email, please reenter your email and password'))
+        }
+        
+       else{
+        return Promise.resolve(findUser)
+       }
+        
     }
     // getProjects: () => {}
 }

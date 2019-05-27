@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./LoginForm.css";
-import { Link } from 'react-router-dom';
 import LionessContext from "../../LionessContext/LionessContext";
-import ValidationErrors from '../ValidationErrors/ValidationErrors'
+import ValidationErrors from '../ValidationErrors/ValidationErrors';
+import ds from '../../STORE/dataservice';
 import { thisTypeAnnotation } from "@babel/types";
 import * as EmailValidator from 'email-validator'
+const {getUserLogin} =ds
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -80,12 +81,18 @@ handleLoginSubmit(e){
     e.preventDefault();
     const {email, password} = this.state
     this.validateLogin(email,password)
-console.log(`look st state`,this.state)
-
-
+    getUserLogin(email,password)
+    .then(data=>{
+      this.setState({
+        currentUser: data
+      })
+      .catch((e)=>{
+        console.log(e)
+      })
+})
 }
   render() {
-    
+console.log(this.state)
     return (
       <div className="LoginForm-Container">
         <h2>Login</h2>
