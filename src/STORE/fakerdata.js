@@ -61,6 +61,7 @@ for (let i = 0; i < 20; i++) {
         projects: [],
     }
     users.push(user)
+    
 }
 const clients = users.filter(user=>{
     return user.role.id === 2;
@@ -105,14 +106,18 @@ const billedDate = faker.date.between(estimatedDate, faker.date.recent() )
 
     projects.push(project)
 }
+const flattedUser= parse(stringify(users))
+// const jsonUser= JSON.stringify(flattedUser)
 
 
 export const GetUsers=()=>{
-    let result=[...users]
-    return Promise.resolve(result)
+    let res=[...users]
+    // const result= parse(stringify(res))
+    return Promise.resolve(res)
 }
 export const GetProjects= ()=>{
     let ret = [...projects]
+    parse(stringify(ret))
     return Promise.resolve(ret)
 }
 // fake API

@@ -7,7 +7,9 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import AdminDash from '../AdminDash/AdminDash'
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import ClientPage from '../Client/ClientPage.js'
 import LionessContext from "../../LionessContext/LionessContext";
+import ProjectPage from '../Projects/ProjectPage'
 import './App.css'
 class App extends Component {
   constructor(props) {
@@ -65,6 +67,9 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path='/admin-dash' component={AdminDash}/>
+          <Route exact path='/clients' component={ClientPage}/>
+          <Route exact path='/projects' component={ProjectPage}/>
+
         </LionessContext.Provider>
       </div>
     );
