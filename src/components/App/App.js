@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../Header/Header";
 import DataLoader from "../DataLoader/DataLoader";
+import ds from "../../STORE/dataservice";
 import config from "../../config";
 import { Route, withRouter } from "react-router-dom";
 import LandingPage from "../LandingPage/LandingPage";
@@ -11,6 +12,8 @@ import ClientPage from '../Client/ClientPage.js'
 import LionessContext from "../../LionessContext/LionessContext";
 import ProjectPage from '../Projects/ProjectPage'
 import './App.css'
+
+const {getUsers} = ds;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -53,16 +56,13 @@ class App extends Component {
         <Header />
         <ErrorBoundary>
           <DataLoader
-            url={config.TEST_PROJECTS}
+            promise={getUsers()}
             onBeforeFetch={() => this.setState({ projectsLoaded: false })}
             onDataLoaded={this.setProjects}
           />
-          <DataLoader
-            url={config.TEST_USERS}
-            onBeforeFetch={() => this.setState({ usersLoaded: false })}
-            onDataLoaded={this.setUsers}
-          />
+
         </ErrorBoundary>
+        x
         <LionessContext.Provider value={contextValue}>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />

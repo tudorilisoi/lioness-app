@@ -1,5 +1,5 @@
 // https://www.npmjs.com/package/faker
-
+// this generates data flattenedData.json 
 const faker = require('faker')
 faker.seed(123);
 const { parse, stringify } = require('flatted/cjs');
@@ -106,9 +106,12 @@ const billedDate = faker.date.between(estimatedDate, faker.date.recent() )
 
     projects.push(project)
 }
-const flattedUser= stringify(users)
+const collections= stringify({
+    users,
+    projects
+})
 // const jsonUser= JSON.stringify(flattedUser)
-console.log(flattedUser)
+console.log(collections)
 
 // export const GetUsers=()=>{
 //     let res=[...users]
