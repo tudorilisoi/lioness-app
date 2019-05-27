@@ -106,20 +106,20 @@ const billedDate = faker.date.between(estimatedDate, faker.date.recent() )
 
     projects.push(project)
 }
-const flattedUser= parse(stringify(users))
+const flattedUser= stringify(users)
 // const jsonUser= JSON.stringify(flattedUser)
+console.log(flattedUser)
 
-
-export const GetUsers=()=>{
-    let res=[...users]
-    // const result= parse(stringify(res))
-    return Promise.resolve(res)
-}
-export const GetProjects= ()=>{
-    let ret = [...projects]
-    parse(stringify(ret))
-    return Promise.resolve(ret)
-}
+// export const GetUsers=()=>{
+//     let res=[...users]
+//     // const result= parse(stringify(res))
+//     return Promise.resolve(res)
+// }
+// export const GetProjects= ()=>{
+//     let ret = [...projects]
+//     parse(stringify(ret))
+//     return Promise.resolve(ret)
+// }
 // fake API
 // function getProjects(options = {
 //     dateStart:null,
