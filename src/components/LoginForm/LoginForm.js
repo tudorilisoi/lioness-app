@@ -82,14 +82,17 @@ handleLoginSubmit(e){
     const {email, password} = this.state
     this.validateLogin(email,password)
     getUserLogin(email,password)
+    .catch((e)=>{
+      console.log(e)
+    })
     .then(data=>{
       this.setState({
         currentUser: data
       })
-      .catch((e)=>{
-        console.log(e)
-      })
+    
+     
 })
+
 }
   render() {
 console.log(this.state)
