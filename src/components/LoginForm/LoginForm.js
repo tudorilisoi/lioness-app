@@ -89,12 +89,12 @@ handleLoginSubmit(e){
     .then((data)=>{
       if(data)
      { this.context.setCurrentUser(data)
-      console.log(`this is in the .then after .catch`,data)
     } 
     return data
   })
     .then((res)=>{
       if(res && res.isAdmin){
+        //TODO change to rely on role
         this.props.history.push('/admin-dash')
       }if( res && res.role.id===4){
         this.props.history.push('/project-manager:id')
@@ -109,7 +109,6 @@ handleLoginSubmit(e){
 
 }
   render() {
-console.log(this.state.currentUser)
     return (
       <div className="LoginForm-Container">
         <h2>Login</h2>

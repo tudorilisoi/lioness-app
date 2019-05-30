@@ -25,7 +25,7 @@ render(){
 return <option key={i} value={status}>{status}</option>
         }
             )
-        console.log(uniqueStatus)
+        
         return(
             <div className='searchBar'>
         <form>
