@@ -6,6 +6,7 @@ const {getProjects, statuses}= ds
 export default class ProjectSearchBar extends Component{
 static contextType= LionessContext
 statusChange=(status)=>{
+    //TODO keep all the filters and sorting opts in the state
     const opts = {
         statusFilter:status,
     }

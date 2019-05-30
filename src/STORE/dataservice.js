@@ -11,7 +11,8 @@ const { parse, stringify } = fjs
 let data = parse(JSON.stringify(dataString));
 const defaultOptions = {
     statusFilter: null,
-    startDateFilter:null,
+    searchQuery:null,
+    // startDateFilter:null,
     pageNumber: 1,
 }
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
@@ -52,6 +53,11 @@ console.log('getProjects opts:', mergedOpts)
         let res = [...data.projects]
         if(opts.statusFilter){
             res =  res.filter(project=>project.status===opts.statusFilter)
+        }
+        if(opts.searchQuery){
+            res =  res.filter(project=>{
+                let res = false
+            })
         }
 return Promise.resolve(res)
     },
