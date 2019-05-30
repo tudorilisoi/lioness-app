@@ -9,10 +9,9 @@ import AdminDash from '../AdminDash/AdminDash'
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ClientPage from '../Client/ClientPage.js'
 import LionessContext from "../../LionessContext/LionessContext";
-import ProjectPage from '../Projects/ProjectPage'
+import ProjectPage from '../Projects/ProjectPage';
+import ProjectManagerDash from '../ProjectManager/ProjectManagerDash'
 import './App.css'
-
-const {getUsers} = ds;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,8 +21,15 @@ class App extends Component {
       currentUser:null,
       error: null,
       usersLoaded: false,
-      projectsLoaded: false
+      projectsLoaded: false,
+      currentUserLoaded: false,
     };
+  }
+  beforeProjectFetch =()=>{
+this.setState({projectsLoaded: false})
+  }
+  beforeUserFetch=()=>{
+    this.setState({usersLoaded: false,})
   }
   setProjects = projects => {
     this.setState({
@@ -37,6 +43,12 @@ class App extends Component {
       users
     });
   };
+  setCurrentUser = currentUser =>{
+    this.setState({
+      currentUserLoaded: true,
+      currentUser
+    })
+  }
   render() {
     const { error } = this.state;
     if (error) {
@@ -49,6 +61,12 @@ class App extends Component {
       usersLoaded: this.state.usersLoaded,
       currentUser:this.state.currentUser,
       history: this.props.history,
+      setCurrentUser: this.setCurrentUser,
+      setUsers: this.setUsers,
+      setProjects:this.setProjects,
+      beforeProjectFetch: this.beforeProjectFetch,
+      beforeUserFetch: this.beforeUserFetch,
+
     };
     return (
       <div className="App">
@@ -57,6 +75,7 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path='/admin-dash' component={AdminDash}/>
+          <Route exact path='/project-manager:id' component={ProjectManagerDash}/>
           <Route exact path='/clients' component={ClientPage}/>
           <Route exact path='/projects' component={ProjectPage}/>
         </LionessContext.Provider>

@@ -5,7 +5,7 @@ import ValidationErrors from '../ValidationErrors/ValidationErrors';
 import ds from '../../STORE/dataservice';
 import { thisTypeAnnotation } from "@babel/types";
 import * as EmailValidator from 'email-validator'
-const {getUserLogin} =ds
+const {getUserLogin, }  =ds
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -84,18 +84,32 @@ handleLoginSubmit(e){
     getUserLogin(email,password)
     .catch((e)=>{
       console.log(e)
+      return false
     })
-    .then(data=>{
-      this.setState({
-        currentUser: data
-      })
-    
-     
-})
+    .then((data)=>{
+      if(data)
+     { this.context.setCurrentUser(data)
+      console.log(`this is in the .then after .catch`,data)
+    } 
+    return data
+  })
+    .then((res)=>{
+      if(res && res.isAdmin){
+        this.props.history.push('/admin-dash')
+      }if( res && res.role.id===4){
+        this.props.history.push('/project-manager:id')
+      }
+    })
+      
+      // if(data.isAdmin){
+      //   console.log(data.isAdmin)
+      //   // this.props.history.push('/admin-dash')
+      // } 
+
 
 }
   render() {
-console.log(this.state)
+console.log(this.state.currentUser)
     return (
       <div className="LoginForm-Container">
         <h2>Login</h2>

@@ -3,9 +3,26 @@ const LionessContext =React.createContext(
     {
         projects:[],
         users:[],
+        currentUser: null,
         projectsLoaded: false,
         usersLoaded:false,
-        history:{}
+        currentUserLoaded: false,
+        history:{},
+        setCurrentUser: () =>{
+
+        },
+        setUsers: () =>{
+
+        },
+        setProjects: () =>{
+
+        },
+        beforeProjectFetch: ()=>{
+
+        },
+        beforeUserFetch: () =>{
+
+        },
     }
 )
 export default LionessContext;

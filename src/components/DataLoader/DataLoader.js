@@ -5,7 +5,7 @@ export default class DataLoader extends Component {
     static propTypes = {
         url: PropTypes.string,
         onDataLoaded: PropTypes.func.isRequired,
-        promise: PropTypes.func,
+        promise: PropTypes.object,
         onBeforeFetch: PropTypes.func,
     }
     constructor(props) {
@@ -25,7 +25,6 @@ export default class DataLoader extends Component {
             onBeforeFetch(url)
         }
         const p = url ? fetch(url) : promise
-
         //this.props.url is a mock API made from a function that creates a response in fakerdata.js
         p
             .then(resJson => {

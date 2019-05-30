@@ -21,7 +21,6 @@ export default {
     getUserLogin: (email, password)=>{
         let users=[...data.users]
         let findUser=users.find(user=>user.email === email)
-        console.log(findUser)
         if(!findUser){
             window.alert('Email does not match any user, please reenter your email and password')
             return Promise.reject(('No such user'))
@@ -33,7 +32,16 @@ export default {
         }else{
             return Promise.resolve(findUser)
         }
-    }
+    },
+    statusFilter: (status)=>{
+        let projects= [...data.projects]
+        if(status==='allProjects'){
+            return Promise.resolve(projects)
+        }else {
+            const projectByStatus= projects.filter(project=>project.status===status)
+    return Promise.resolve(projectByStatus)
+        }
+    },
     
     // getProjects: () => {}
 }
