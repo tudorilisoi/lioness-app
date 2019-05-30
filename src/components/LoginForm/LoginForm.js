@@ -5,7 +5,8 @@ import ValidationErrors from '../ValidationErrors/ValidationErrors';
 import ds from '../../STORE/dataservice';
 import { thisTypeAnnotation } from "@babel/types";
 import * as EmailValidator from 'email-validator'
-const {getUserLogin, }  =ds
+
+const {getUserLogin, setCookieLoginInfo, getCookieLoginInfo }  =ds
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -21,12 +22,25 @@ export default class LoginForm extends Component {
       passwordValidationMessage:"",
     };
   }
+  componentDidMount(){
+    const savedCredentials = getCookieLoginInfo();   
+    if(savedCredentials){
+      console.log('Logging in with saved(cookie) credentials', savedCredentials)
+      this.setState(
+        savedCredentials,
+        this.handleLoginSubmit
+      )
+    }else{
+      console.warn('There are no saved credentials')
+    }
+  }
   emailChanged(email) {
     this.setState({ email });
   }
   passwordChanged(password) {
     this.setState({ password });
   }
+
 
   validateLogin(email, password){
       let emailErrors = {...this.state.emailValidationMessage }
@@ -78,7 +92,7 @@ isAdmin(){
     }
 }
 handleLoginSubmit(e){
-    e.preventDefault();
+    e && e.preventDefault();
     const {email, password} = this.state
     this.validateLogin(email,password)
     getUserLogin(email,password)
@@ -88,7 +102,10 @@ handleLoginSubmit(e){
     })
     .then((data)=>{
       if(data)
-     { this.context.setCurrentUser(data)
+     { 
+       this.context.setCurrentUser(data)
+       setCookieLoginInfo({email:data.email, password:data.password} );    
+      //  debugger
     } 
     return data
   })

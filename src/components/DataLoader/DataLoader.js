@@ -6,6 +6,7 @@ export default class DataLoader extends Component {
         url: PropTypes.string,
         onDataLoaded: PropTypes.func.isRequired,
         promise: PropTypes.object,
+        onReject:PropTypes.func,
         onBeforeFetch: PropTypes.func,
     }
     constructor(props) {
@@ -17,7 +18,7 @@ export default class DataLoader extends Component {
     }
 
     componentDidMount() {
-        const { url, promise, onBeforeFetch, onDataLoaded } = this.props
+        const { url, promise, onBeforeFetch, onDataLoaded, onReject } = this.props
         if(promise && url){
             throw new Error('do not pass a promise and an URL at the same time')
         }
@@ -30,14 +31,17 @@ export default class DataLoader extends Component {
             .then(resJson => {
                 onDataLoaded(resJson)
             }).catch(error => {
-                this.setState({ error })
+                // debugger
+                onReject(error)
+                // this.setState({ error })
+                // return false
             })
     }
     render() {
-        const { error } = this.state
-        if (error) {
-            throw error
-        }
+        // const { error } = this.state
+        // if (error) {
+        //     throw error
+        // }
         return null
     }
 
