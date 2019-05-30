@@ -5,6 +5,7 @@ faker.seed(123);
 const { parse, stringify } = require('flatted/cjs');
 const util= require('util')
 const prettyjson=require('prettyjson')
+const statuses=["estimate", "in progress", "billed", "other"]
 
 function unique(fn, arr, objKey) {
     const value = fn()
@@ -78,8 +79,8 @@ for (let i = 0; i < 30; i++) {
     const contractor2 = contractors[Math.floor(Math.random() * contractors.length)]
     const client= clients[Math.floor(Math.random() * clients.length)]
 const projectManager=projectManagers[Math.floor(Math.random() * projectManagers.length)]
-const status=["estimate", "in progress", "billed", "other"]
-const projectStatus=status[Math.floor(Math.random()*status.length)]
+
+const projectStatus=statuses[Math.floor(Math.random()*statuses.length)]
 const beginDate = faker.date.recent(60);
 const estimatedDate = faker.date.between(beginDate,faker.date.recent() )
 const billedDate = faker.date.between(estimatedDate, faker.date.recent() )

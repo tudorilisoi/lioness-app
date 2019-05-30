@@ -5,7 +5,7 @@ export default class Project extends Component{
     static contextType= LionessContext
 render(){
     const projects= this.context.projects.map(project=>{
-        return <>
+        return <section key={project.id}>
             <button className='collapsible'>{project.title}
             <em>${project.budget}</em></button>
  <div className='Content'>
@@ -19,7 +19,7 @@ render(){
      <p><em>Estimated Due Date:</em>{project.estimatedDueDate}</p>
      <p><em>Completion Date:{project.completionDate}</em></p>
 </div>
-        </>
+        </section>
     })
     console.log(this.context.projects)
     return(

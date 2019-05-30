@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import Navbar from '../Nav/Nav'
-import LionessContext from '../../LionessContext/LionessContext'
-import ds from '../../STORE/dataservice';
 import {Link} from 'react-router-dom'
 import DataLoader from '../DataLoader/DataLoader'
-const {getUsers, getProjects }  =ds
+import ds from '../../STORE/dataservice';
+import LionessContext from '../../LionessContext/LionessContext'
+const {getUsers, getProjects, handleFetchError }  =ds
 export default class AdminDash extends Component{
 static contextType= LionessContext;
 componentDidMount(){
@@ -16,9 +16,13 @@ componentDidMount(){
             <div>
                 <Navbar/>
                 <DataLoader 
-                promise={getProjects()} onDataLoaded={this.context.setProjects}/>
+                onReject = {handleFetchError}
+                promise={getProjects()} 
+                onDataLoaded={this.context.setProjects}/>
                 <DataLoader 
-                promise={getUsers()} onDataLoaded={this.context.setUsers}/>
+                promise={getUsers()} 
+                onReject = {handleFetchError}
+                onDataLoaded={this.context.setUsers}/>
                 <Link to='/clients'>
                <h2>Clients</h2>
                </Link>
