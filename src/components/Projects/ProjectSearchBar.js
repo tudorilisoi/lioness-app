@@ -76,6 +76,22 @@ render(){
                     {statusOptions}
             </select> */}
           Filter by:
+          <label htmlFor='sort'>Type of Date</label>
+          <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
+          <option>All </option>
+          <option>Start Date</option>
+            <option>Estimated Due Date</option>
+            <option>Completion Date</option>
+            </select>
+            <label htmlFor='sort'>Time Period</label>
+            <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
+            <option>All</option>
+          <option>Before</option>
+          <option>After</option>
+            <option>Between Dates</option>
+            </select>
+            <label htmlFor='date'></label>
+            <input type="date"></input>
           <label htmlFor='budgetSort'>Budget</label>
           <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'
           onChange={e=>this.budgetChange(e.target.value)}>
@@ -83,17 +99,12 @@ render(){
             <option value='asc'defaultValue>high to low</option>
             <option value='des'>low to high</option>
             </select>
-            <label htmlFor='sort'>Date</label>
-          <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
-          <option>Start Date</option>
-            <option>Estimated Due Date</option>
-            <option>Completion Date</option>
+            <label htmlFor='dateSort'>Date</label>
+            <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
+              <option value=''defaultValue>Choose One</option>
+            <option value='asc'defaultValue>high to low</option>
+            <option value='des'>low to high</option>
             </select>
-            <label for="start">Start date:</label>
-
-<input type="text" id="start" name="trip-start"
-       value=""
-       min="2018-01-01" max="2018-12-31"></input>
             <button
           type="submit"
           className="submitProjectFilters"
