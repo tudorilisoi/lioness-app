@@ -9,8 +9,10 @@ import AdminDash from '../AdminDash/AdminDash'
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ClientPage from '../Client/ClientPage.js'
 import LionessContext from "../../LionessContext/LionessContext";
-import ProjectPage from '../Projects/ProjectPage';
-import ProjectManagerDash from '../ProjectManager/ProjectManagerDash'
+import ActiveProjectsPage from '../Projects/ActiveProjectsPage';
+import ProjectManagerDash from '../ProjectManager/ProjectManagerDash';
+import EstimatesPage from '../Projects/EstimatesPage';
+import BilledProjectsPage from '../Projects/BilledProjectsPage';
 import './App.css'
 class App extends Component {
   constructor(props) {
@@ -77,7 +79,9 @@ this.setState({projectsLoaded: false})
           <Route exact path='/admin-dash' component={AdminDash}/>
           <Route exact path='/project-manager:id' component={ProjectManagerDash}/>
           <Route exact path='/clients' component={ClientPage}/>
-          <Route exact path='/projects' component={ProjectPage}/>
+          <Route exact path='/estimates' component={EstimatesPage}/>
+          <Route exact path='/active-projects' component={ActiveProjectsPage}/>
+          <Route exact path='/billed-projects' component={BilledProjectsPage}/>
         </LionessContext.Provider>
       </div>
     );

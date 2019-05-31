@@ -12,6 +12,7 @@ let data = parse(JSON.stringify(dataString));
 const defaultOptions = {
     statusFilter: null,
     searchQuery:null,
+    budgetFilterAsending:null,
     // startDateFilter:null,
     pageNumber: 1,
 }
@@ -58,6 +59,12 @@ console.log('getProjects opts:', mergedOpts)
             res =  res.filter(project=>{
                 let res = false
             })
+        }
+        if(opts.budgetFilterAsending){
+            res= res.sort((a,b)=>(b.budget - a.budget))
+        }
+        if(!opts.budgetFilterAsending){
+            res= res.sort((a,b)=>(a.budget - b.budget))
         }
 return Promise.resolve(res)
     },
