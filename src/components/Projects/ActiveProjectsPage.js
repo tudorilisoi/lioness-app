@@ -23,6 +23,7 @@ export default class ActiveProjectsPage extends Component{
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
                 <NavBar/>
+                <h2>Active Projects</h2>
                 <ProjectSearchBar/>
                 <Project status={opts.statusFilter}/>
             </div>

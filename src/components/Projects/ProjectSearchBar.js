@@ -79,16 +79,21 @@ render(){
           <label htmlFor='budgetSort'>Budget</label>
           <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'
           onChange={e=>this.budgetChange(e.target.value)}>
-              <option value=''disabled selected>Choose One</option>
-            <option value='asc'>high to low</option>
+              <option value=''defaultValue>Choose One</option>
+            <option value='asc'defaultValue>high to low</option>
             <option value='des'>low to high</option>
             </select>
             <label htmlFor='sort'>Date</label>
           <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
-
-            <option>Ascending</option>
-            <option>Descending</option>
+          <option>Start Date</option>
+            <option>Estimated Due Date</option>
+            <option>Completion Date</option>
             </select>
+            <label for="start">Start date:</label>
+
+<input type="text" id="start" name="trip-start"
+       value=""
+       min="2018-01-01" max="2018-12-31"></input>
             <button
           type="submit"
           className="submitProjectFilters"
