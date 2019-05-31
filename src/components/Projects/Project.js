@@ -4,8 +4,10 @@ import './Project.css'
 export default class Project extends Component{
     static contextType= LionessContext
 render(){
+    console.log(this.props)
     const projects= this.context.projects.map(project=>{
-        return <section key={project.id}>
+        const projectDetails= 
+        <section key={project.id}>
             <button className='collapsible'>{project.title}
             <em>${project.budget}</em></button>
  <div className='Content'>
@@ -16,12 +18,11 @@ render(){
      <p><em>Budget:</em>{project.budget}</p>
      <p><em>Status:</em>{project.status}</p>
      <p><em>Start Date:</em>{project.startDate}</p>
-     <p><em>Estimated Due Date:</em>{project.estimatedDueDate}</p>
-     <p><em>Completion Date:{project.completionDate}</em></p>
 </div>
         </section>
+        return projectDetails
     })
-    console.log(this.context.projects)
+   
     return(
         <div id= 'projects' className='projects'>
             {projects}

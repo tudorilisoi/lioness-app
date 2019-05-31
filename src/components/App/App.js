@@ -20,7 +20,7 @@ class App extends Component {
     this.state = {
       users: [],
       projects: [],
-      currentUser:null,
+      currentUser:null,   
       error: null,
       usersLoaded: false,
       projectsLoaded: false,
@@ -51,6 +51,7 @@ this.setState({projectsLoaded: false})
       currentUser
     })
   }
+
   render() {
     const { error } = this.state;
     if (error) {
@@ -68,7 +69,7 @@ this.setState({projectsLoaded: false})
       setProjects:this.setProjects,
       beforeProjectFetch: this.beforeProjectFetch,
       beforeUserFetch: this.beforeUserFetch,
-
+      setViewProjectStatus: this.setViewProjectStatus,
     };
     return (
       <div className="App">

@@ -8,6 +8,7 @@ export default class DataLoader extends Component {
         promise: PropTypes.object,
         onReject:PropTypes.func,
         onBeforeFetch: PropTypes.func,
+        setStatus:PropTypes.func,
     }
     constructor(props) {
         super(props);
@@ -18,7 +19,7 @@ export default class DataLoader extends Component {
     }
 
     componentDidMount() {
-        const { url, promise, onBeforeFetch, onDataLoaded, onReject } = this.props
+        const { url, promise, onBeforeFetch, onDataLoaded, onReject,  } = this.props
         if(promise && url){
             throw new Error('do not pass a promise and an URL at the same time')
         }

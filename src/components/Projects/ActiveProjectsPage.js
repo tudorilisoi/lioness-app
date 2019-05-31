@@ -8,6 +8,7 @@ import LionessContext from '../../LionessContext/LionessContext'
 const {getUsers, getProjects, handleFetchError }  =ds
 export default class ActiveProjectsPage extends Component{
     static contextType= LionessContext;
+ 
     render(){
         const opts= {statusFilter: 'in progress'}
         return(
@@ -15,14 +16,15 @@ export default class ActiveProjectsPage extends Component{
                 <DataLoader 
                 onReject = {handleFetchError}
                 promise={getProjects(opts)} 
-                onDataLoaded={this.context.setProjects}/>
+                onDataLoaded={this.context.setProjects}
+                />
                 <DataLoader 
                 promise={getUsers()} 
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
                 <NavBar/>
                 <ProjectSearchBar/>
-                <Project/>
+                <Project status={opts.statusFilter}/>
             </div>
         )
     }

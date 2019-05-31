@@ -4,6 +4,8 @@ const LionessContext =React.createContext(
         projects:[],
         users:[],
         currentUser: null,
+        viewProjectStatus: null,
+        viewProjectStatusLoaded: false,
         projectsLoaded: false,
         usersLoaded:false,
         currentUserLoaded: false,
@@ -21,6 +23,9 @@ const LionessContext =React.createContext(
 
         },
         beforeUserFetch: () =>{
+
+        },
+        setViewProjectStatus: ()=>{
 
         },
     }
