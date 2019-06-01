@@ -8,15 +8,9 @@ static contextType= LionessContext
 constructor(){
     super()
     this.state={
-        statusFilter: null,
         budgetSortAsc:null,
     }
 }
-statusChange=(status)=>{
-    this.setState({
-        statusFilter: status
-    })
-} 
 
 
 budgetChange=(sortType)=>{
@@ -32,16 +26,6 @@ budgetChange=(sortType)=>{
 
 
 }
-    //TODO keep all the filters and sorting opts in the state
-    
-    // const opts = {
-    //     statusFilter:this.state.statusFilter,
-    // }
-    // getProjects(opts)
-    // .then(res=>{
-    //     this.context.setProjects(res)
-    // })
-
 
     
 handleSubmit=(e)=>{
@@ -57,11 +41,7 @@ handleSubmit=(e)=>{
 }
 
 render(){
-//     console.log(this.state)
-//         const statusOptions= statuses.map((status, i)=>{
-// return <option key={i} value={status}>{status}</option>
-//         }
-//             )
+
         
         return(
             <div className='searchBar'>
@@ -69,12 +49,6 @@ render(){
        <label htmlFor='search'> Search</label>
        <input type='text' id='search' name='search'/>
        <button type='submit'>Search! </button>
-       {/* <label htmlFor='search'>Showing</label>
-         <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'
-         onChange={e=>this.statusChange(e.target.value)}>
-            <option value="allProjects">All Projects</option>
-                    {statusOptions}
-            </select> */}
           Filter by:
           <label htmlFor='sort'>Type of Date</label>
           <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
