@@ -31,7 +31,6 @@ budgetChange=(sortType)=>{
 handleSubmit=(e)=>{
     e.preventDefault()
     const opts = {
-        statusFilter:this.state.statusFilter,
         budgetFilterAsending: this.state.budgetSortAsc
     }
     getProjects(opts)
@@ -41,8 +40,13 @@ handleSubmit=(e)=>{
 }
 
 render(){
-
-        
+    const dateTypes=  ()=>{
+       return <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
+     <option>Start Date</option>
+    {this.props.status ==='in progress'|| this.props.status === 'billed' ? <option>Estimated Due Date</option> : ''}
+    {this.props.status === 'billed' ? <option>Completion Date</option> : ''}
+    </select>
+}
         return(
             <div className='searchBar'>
         <form onSubmit={e => this.handleSubmit(e)}>
@@ -51,12 +55,7 @@ render(){
        <button type='submit'>Search! </button>
           Filter by:
           <label htmlFor='sort'>Type of Date</label>
-          <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
-          <option>All </option>
-          <option>Start Date</option>
-            <option>Estimated Due Date</option>
-            <option>Completion Date</option>
-            </select>
+          {dateTypes()} 
             <label htmlFor='sort'>Time Period</label>
             <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'>
             <option>All</option>

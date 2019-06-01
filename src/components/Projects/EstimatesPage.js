@@ -5,11 +5,13 @@ import ProjectSearchBar from './ProjectSearchBar'
 import ds from '../../STORE/dataservice';
 import DataLoader from '../DataLoader/DataLoader'
 import LionessContext from '../../LionessContext/LionessContext'
+import BackButton from '../BackButton/BackButton'
 const {getUsers, getProjects, handleFetchError }  =ds
 export default class EstimatesPage extends Component{
     static contextType= LionessContext;
     render(){
         const opts= {statusFilter: 'estimate'}
+        console.log(this.props)
         return(
             <div>
                 <DataLoader 
@@ -20,9 +22,11 @@ export default class EstimatesPage extends Component{
                 promise={getUsers()} 
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
-                <NavBar/>
-                <ProjectSearchBar/>
-                <Project/>
+                <NavBar />
+                <h2>Estimates</h2>
+                <BackButton history={this.props.history}/>
+                <ProjectSearchBar status={opts.statusFilter}/>
+                <Project />
             </div>
         )
     }

@@ -7,7 +7,7 @@ export default class Project extends Component{
         super()
     }
 render(){
-    console.log(this.props)
+    
     const projects= this.context.projects.map(project=>{
         
         const projectDetails= 

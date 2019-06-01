@@ -5,6 +5,7 @@ import ProjectSearchBar from './ProjectSearchBar'
 import ds from '../../STORE/dataservice';
 import DataLoader from '../DataLoader/DataLoader'
 import LionessContext from '../../LionessContext/LionessContext'
+import BackButton from '../BackButton/BackButton'
 const {getUsers, getProjects, handleFetchError }  =ds
 export default class ActiveProjectsPage extends Component{
     static contextType= LionessContext;
@@ -22,10 +23,11 @@ export default class ActiveProjectsPage extends Component{
                 promise={getUsers()} 
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
-                <NavBar/>
+                <NavBar />
                 <h2>Active Projects</h2>
-                <ProjectSearchBar/>
-                <Project status={opts.statusFilter}/>
+                <BackButton history={this.props.history}/>
+                <ProjectSearchBar status={opts.statusFilter}/>
+                <Project />
             </div>
         )
     }
