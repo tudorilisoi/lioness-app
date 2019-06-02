@@ -95,6 +95,32 @@ const ds = {
 
 }
     }
+
+    if(mergedOpts.dateTypeFilter === 'estimatedDueDate'){
+        if (mergedOpts.timePeriodFilter === 'before') {
+            res = res.filter(project => {
+                return dayjs(project.estimatedDueDate).isBefore(dayjs(mergedOpts.dateOne))
+            })
+        }
+        if (mergedOpts.timePeriodFilter === 'after') {
+            res = res.filter(project => {
+                return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.dateOne))
+    })
+} 
+    }
+    if(mergedOpts.dateTypeFilter === 'completionDate'){
+        if (mergedOpts.timePeriodFilter === 'before') {
+            res = res.filter(project => {
+                return dayjs(project.completionDate).isBefore(dayjs(mergedOpts.dateOne))
+            })
+        }
+        if (mergedOpts.timePeriodFilter === 'after') {
+            res = res.filter(project => {
+                return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.dateOne))
+    })
+} 
+    }
+
 }
 
         if (mergedOpts.dateSortAsc) {
