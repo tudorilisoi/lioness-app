@@ -4,7 +4,8 @@ import Cookie from "js.cookie"
 import fjs from 'flatted/cjs';
 import { reject } from 'q';
 import { createEmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
-import {history} from '../index'
+import {history} from '../index';
+import dayjs from 'dayjs'
 const { parse, stringify } = fjs
 // debugger;
 // console.log('data', dataString)
@@ -13,6 +14,10 @@ const defaultOptions = {
     statusFilter: null,
     searchQuery:null,
     budgetFilterAsending:null,
+    dateTypeFilter:null,
+    timePeriodFilter:null,
+    dateSortAsc:null,
+    dateOne:null,
     // startDateFilter:null,
     pageNumber: 1,
 }
@@ -50,9 +55,9 @@ const ds =  {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = {...defaultOptions, ...opts}
-console.log('getProjects opts:', mergedOpts)                
         let res = [...data.projects]
-        if(opts.statusFilter){
+        console.log(`getProjects`,mergedOpts)
+        if(mergedOpts.statusFilter){
             res =  res.filter(project=>project.status===opts.statusFilter)
         }
         if(opts.searchQuery){
@@ -60,12 +65,25 @@ console.log('getProjects opts:', mergedOpts)
                 let res = false
             })
         }
-        if(opts.budgetFilterAsending){
-            res= res.sort((a,b)=>(b.budget - a.budget))
+        if( mergedOpts.dateTypeFilter){
+            res= res.sort((a,b)=>(b.startDate - a.startDate))
+            
         }
-        if(!opts.budgetFilterAsending){
-            res= res.sort((a,b)=>(a.budget - b.budget))
+        // if(!opts.dateSortAsc, opts.dateTypeFilter){
+        //     res= res.sort((a,b)=>(a.opts.dateTypeFilter - b.opts.dateTypeFilter))
+        // }
+       if(mergedOpts.budgetFilterAsending){
+        res= res .sort((a,b)=>(b.budget - a.budget))
+        console.log(res)
         }
+        // if(!opts.budgetFilterAsending){
+        //     res= res.sort((a,b)=>(a.budget - b.budget))
+        // }
+//         if(opts.dateTypeFilter,opts.timePeriodFilter, opts.dateOne){
+//             if(opts.timePeriodFilter==='before'){
+// res= res.filter(project=>project.opts.dateTypeFilter=== dayjs().isBefore(opts.dateOne))
+// }
+//         }
 return Promise.resolve(res)
     },
     getUserLogin: (email, password)=>{

@@ -11,7 +11,6 @@ export default class EstimatesPage extends Component{
     static contextType= LionessContext;
     render(){
         const opts= {statusFilter: 'estimate'}
-        console.log(this.props)
         return(
             <div>
                 <DataLoader 

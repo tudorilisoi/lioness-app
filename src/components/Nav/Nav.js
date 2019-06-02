@@ -5,7 +5,6 @@ export default class Navbar extends Component{
         super()
     }
     render(){
-        console.log(`nav`,this.props)
     return(
         <nav role='navigation' className="navBar">
         <h3>Welcome User!</h3>
