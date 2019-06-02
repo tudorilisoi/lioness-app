@@ -9,6 +9,7 @@
     "flatted": "^2.0.0",
     "history": "^4.9.0",
     "js.cookie": "0.0.4",
+    "moment": "^2.24.0",
     "prettyjson": "^1.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

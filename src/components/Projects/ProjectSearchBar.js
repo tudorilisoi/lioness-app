@@ -13,6 +13,7 @@ constructor(){
         timePeriodFilter:null,
         dateSortAsc:null,
         dateOne:null,
+        dateTwo:null,
         
     }
 }
@@ -48,6 +49,9 @@ dateSortChange(dateSort){
 }
 dateOneChange(date){
     this.setState({dateOne:date})
+}
+dateTwoChange(date){
+    this.setState({dateTwo:date})
 }
 handleSubmit=(e)=>{
     e.preventDefault()
@@ -94,8 +98,10 @@ console.log(`project searchbar state`, this.state)
           <option value ='after'>After</option>
             <option value='betweenDates'>Between Dates</option>
             </select>
-            <label htmlFor='date'></label>
+            <label htmlFor='date'>Date One</label>
             <input type="date"onChange={e=>this.dateOneChange(e.target.value)}></input>
+            <label htmlFor='date'>Date Two</label>
+            <input type="date"onChange={e=>this.dateTwoChange(e.target.value)}></input>
             Sort by:
             <button type='button' name='date-new' value="asc"onClick={e=>this.dateSortChange(e.target.value)}>Date (Newest)</button>
             <button type='button' name='date-old' value="des"onClick={e=>this.dateSortChange(e.target.value)}>Date (Oldest)</button>
