@@ -5,7 +5,9 @@ import fjs from 'flatted/cjs';
 import { reject } from 'q';
 import { createEmitAndSemanticDiagnosticsBuilderProgram, reduceEachLeadingCommentRange } from 'typescript';
 import {history} from '../index';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
+import toArray from 'dayjs/plugin/toArray'
+dayjs.extend(toArray)
 const { parse, stringify } = fjs
 // debugger;
 // console.log('data', dataString)
@@ -68,8 +70,8 @@ const ds =  {
         if(mergedOpts.timePeriodFilter, mergedOpts.dateOne ){
             if (mergedOpts.dateTypeFilter==='startDate'){
                 if(mergedOpts.timePeriodFilter==='before'){
-                    res.filter(project=>{
-                       dayjs(project.startDate).isBefore(mergedOpts.dateOne)
+                    res= res.filter(project=>{
+                       dayjs(project.startDate).isBefore(dayjs(mergedOpts.dateOne))
                     console.log(`did before in day js work??`,res)
                     })
                 }
