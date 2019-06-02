@@ -3,7 +3,7 @@ import dataString from './flattenedData.json';
 import Cookie from "js.cookie"
 import fjs from 'flatted/cjs';
 import { reject } from 'q';
-import { createEmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
+import { createEmitAndSemanticDiagnosticsBuilderProgram, reduceEachLeadingCommentRange } from 'typescript';
 import {history} from '../index';
 import dayjs from 'dayjs'
 const { parse, stringify } = fjs
@@ -65,8 +65,15 @@ const ds =  {
                 let res = false
             })
         }
-        if(mergedOpts.timePeriodFilter){
-
+        if(mergedOpts.timePeriodFilter, mergedOpts.dateOne ){
+            if (mergedOpts.dateTypeFilter==='startDate'){
+                if(mergedOpts.timePeriodFilter==='before'){
+                    res.filter(project=>{
+                       dayjs(project.startDate).isBefore(mergedOpts.dateOne)
+                    console.log(`did before in day js work??`,res)
+                    })
+                }
+            }
         }
 
         if( mergedOpts.dateSortAsc){
