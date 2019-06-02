@@ -22,6 +22,8 @@ const defaultOptions = {
     dateSortAsc: null,
     dateOne: null,
     dateTwo: null,
+    roleFilter: null,
+
     // startDateFilter:null,
     pageNumber: 1,
 }
@@ -46,9 +48,16 @@ const ds = {
         Cookie.set("credentials", loginData);
     },
 
-    getUsers: () => {
-        // debugger
+    getUsers: (opts = {}) => {
+        if (!ds.getCookieLoginInfo()) {
+            // throw new Error(NOT_LOGGED_IN)
+            return Promise.reject(new Error(NOT_LOGGED_IN))
+        }
+        const mergedOpts = { ...defaultOptions, ...opts }
         let res = [...data.users]
+        if(mergedOpts.roleFilter){
+            res= res.filter(user=> user.role.id=== mergedOpts.roleFilter)
+        }
         // return res
         // const result= parse(stringify(res))
         return Promise.resolve(res)
@@ -83,16 +92,10 @@ const ds = {
         }
         if (mergedOpts.timePeriodFilter === 'betweenDates') {
           
-            res = res.map(project => {
-                return dayjs(project.startDate).isBetween( dayjs(mergedOpts.dateOne),dayjs(mergedOpts.dateOne) )
+            res = res.filter(project => {
+                return dayjs(project.startDate).isBetween( dayjs(mergedOpts.dateOne),dayjs(mergedOpts.dateTwo) )
                
             })
-            console.log(res)
-    //         res = res.filter(project => {
-    //             return dayjs(project.startDate).isBetween(mergedOpts.dateOne, mergedOpts.dateTwo)
-    // })
-
-
 }
     }
 
@@ -107,6 +110,14 @@ const ds = {
                 return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.dateOne))
     })
 } 
+
+if (mergedOpts.timePeriodFilter === 'betweenDates') {
+          
+    res = res.filter(project => {
+        return dayjs(project.estimatedDueDate).isBetween( dayjs(mergedOpts.dateOne),dayjs(mergedOpts.dateTwo) )
+       
+    })
+}
     }
     if(mergedOpts.dateTypeFilter === 'completionDate'){
         if (mergedOpts.timePeriodFilter === 'before') {
@@ -119,6 +130,13 @@ const ds = {
                 return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.dateOne))
     })
 } 
+if (mergedOpts.timePeriodFilter === 'betweenDates') {
+          
+    res = res.filter(project => {
+        return dayjs(project.completionDate).isBetween( dayjs(mergedOpts.dateOne),dayjs(mergedOpts.dateTwo) )
+       
+    })
+}
     }
 
 }

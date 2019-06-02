@@ -61,6 +61,7 @@ handleSubmit=(e)=>{
         timePeriodFilter:this.state.timePeriodFilter,
         dateSortAsc:this.state.dateSortAsc,
         dateOne:this.state.dateOne,
+        dateTwo:this.state.dateTwo,
         statusFilter:this.props.status
     }
     getProjects(opts)

@@ -35,6 +35,9 @@ componentDidMount(){
                <Link to='/billed-projects'>
                    <h2>Billed Projects</h2>
                </Link>
+               <Link to='/project-managers'>
+                   <h2>Project Managers</h2>
+               </Link>
               
             </div>
         )

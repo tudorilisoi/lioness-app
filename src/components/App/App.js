@@ -10,7 +10,7 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import ClientPage from '../Client/ClientPage.js'
 import LionessContext from "../../LionessContext/LionessContext";
 import ActiveProjectsPage from '../Projects/ActiveProjectsPage';
-import ProjectManagerDash from '../ProjectManager/ProjectManagerDash';
+import ProjectManagerPage from '../ProjectManagers/ProjectManagerPage';
 import EstimatesPage from '../Projects/EstimatesPage';
 import BilledProjectsPage from '../Projects/BilledProjectsPage';
 import './App.css'
@@ -78,7 +78,7 @@ this.setState({projectsLoaded: false})
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path='/admin-dash' component={AdminDash}/>
-          <Route exact path='/project-manager:id' component={ProjectManagerDash}/>
+          <Route exact path='/project-managers' component={ProjectManagerPage}/>
           <Route exact path='/clients' component={ClientPage}/>
           <Route exact path='/estimates' component={EstimatesPage}/>
           <Route exact path='/active-projects' component={ActiveProjectsPage}/>
