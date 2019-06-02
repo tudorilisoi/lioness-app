@@ -96,20 +96,11 @@ console.log(`project searchbar state`, this.state)
             </select>
             <label htmlFor='date'></label>
             <input type="date"onChange={e=>this.dateOneChange(e.target.value)}></input>
-          <label htmlFor='budgetSort'>Budget</label>
-          <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'
-          onChange={e=>this.budgetChange(e.target.value)}>
-              <option value=''defaultValue>Choose One</option>
-            <option value='asc'defaultValue>high to low</option>
-            <option value='des'>low to high</option>
-            </select>
-            <label htmlFor='dateSort'>Date</label>
-            <select className='sortResults'id='sortResults'name='sortResults-dropdown'aria-label='dropdown menu of sort options for results'
-            onChange={e=>this.dateSortChange(e.target.value)}>
-              <option value=''defaultValue>Choose One</option>
-            <option value='asc'defaultValue>high to low</option>
-            <option value='des'>low to high</option>
-            </select>
+            Sort by:
+            <button type='button' name='date-new' value="asc"onClick={e=>this.dateSortChange(e.target.value)}>Date (Newest)</button>
+            <button type='button' name='date-old' value="des"onClick={e=>this.dateSortChange(e.target.value)}>Date (Oldest)</button>
+            <button type='button' name='budget-high' value="asc"onClick={e=>this.budgetChange(e.target.value)}>Budget (Highest)</button>
+            <button type='button' name='budget-low' value="des"onClick={e=>this.budgetChange(e.target.value)}>Budget (Lowest)</button>
             <button
           type="submit"
           className="submitProjectFilters"

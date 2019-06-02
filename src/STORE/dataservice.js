@@ -65,10 +65,37 @@ const ds =  {
                 let res = false
             })
         }
-        if( mergedOpts.dateTypeFilter){
-            res= res.sort((a,b)=>(b.startDate - a.startDate))
-            
+        if(mergedOpts.timePeriodFilter){
+
         }
+
+        if( mergedOpts.dateSortAsc){
+            if(mergedOpts.dateTypeFilter==='startDate'){
+                    res= res.sort((a,b)=>(new Date(b.startDate) - new Date(a.startDate)))
+                    console.log(res)
+            }
+            if(mergedOpts.dateTypeFilter==='estimatedDueDate'){
+                res= res.sort((a,b)=>(new Date(b.estimatedDueDate) - new Date(a.estimatedDueDate)))
+                console.log(res)
+            }
+            if(mergedOpts.dateTypeFilter==='completionDate'){
+                res= res.sort((a,b)=>(new Date(b.completionDate) - new Date(a.completionDate)))
+                console.log(res)
+            }
+        }
+        if(!mergedOpts.dateSortAsc){
+            if(mergedOpts.dateTypeFilter==='startDate'){
+                res= res.sort((a,b)=>(new Date(a.startDate) - new Date(b.startDate)))
+            }
+            if(mergedOpts.dateTypeFilter==='estimatedDueDate'){
+                res= res.sort((a,b)=>(new Date(a.estimatedDueDate) - new Date(b.estimatedDueDate)))
+            } 
+            if(mergedOpts.dateTypeFilter==='completionDate'){
+                res= res.sort((a,b)=>(new Date(a.completionDate) - new Date(b.completionDate)))
+            }   
+        }
+            
+        
         // if(!opts.dateSortAsc, opts.dateTypeFilter){
         //     res= res.sort((a,b)=>(a.opts.dateTypeFilter - b.opts.dateTypeFilter))
         // }
