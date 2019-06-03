@@ -29,10 +29,17 @@ const defaultOptions = {
 }
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
 
+
+function delay(promiseObj) {
+    return Promise(resolve => {
+        window.setTimeout(resolve(promiseObj), 2000)
+    })
+}
+
 console.log('parsed data', data)
 const ds = {
 
-    statuses: ["estimate", "in progress", "billed", "other"],
+    // statuses: ["estimate", "in progress", "billed", "other"],
 
     handleFetchError: (err) => {
         // debugger
@@ -55,8 +62,8 @@ const ds = {
         }
         const mergedOpts = { ...defaultOptions, ...opts }
         let res = [...data.users]
-        if(mergedOpts.roleFilter){
-            res= res.filter(user=> user.role.id=== mergedOpts.roleFilter)
+        if (mergedOpts.roleFilter) {
+            res = res.filter(user => user.role.id === mergedOpts.roleFilter)
         }
         // return res
         // const result= parse(stringify(res))
@@ -71,7 +78,10 @@ const ds = {
         let res = [...data.projects]
         console.log(`getProjects`, mergedOpts)
         if (mergedOpts.statusFilter) {
-            res = res.filter(project => project.status === opts.statusFilter)
+            res = res.filter(project => {
+                // debugger
+                return project.status.title === opts.statusFilter
+            })
         }
         if (opts.searchQuery) {
             res = res.filter(project => {
@@ -88,58 +98,58 @@ const ds = {
                 if (mergedOpts.timePeriodFilter === 'after') {
                     res = res.filter(project => {
                         return dayjs(project.startDate).isAfter(dayjs(mergedOpts.dateOne))
-            })
-        }
-        if (mergedOpts.timePeriodFilter === 'betweenDates') {
-          
-            res = res.filter(project => {
-                return dayjs(project.startDate).isBetween( dayjs(mergedOpts.dateOne),dayjs(mergedOpts.dateTwo) )
-               
-            })
-}
-    }
+                    })
+                }
+                if (mergedOpts.timePeriodFilter === 'betweenDates') {
 
-    if(mergedOpts.dateTypeFilter === 'estimatedDueDate'){
-        if (mergedOpts.timePeriodFilter === 'before') {
-            res = res.filter(project => {
-                return dayjs(project.estimatedDueDate).isBefore(dayjs(mergedOpts.dateOne))
-            })
-        }
-        if (mergedOpts.timePeriodFilter === 'after') {
-            res = res.filter(project => {
-                return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.dateOne))
-    })
-} 
+                    res = res.filter(project => {
+                        return dayjs(project.startDate).isBetween(dayjs(mergedOpts.dateOne), dayjs(mergedOpts.dateTwo))
 
-if (mergedOpts.timePeriodFilter === 'betweenDates') {
-          
-    res = res.filter(project => {
-        return dayjs(project.estimatedDueDate).isBetween( dayjs(mergedOpts.dateOne),dayjs(mergedOpts.dateTwo) )
-       
-    })
-}
-    }
-    if(mergedOpts.dateTypeFilter === 'completionDate'){
-        if (mergedOpts.timePeriodFilter === 'before') {
-            res = res.filter(project => {
-                return dayjs(project.completionDate).isBefore(dayjs(mergedOpts.dateOne))
-            })
-        }
-        if (mergedOpts.timePeriodFilter === 'after') {
-            res = res.filter(project => {
-                return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.dateOne))
-    })
-} 
-if (mergedOpts.timePeriodFilter === 'betweenDates') {
-          
-    res = res.filter(project => {
-        return dayjs(project.completionDate).isBetween( dayjs(mergedOpts.dateOne),dayjs(mergedOpts.dateTwo) )
-       
-    })
-}
-    }
+                    })
+                }
+            }
 
-}
+            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
+                if (mergedOpts.timePeriodFilter === 'before') {
+                    res = res.filter(project => {
+                        return dayjs(project.estimatedDueDate).isBefore(dayjs(mergedOpts.dateOne))
+                    })
+                }
+                if (mergedOpts.timePeriodFilter === 'after') {
+                    res = res.filter(project => {
+                        return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.dateOne))
+                    })
+                }
+
+                if (mergedOpts.timePeriodFilter === 'betweenDates') {
+
+                    res = res.filter(project => {
+                        return dayjs(project.estimatedDueDate).isBetween(dayjs(mergedOpts.dateOne), dayjs(mergedOpts.dateTwo))
+
+                    })
+                }
+            }
+            if (mergedOpts.dateTypeFilter === 'completionDate') {
+                if (mergedOpts.timePeriodFilter === 'before') {
+                    res = res.filter(project => {
+                        return dayjs(project.completionDate).isBefore(dayjs(mergedOpts.dateOne))
+                    })
+                }
+                if (mergedOpts.timePeriodFilter === 'after') {
+                    res = res.filter(project => {
+                        return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.dateOne))
+                    })
+                }
+                if (mergedOpts.timePeriodFilter === 'betweenDates') {
+
+                    res = res.filter(project => {
+                        return dayjs(project.completionDate).isBetween(dayjs(mergedOpts.dateOne), dayjs(mergedOpts.dateTwo))
+
+                    })
+                }
+            }
+
+        }
 
         if (mergedOpts.dateSortAsc) {
             if (mergedOpts.dateTypeFilter === 'startDate') {

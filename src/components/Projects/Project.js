@@ -20,7 +20,7 @@ render(){
      <p><em>Project Manager:</em>{project.projectManager[0].full_name}</p>
      <p><em>Description :</em>{project.description}</p>
      <p><em>Budget:</em>{project.budget}</p>
-     <p><em>Status:</em>{project.status}</p>
+     <p><em>Status:</em>{project.status.title}</p>
      <p><em>Start Date:</em>{project.startDate}</p>
      {project.estimatedDueDate ? <p><em>Estimated Due Date:</em>{project.estimatedDueDate}</p> : ""}
      {project.completionDate ?  <p><em>Completion Date:</em>{project.completionDate}</p> : ''}

@@ -23,10 +23,10 @@ const roles = [
   { id: 4, title: "Project Manager" }
 ];
 const statuses = [
-  { id: 1, status: "estimate" },
-  { id: 2, status: "in progress" },
-  { id: 3, status: "billed" },
-  { id: 4, status: "other" }
+  { id: 1, title: "estimate" },
+  { id: 2, title: "in progress" },
+  { id: 3, title: "billed" },
+  { id: 4, title: "other" },
 ];
 
 const users = [];
