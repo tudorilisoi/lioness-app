@@ -11,8 +11,6 @@ render(){
         <section key={user.id}>
             <button className='collapsible'>{user.full_name}
             
-            {/* {user.project ? console.log(user.project.map(project=>project.status==='in progress').length) : console.log("0")} */}
-            
            </button>
  <div className='Content'>
      <p><em>Name:</em>{user.full_name}</p>
