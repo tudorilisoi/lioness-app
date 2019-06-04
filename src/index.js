@@ -8,6 +8,8 @@ import * as serviceWorker from './serviceWorker';
 const history = createBrowserHistory();
 export {history}
 
+
+
 ReactDOM.render(
     <Router history ={history}>
 <App />

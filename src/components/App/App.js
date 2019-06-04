@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "../Header/Header";
 import ds from "../../STORE/dataservice";
 import config from "../../config";
 import { Route, withRouter } from "react-router-dom";
@@ -72,8 +71,7 @@ this.setState({projectsLoaded: false})
       setViewProjectStatus: this.setViewProjectStatus,
     };
     return (
-      <div className="App">
-        <Header />      
+      <div className="App">    
         <LionessContext.Provider value={contextValue}>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />

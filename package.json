@@ -16,7 +16,8 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
     "typescript": "^3.4.5",
-    "util": "^0.12.0"
+    "util": "^0.12.0",
+    "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start": "react-scripts start",
