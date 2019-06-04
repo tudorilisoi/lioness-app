@@ -14,7 +14,7 @@ componentDidMount(){
         console.log(this.context)       
         return(
             <div>
-                <Navbar/>
+                <Navbar history={this.props.history}/>
                 <DataLoader 
                 onReject = {handleFetchError}
                 promise={getProjects()} 

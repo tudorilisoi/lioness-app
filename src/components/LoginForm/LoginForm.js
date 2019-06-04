@@ -110,7 +110,7 @@ handleLoginSubmit(e){
     return data
   })
     .then((res)=>{
-      if(res && res.isAdmin){
+      if(res && res.role.id===1){
         //TODO change to rely on role
         this.props.history.push('/admin-dash')
       }if( res && res.role.id===4){

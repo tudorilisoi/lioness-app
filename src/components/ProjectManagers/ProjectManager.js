@@ -15,7 +15,7 @@ export default class ProjectManager extends Component{
                 <button className='collapsible'>{user.full_name}
                 
                 {/* {user.project ? console.log(user.project.map(project=>project.status==='in progress').length) : console.log("0")} */}
-                <p><em>Active Projects:{user.projects ? user.projects.filter(project=>project.status==='in progress').length : "0"}</em></p>
+                <p><em>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</em></p>
                </button>
      <div className='Content'>
          <p><em>Name:</em>{user.full_name}</p>

@@ -53,8 +53,11 @@ const ds = {
     },
     setCookieLoginInfo: (loginData) => {
         Cookie.set("credentials", loginData);
+        console.log(`this is what set cookie does`,Cookie.set("credentials", loginData))
     },
-
+deleteCookieLoginInfo:()=>{
+    Cookie.remove("credentials");
+},
     getUsers: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
@@ -196,6 +199,7 @@ const ds = {
         return Promise.resolve(res)
     },
     getUserLogin: (email, password) => {
+       
         let users = [...data.users]
         let findUser = users.find(user => user.email === email)
         if (!findUser) {
@@ -207,6 +211,7 @@ const ds = {
 
             return Promise.reject(('Wrong password'))
         } else {
+           
             return Promise.resolve(findUser)
         }
     },
