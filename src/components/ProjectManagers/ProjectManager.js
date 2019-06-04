@@ -9,7 +9,7 @@ export default class ProjectManager extends Component{
     render(){
         console.log(this.context.users)
         const projectManagers= this.context.users.map(user=>{
-            console.log(user.projects.filter(project=>project.status==='in progress').length)
+            console.log(user.projects.filter(project=>project.status.title==='in progress').length)
             const projectManagerDetails= 
             <section key={user.id}>
                 <button className='collapsible'>{user.full_name}

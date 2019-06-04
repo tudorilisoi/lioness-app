@@ -63,18 +63,19 @@ for (let i = 0; i < 20; i++) {
     isAdmin: false,
     //associated objects
     role: randomRole, //the role Object corresponding to the role_id
-    projects: []
-  };
+    // projects: []
+    projects : [],
+  }
   users.push(user);
 }
 const clients = users.filter(user => {
   return user.role.id === 2;
 });
 const contractors = users.filter(user => {
-  return user.role.id === 4;
+  return user.role.id === 3;
 });
 const projectManagers = users.filter(user => {
-  return user.role.id === 3;
+  return user.role.id === 4;
 });
 const projects = [];
 for (let i = 0; i < 1000; i++) {
@@ -108,43 +109,20 @@ for (let i = 0; i < 1000; i++) {
     contractors: [contractor1, contractor2],
     projectManager: [projectManager]
   };
-
-  contractor1.projects = [project];
-  contractor2.projects = [project];
-  client.projects = [project];
-  projectManager.projects = [project];
-
+  
+  contractor1.projects.push(project);
+  contractor2.projects.push(project);
+  client.projects.push(project);
+projectManager.projects.push(project);
+users.projects=[project]
   projects.push(project);
-}
+
 const collections = stringify({
   users,
   projects,
   roles,
   statuses
 });
-// const jsonUser= JSON.stringify(flattedUser)
+
 console.log(collections);
-
-// export const GetUsers=()=>{
-//     let res=[...users]
-//     // const result= parse(stringify(res))
-//     return Promise.resolve(res)
-// }
-// export const GetProjects= ()=>{
-//     let ret = [...projects]
-//     parse(stringify(ret))
-//     return Promise.resolve(ret)
-// }
-// fake API
-// function getProjects(options = {
-//     dateStart:null,
-//     dateEnd:null,
-//     status:null,
-
-// }) {
-//     let ret = [...projects]
-//     if(options.dateStart){
-//         ret = ret.filter(user=>dayjs().isAfter()) //TODO fix this
-//     }
-//     return Promise.resolve(ret)
-// }
+}
