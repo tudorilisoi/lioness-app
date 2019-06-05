@@ -12,7 +12,7 @@ render(){
             <button className='collapsible'>{user.full_name}
             
            </button>
- <div className='Content'>
+ <div className='client-content'>
      <p><em>Name:</em>{user.full_name}</p>
      <p><em>Email :</em>{user.email}</p>
      <p><em>Phone :</em>{user.phone}</p>
@@ -23,7 +23,7 @@ render(){
         return clientDetails
     })
         return(
-            <div>
+            <div className='tab-content'>
               {clients}
                 </div>
         )

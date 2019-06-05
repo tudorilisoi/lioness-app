@@ -7,17 +7,13 @@ export default class ProjectManager extends Component{
         super()
     }
     render(){
-        console.log(this.context.users)
-        const projectManagers= this.context.users.map(user=>{
-            console.log(user.projects.filter(project=>project.status.title==='in progress').length)
+        const projectManagers= this.context.users.map(user=>{          
             const projectManagerDetails= 
             <section key={user.id}>
                 <button className='collapsible'>{user.full_name}
-                
-                {/* {user.project ? console.log(user.project.map(project=>project.status==='in progress').length) : console.log("0")} */}
                 <p><em>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</em></p>
                </button>
-     <div className='Content'>
+     <div className='projectManager-content'>
          <p><em>Name:</em>{user.full_name}</p>
          <p><em>Email :</em>{user.email}</p>
      
@@ -27,7 +23,7 @@ export default class ProjectManager extends Component{
             return projectManagerDetails
         })
         return(
-            <div>
+            <div  className='tab-content'>
                 {projectManagers}
             </div>
         )

@@ -118,12 +118,7 @@ handleLoginSubmit(e){
       }
     })
       
-      // if(data.isAdmin){
-      //   console.log(data.isAdmin)
-      //   // this.props.history.push('/admin-dash')
-      // } 
-
-
+  
 }
   render() {
     return (
@@ -151,7 +146,7 @@ handleLoginSubmit(e){
           hasError= {!this.state.passwordValid}
           message={this.state.passwordValidationMessage}
           />
-          {/* <Link to={'/admin-dash'}></Link> */}
+          
           <button type="submit">Submit</button>
         </form>
         </div>

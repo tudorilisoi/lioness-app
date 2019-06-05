@@ -9,6 +9,7 @@ import HomePage from '../Home/HomePage'
 import {Link} from 'react-router-dom'
 import DataLoader from '../DataLoader/DataLoader'
 import ds from '../../STORE/dataservice';
+import './AdminDash.css'
 import LionessContext from '../../LionessContext/LionessContext'
 
 import "react-tabs/style/react-tabs.css";
@@ -23,15 +24,15 @@ logoutClick=()=>{
     deleteCookieLoginInfo()
     this.props.history.push('/login')
 }
-    render(){ 
-       
-        console.log(this.context)       
+    render(){     
         return(
             <div>
-                 <nav role='navigation' className="navBar">
-        <h3>Lioness</h3>
-        <h4>Welcome!</h4>
+                
+        
         <Tabs>
+            <nav role='navigation' className="navBar">
+            <h3>Lioness</h3>
+         <h4>Welcome!</h4>
             <TabList>
         <Tab>Home</Tab>
         <Tab>Clients</Tab>
@@ -39,9 +40,9 @@ logoutClick=()=>{
         <Tab>Active Projects</Tab>
         <Tab>Billed Projects</Tab>
         <Tab>Project Managers</Tab>
-        <Tab>Logout</Tab>
+        <Tab onSelect={(e)=>this.deleteCookieLoginInfo(e)}>Logout</Tab>
         </TabList>
-        
+        </nav>
         <TabPanel>
        <HomePage/>
         </TabPanel>
@@ -67,9 +68,9 @@ logoutClick=()=>{
     </TabPanel>
 
         </Tabs>
-
+       
         
-        </nav>   
+          
             </div>
         )
     }

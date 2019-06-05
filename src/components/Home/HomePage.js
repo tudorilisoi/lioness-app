@@ -7,7 +7,7 @@ const {getUsers, getProjects, handleFetchError }  =ds
 export default class HomePage extends Component{
     render(){
         return(
-            <div>
+            <div className='tab-page'>
             <DataLoader 
             onReject = {handleFetchError}
             promise={getProjects()} 

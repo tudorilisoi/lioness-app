@@ -10,8 +10,7 @@ import isBetween from 'dayjs/plugin/isBetween'
 import moment from 'moment'
 dayjs.extend(isBetween)
 const { parse, stringify } = fjs
-// debugger;
-// console.log('data', dataString)
+
 let data = parse(JSON.stringify(dataString));
 const defaultOptions = {
     statusFilter: null,
@@ -53,7 +52,6 @@ const ds = {
     },
     setCookieLoginInfo: (loginData) => {
         Cookie.set("credentials", loginData);
-        console.log(`this is what set cookie does`,Cookie.set("credentials", loginData))
     },
 deleteCookieLoginInfo:()=>{
     Cookie.remove("credentials");
@@ -157,15 +155,15 @@ deleteCookieLoginInfo:()=>{
         if (mergedOpts.dateSortAsc) {
             if (mergedOpts.dateTypeFilter === 'startDate') {
                 res = res.sort((a, b) => (new Date(b.startDate) - new Date(a.startDate)))
-                console.log(res)
+                
             }
             if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
                 res = res.sort((a, b) => (new Date(b.estimatedDueDate) - new Date(a.estimatedDueDate)))
-                console.log(res)
+               
             }
             if (mergedOpts.dateTypeFilter === 'completionDate') {
                 res = res.sort((a, b) => (new Date(b.completionDate) - new Date(a.completionDate)))
-                console.log(res)
+               
             }
         }
         if (!mergedOpts.dateSortAsc) {
@@ -186,7 +184,7 @@ deleteCookieLoginInfo:()=>{
         // }
         if (mergedOpts.budgetFilterAsending) {
             res = res.sort((a, b) => (b.budget - a.budget))
-            console.log(res)
+           
         }
         // if(!opts.budgetFilterAsending){
         //     res= res.sort((a,b)=>(a.budget - b.budget))

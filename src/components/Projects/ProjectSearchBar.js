@@ -80,7 +80,6 @@ render(){
     {this.props.status === 'billed' ? <option value= 'completionDate'>Completion Date</option> : ''}
     </select>
 }
-console.log(`project searchbar state`, this.state)
         return(
             <div className='searchBar'>
         <form onSubmit={e => this.handleSubmit(e)}>

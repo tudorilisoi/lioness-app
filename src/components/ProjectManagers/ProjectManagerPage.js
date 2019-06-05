@@ -3,7 +3,7 @@ import DataLoader from '../DataLoader/DataLoader'
 import LionessContext from '../../LionessContext/LionessContext';
 import ds from '../../STORE/dataservice';
 import NavBar from'../Nav/Nav';
-
+import '../AdminDash/AdminDash.css'
 import ProjectManager from './ProjectManager'
 const {getUsers, getProjects, handleFetchError }  =ds
 export default class ProjectManagerPage extends Component{
@@ -11,7 +11,7 @@ export default class ProjectManagerPage extends Component{
 render(){
     const opts= {roleFilter: 4}
     return(
-        <div>
+        <div className='tab-page'>
             <DataLoader 
                 onReject = {handleFetchError}
                 promise={getProjects()} 

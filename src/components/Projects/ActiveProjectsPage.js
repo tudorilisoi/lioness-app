@@ -12,7 +12,7 @@ export default class ActiveProjectsPage extends Component{
     render(){
         const opts= {statusFilter: 'in progress'}
         return(
-            <div>
+            <div className='tab-page'>
                 <DataLoader 
                 onReject = {handleFetchError}
                 promise={getProjects(opts)} 

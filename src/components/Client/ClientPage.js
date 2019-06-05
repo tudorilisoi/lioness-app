@@ -11,7 +11,7 @@ static contextType= LionessContext;
     render(){
         const opts= {roleFilter: 2}
         return(
-            <div>
+            <div className='tab-page'>
                 <DataLoader 
                 onReject = {handleFetchError}
                 promise={getProjects()} 

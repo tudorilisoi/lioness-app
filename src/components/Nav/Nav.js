@@ -22,7 +22,7 @@ export default class Navbar extends Component{
         this.props.history.push('/login')
     }
     render(){
-        console.log(`navbar`, this.context)
+       
     return(
        
         <nav role='navigation' className="navBar">

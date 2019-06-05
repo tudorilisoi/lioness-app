@@ -14,7 +14,7 @@ render(){
         <section key={project.id}>
             <button className='collapsible'>{project.title}
             <em>${project.budget}</em></button>
- <div className='Content'>
+ <div className='project-content'>
      <p><em>Title:</em>{project.title}</p>
      <p><em>Client:</em>{project.client[0].full_name}</p>
      <p><em>Project Manager:</em>{project.projectManager[0].full_name}</p>
@@ -30,7 +30,7 @@ render(){
     })
    
     return(
-        <div id= 'projects' className='projects'>
+        <div className='tab-content'>
             {projects}
             </div>
     )
