@@ -127,8 +127,8 @@ handleLoginSubmit(e){
 }
   render() {
     return (
-      <div className="LoginForm-Container">
-        <div className='LoginForm'>
+      <div className="LoginPage-Container">
+        <div className='LoginPage'>
         <h2>Login</h2>
         <form className="LoginForm"onSubmit={e=>this.handleLoginSubmit(e)}>
           <label htmlFor="email"> Email:</label>
