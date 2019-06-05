@@ -128,6 +128,7 @@ handleLoginSubmit(e){
   render() {
     return (
       <div className="LoginForm-Container">
+        <div className='LoginForm'>
         <h2>Login</h2>
         <form className="LoginForm"onSubmit={e=>this.handleLoginSubmit(e)}>
           <label htmlFor="email"> Email:</label>
@@ -153,6 +154,7 @@ handleLoginSubmit(e){
           {/* <Link to={'/admin-dash'}></Link> */}
           <button type="submit">Submit</button>
         </form>
+        </div>
       </div>
     );
   }
