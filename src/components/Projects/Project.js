@@ -5,6 +5,14 @@ export default class Project extends Component{
     static contextType= LionessContext
     constructor(){
         super()
+        this.state= {
+            on: false,
+        }
+    }
+    toggle=()=>{
+        this.setState({
+            on: !this.state.on
+        })
     }
 render(){
     
@@ -12,8 +20,9 @@ render(){
         
         const projectDetails= 
         <section key={project.id}>
-            <button className='collapsible'>{project.title}
+            <button className='collapsible'onClick={this.toggle}>{project.title}
             <em>${project.budget}</em></button>
+{this.state.on &&
  <div className='project-content'>
      <p><em>Title:</em>{project.title}</p>
      <p><em>Client:</em>{project.client[0].full_name}</p>
@@ -25,6 +34,7 @@ render(){
      {project.estimatedDueDate ? <p><em>Estimated Due Date:</em>{project.estimatedDueDate}</p> : ""}
      {project.completionDate ?  <p><em>Completion Date:</em>{project.completionDate}</p> : ''}
 </div>
+}
         </section>
         return projectDetails
     })
