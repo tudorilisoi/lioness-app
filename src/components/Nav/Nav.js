@@ -38,28 +38,10 @@ export default class Navbar extends Component{
         <Tab>Project Managers</Tab>
         </TabList>
 <TabPanel>
-    
+    <EstimatesPage/>
 </TabPanel>
         </Tabs>
 
-
-
-        <Link to='/admin-dash'><h2>Home</h2></Link>
-        <Link to='/clients'>
-               <h2>Clients</h2>
-               </Link>
-               <Link to='/estimates'>
-                   <h2>Estimates</h2>
-               </Link>
-               <Link to='/active-projects'>
-                   <h2>Active Projects</h2>
-               </Link>
-               <Link to='/billed-projects'>
-                   <h2>Billed Projects</h2>
-               </Link>
-               <Link to='/project-managers'>
-                   <h2>Project Managers</h2>
-               </Link>
         <button onClick={()=>this.logoutClick()}>
             Log Out
         </button>

@@ -4,7 +4,6 @@ import LionessContext from '../../LionessContext/LionessContext'
 import ds from '../../STORE/dataservice';
 import Client from '../Client/Client'
 import Navbar from '../Nav/Nav'
-import BackButton from '../BackButton/BackButton'
 const {getUsers, getProjects, handleFetchError }  =ds
 export default class ClientPage extends Component{
 
@@ -21,8 +20,6 @@ static contextType= LionessContext;
                 promise={getUsers(opts)} 
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
-                <Navbar/>
-                <BackButton history={this.props.history}/>
                 <h2>Clients</h2>
                 <button>Add Client</button>
                 <button>Email Client</button>
