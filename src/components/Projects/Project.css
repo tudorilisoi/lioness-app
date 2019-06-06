@@ -1,27 +1,40 @@
 .collapsible {
-    background-color: #eee;
-    display:flex;
-    flex-direction:column;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-  }
-  .collapsible em{
-      padding-left: 10px;
-      text-align: right;
-      padding-right:0;
-  }
-  .active, .collapsible:hover {
-    background-color: #ccc;
-  }
-  .content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.collapsible em {
+  padding-left: 10px;
+  text-align: right;
+  padding-right: 0;
+}
+
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.project-content {
+  max-height: 0px;
+  overflow: hidden;
+  transition: all 200ms ease-in-out;
+}
+
+.project-content.expanded {
+  max-height: 1000px;
+}
