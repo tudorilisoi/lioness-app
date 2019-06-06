@@ -103,10 +103,12 @@ render(){
             <label htmlFor='date'>Date Two</label>
             <input type="date"onChange={e=>this.dateTwoChange(e.target.value)}></input>
             Sort by:
+            <div className='sort-buttons'>
             <button type='button' name='date-new' value="asc"onClick={e=>this.dateSortChange(e.target.value)}>Date (Newest)</button>
             <button type='button' name='date-old' value="des"onClick={e=>this.dateSortChange(e.target.value)}>Date (Oldest)</button>
             <button type='button' name='budget-high' value="asc"onClick={e=>this.budgetChange(e.target.value)}>Budget (Highest)</button>
             <button type='button' name='budget-low' value="des"onClick={e=>this.budgetChange(e.target.value)}>Budget (Lowest)</button>
+            </div>
             <button
           type="submit"
           className="submitProjectFilters"
