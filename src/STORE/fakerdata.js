@@ -4,7 +4,6 @@ const faker = require("faker");
 faker.seed(123);
 const { parse, stringify } = require("flatted/cjs");
 
-
 function unique(fn, arr, objKey) {
   const value = fn();
   const exists = arr.find(item => item[objKey] === value);
@@ -24,7 +23,7 @@ const statuses = [
   { id: 1, title: "estimate" },
   { id: 2, title: "in progress" },
   { id: 3, title: "billed" },
-  { id: 4, title: "other" },
+  { id: 4, title: "other" }
 ];
 
 const users = [];
@@ -62,8 +61,8 @@ for (let i = 0; i < 20; i++) {
     //associated objects
     role: randomRole, //the role Object corresponding to the role_id
     // projects: []
-    projects : [],
-  }
+    projects: []
+  };
   users.push(user);
 }
 const clients = users.filter(user => {
@@ -98,29 +97,27 @@ for (let i = 0; i < 10; i++) {
     status: projectStatus,
     startDate: beginDate,
     estimatedDueDate:
-      projectStatus.id === 2 || projectStatus.id === 3
-        ? estimatedDate
-        : null,
+      projectStatus.id === 2 || projectStatus.id === 3 ? estimatedDate : null,
     completionDate: projectStatus.id === 3 ? billedDate : null,
     //associated objects
     client: [client], //relation based on client_id
     contractors: [contractor1, contractor2],
     projectManager: [projectManager]
   };
-  
+
   contractor1.projects.push(project);
   contractor2.projects.push(project);
   client.projects.push(project);
-projectManager.projects.push(project);
-// users.projects=[project]
+  projectManager.projects.push(project);
+  users.projects = [project];
   projects.push(project);
 
-const collections = stringify({
-  users,
-  projects,
-  roles,
-  statuses
-});
+  const collections = stringify({
+    users,
+    projects,
+    roles,
+    statuses
+  });
 
-console.log(collections);
+  console.log(collections);
 }
