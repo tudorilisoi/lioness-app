@@ -26,7 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "now --name 'lioness-app' ./build",
-    "generate-fake-data": "cd src/STORE && node fakerdata.js > flattenedData.json"
+    "generate-fake-data": "cd src/STORE && node fakerdata.js"
   },
   "eslintConfig": {
     "extends": "react-app"

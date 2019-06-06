@@ -1,6 +1,7 @@
 // https://www.npmjs.com/package/faker
 // this generates data flattenedData.json
 const faker = require("faker");
+const fs = require('fs')
 faker.seed(123);
 const { parse, stringify } = require("flatted/cjs");
 
@@ -75,7 +76,7 @@ const projectManagers = users.filter(user => {
   return user.role.id === 4;
 });
 const projects = [];
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 1000; i++) {
   const contractor1 =
     contractors[Math.floor(Math.random() * contractors.length)];
   const contractor2 =
@@ -119,5 +120,12 @@ for (let i = 0; i < 10; i++) {
     statuses
   });
 
-  console.log(collections);
+  // console.log(collections);
+  fs.writeFile('./flattenedData.json', collections, (err) => {  
+    // throws an error, you could also catch it here
+    if (err) throw err;
+
+    // success case, the file was saved
+    // console.log('Fake data saved!');
+});
 }

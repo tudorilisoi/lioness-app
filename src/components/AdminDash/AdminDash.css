@@ -1,18 +1,20 @@
-nav{
-    margin-top: 0;
-    background-color:#89593F;
-    margin-bottom: 0;
-  }
-  nav ul{
-    display: flex;
-    flex-direction: column;
+nav {
+  margin-top: 0;
+  background-color: #89593F;
+  margin-bottom: 0;
+}
+
+nav ul {
+  /* display: flex; */
+  /* flex-direction: column; */
   list-style: none;
   justify-content: flex-start;
-  
-  }
-  .tab-page{
-      background-color: #8E745E;
-  }
-  .collapsible{
-    background-color: #6CAE75;
-  }
+}
+
+.tab-page {
+  background-color: #8E745E;
+}
+
+.collapsible {
+  background-color: #6CAE75;
+}
