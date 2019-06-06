@@ -3,9 +3,7 @@
 const faker = require("faker");
 faker.seed(123);
 const { parse, stringify } = require("flatted/cjs");
-const util = require("util");
-const prettyjson = require("prettyjson");
-// const statuses = ["estimate", "in progress", "billed", "other"];
+
 
 function unique(fn, arr, objKey) {
   const value = fn();
@@ -78,7 +76,7 @@ const projectManagers = users.filter(user => {
   return user.role.id === 4;
 });
 const projects = [];
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 10; i++) {
   const contractor1 =
     contractors[Math.floor(Math.random() * contractors.length)];
   const contractor2 =
@@ -100,10 +98,10 @@ for (let i = 0; i < 1000; i++) {
     status: projectStatus,
     startDate: beginDate,
     estimatedDueDate:
-      projectStatus === "in progress" || projectStatus === "billed"
+      projectStatus.id === 2 || projectStatus.id === 3
         ? estimatedDate
         : null,
-    completionDate: projectStatus === "billed" ? billedDate : null,
+    completionDate: projectStatus.id === 3 ? billedDate : null,
     //associated objects
     client: [client], //relation based on client_id
     contractors: [contractor1, contractor2],
@@ -114,7 +112,7 @@ for (let i = 0; i < 1000; i++) {
   contractor2.projects.push(project);
   client.projects.push(project);
 projectManager.projects.push(project);
-users.projects=[project]
+// users.projects=[project]
   projects.push(project);
 
 const collections = stringify({
