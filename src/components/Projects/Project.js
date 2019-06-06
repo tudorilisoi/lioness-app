@@ -22,7 +22,11 @@ export default class Project extends Component {
             const projectDetails =
                 <section key={project.id}>
                     <button className='collapsible' onClick={() => { this.toggle(index) }}>{project.title}
-                        <em>${project.budget}</em></button>
+                        <em>${project.budget}</em>  
+                        {project.status.id===1 ? <em>Start Date: {project.startDate} </em>: ""}
+                        {project.status.id===2 ? <em>Estimated Due Date: {project.estimatedDueDate} </em>: ""}
+                        {project.status.id===3 ? <em>Completion Date: {project.completionDate} </em>: ""}
+                        </button>
                     
                         <div className={`project-content ${expandedClassName}`}>
                             <p><em>Title:</em>{project.title}</p>

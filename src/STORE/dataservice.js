@@ -22,8 +22,6 @@ const defaultOptions = {
     dateOne: null,
     dateTwo: null,
     roleFilter: null,
-
-    // startDateFilter:null,
     pageNumber: 1,
 }
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
@@ -181,21 +179,12 @@ const ds = {
         }
 
 
-        // if(!opts.dateSortAsc, opts.dateTypeFilter){
-        //     res= res.sort((a,b)=>(a.opts.dateTypeFilter - b.opts.dateTypeFilter))
-        // }
+       
         if (mergedOpts.budgetFilterAsending) {
             res = res.sort((a, b) => (b.budget - a.budget))
 
         }
-        // if(!opts.budgetFilterAsending){
-        //     res= res.sort((a,b)=>(a.budget - b.budget))
-        // }
-        //         if(opts.dateTypeFilter,opts.timePeriodFilter, opts.dateOne){
-        //             if(opts.timePeriodFilter==='before'){
-        // res= res.filter(project=>project.opts.dateTypeFilter=== dayjs().isBefore(opts.dateOne))
-        // }
-        //         }
+     
 
         const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
         const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE

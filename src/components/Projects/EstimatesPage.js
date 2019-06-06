@@ -9,7 +9,8 @@ const {getUsers, getProjects, handleFetchError }  =ds
 export default class EstimatesPage extends Component{
     static contextType= LionessContext;
     render(){
-        const opts= {statusFilter: 'estimate'}
+        const opts= {statusFilter: 'estimate',
+        dateTypeFilter:'startDate'}
         return(
             <div className='tab-page'>
                 <DataLoader 
