@@ -27,7 +27,7 @@ const defaultOptions = {
     pageNumber: 1,
 }
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
-
+const ITEMS_PER_PAGE = 10
 
 function delay(promiseObj) {
     return Promise(resolve => {
@@ -53,9 +53,9 @@ const ds = {
     setCookieLoginInfo: (loginData) => {
         Cookie.set("credentials", loginData);
     },
-deleteCookieLoginInfo:()=>{
-    Cookie.remove("credentials");
-},
+    deleteCookieLoginInfo: () => {
+        Cookie.remove("credentials");
+    },
     getUsers: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
@@ -77,6 +77,8 @@ deleteCookieLoginInfo:()=>{
         }
         const mergedOpts = { ...defaultOptions, ...opts }
         let res = [...data.projects]
+
+
         console.log(`getProjects`, mergedOpts)
         if (mergedOpts.statusFilter) {
             res = res.filter(project => {
@@ -155,15 +157,15 @@ deleteCookieLoginInfo:()=>{
         if (mergedOpts.dateSortAsc) {
             if (mergedOpts.dateTypeFilter === 'startDate') {
                 res = res.sort((a, b) => (new Date(b.startDate) - new Date(a.startDate)))
-                
+
             }
             if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
                 res = res.sort((a, b) => (new Date(b.estimatedDueDate) - new Date(a.estimatedDueDate)))
-               
+
             }
             if (mergedOpts.dateTypeFilter === 'completionDate') {
                 res = res.sort((a, b) => (new Date(b.completionDate) - new Date(a.completionDate)))
-               
+
             }
         }
         if (!mergedOpts.dateSortAsc) {
@@ -184,7 +186,7 @@ deleteCookieLoginInfo:()=>{
         // }
         if (mergedOpts.budgetFilterAsending) {
             res = res.sort((a, b) => (b.budget - a.budget))
-           
+
         }
         // if(!opts.budgetFilterAsending){
         //     res= res.sort((a,b)=>(a.budget - b.budget))
@@ -194,10 +196,20 @@ deleteCookieLoginInfo:()=>{
         // res= res.filter(project=>project.opts.dateTypeFilter=== dayjs().isBefore(opts.dateOne))
         // }
         //         }
+
+        const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
+        const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
+        console.log(`total count: ${res.length}, numPages: ${Math.ceil(res.length / ITEMS_PER_PAGE)}`)
+        res = res.slice(begin, end)
+        console.log('paged projects:', res)
+
+        console.log(`pagination: from ${begin} to ${end}`)
+
+
         return Promise.resolve(res)
     },
     getUserLogin: (email, password) => {
-       
+
         let users = [...data.users]
         let findUser = users.find(user => user.email === email)
         if (!findUser) {
@@ -209,7 +221,7 @@ deleteCookieLoginInfo:()=>{
 
             return Promise.reject(('Wrong password'))
         } else {
-           
+
             return Promise.resolve(findUser)
         }
     },
