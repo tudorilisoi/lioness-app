@@ -39,7 +39,7 @@ const ds = {
     // statuses: ["estimate", "in progress", "billed", "other"],
 
     handleFetchError: (err) => {
-        // debugger
+        // 
         if (err.message === NOT_LOGGED_IN) {
             console.log('redirecting to login')
             history.push('/login')
@@ -78,9 +78,10 @@ const ds = {
 
 
         console.log(`getProjects`, mergedOpts)
+        
         if (mergedOpts.statusFilter) {
             res = res.filter(project => {
-                // debugger
+                // 
                 return project.status.title === opts.statusFilter
             })
         }
@@ -153,6 +154,7 @@ const ds = {
         }
 
         if (mergedOpts.dateSortAsc) {
+            
             if (mergedOpts.dateTypeFilter === 'startDate') {
                 res = res.sort((a, b) => (new Date(b.startDate) - new Date(a.startDate)))
 
@@ -184,15 +186,19 @@ const ds = {
             res = res.sort((a, b) => (b.budget - a.budget))
 
         }
+        if (!mergedOpts.budgetFilterAsending) {
+            res = res.sort((a, b) => (a.budget - b.budget))
+
+        }
      
 
         const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
         const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
         console.log(`total count: ${res.length}, numPages: ${Math.ceil(res.length / ITEMS_PER_PAGE)}`)
         res = res.slice(begin, end)
-        console.log('paged projects:', res)
+        // console.log('paged projects:', res)
 
-        console.log(`pagination: from ${begin} to ${end}`)
+        // console.log(`pagination: from ${begin} to ${end}`)
 
 
         return Promise.resolve(res)

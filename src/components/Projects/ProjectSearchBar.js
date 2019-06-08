@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
+import { createStatement } from "typescript";
 const { getProjects, statuses } = ds;
 export default class ProjectSearchBar extends Component {
   static contextType = LionessContext;
@@ -34,30 +35,37 @@ export default class ProjectSearchBar extends Component {
 
   };
   budgetChange = sortType => {
+      
     if (sortType === "asc") {
       this.setState({
-        budgetSortAsc: true
+        budgetSortAsc: true,
+        currentPageNumber:1
       }, ()=>{this.fetchData()});
     } else {
       this.setState({
-        budgetSortAsc: false
+        budgetSortAsc: false,
+        currentPageNumber:1
       }, ()=>{this.fetchData()});
     }
   };
   dateTypeChange = dateType => {
+      
     this.setState({ dateTypeFilter: dateType });
   };
   timePeriodChange = timePeriod => {
     this.setState({ timePeriodFilter: timePeriod });
   };
   dateSortChange(dateSort) {
+      
     if (dateSort === "asc") {
       this.setState({
-        dateSortAsc: true
+        dateSortAsc: true,
+        currentPageNumber:1
       },()=>{console.log(`this is datesortChange true`,this.fetchData())} );
     } else {
       this.setState({
-        dateSortAsc: false
+        dateSortAsc: false,
+        currentPageNumber:1
       },()=>{console.log(`this is datesortChange false`,this.fetchData())});
     }
     
@@ -68,11 +76,8 @@ export default class ProjectSearchBar extends Component {
   dateTwoChange(date) {
     this.setState({ dateTwo: date });
   }
-  handleSubmit = e => {
-    e.preventDefault();
-    this.fetchData();
-  }
   fetchData=()=>{
+      
     const opts = {
       budgetFilterAsending: this.state.budgetSortAsc,
       dateTypeFilter: this.state.dateTypeFilter,
@@ -89,6 +94,11 @@ export default class ProjectSearchBar extends Component {
 
     });
   };
+  handleSubmit = e => {
+    e.preventDefault();
+    this.fetchData();
+  }
+
 
   render() {
       
