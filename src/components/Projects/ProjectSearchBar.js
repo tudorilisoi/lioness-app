@@ -54,12 +54,13 @@ export default class ProjectSearchBar extends Component {
     if (dateSort === "asc") {
       this.setState({
         dateSortAsc: true
-      },()=>{this.fetchData()} );
+      },()=>{console.log(`this is datesortChange true`,this.fetchData())} );
     } else {
       this.setState({
         dateSortAsc: false
-      },()=>{this.fetchData()});
+      },()=>{console.log(`this is datesortChange false`,this.fetchData())});
     }
+    
   }
   dateOneChange(date) {
     this.setState({ dateOne: date });
@@ -83,11 +84,14 @@ export default class ProjectSearchBar extends Component {
       pageNumber: this.state.currentPageNumber
     };
     getProjects(opts).then(res => {
-      this.context.setProjects(res);
+      console.log(res)
+        this.context.setProjects(res);
+
     });
   };
 
   render() {
+      
     const dateTypes = () => {
       return (
         <select
@@ -97,9 +101,7 @@ export default class ProjectSearchBar extends Component {
           aria-label="dropdown menu of sort options for results"
           onChange={e => this.dateTypeChange(e.target.value)}
         >
-          <option value="" selected disabled>
-            Choose One
-          </option>
+         <option selected disabled="">Choose One</option>
           <option value="startDate">Start Date</option>
           {this.props.status === "in progress" ||
           this.props.status === "billed" ? (
@@ -115,6 +117,7 @@ export default class ProjectSearchBar extends Component {
         </select>
       );
     };
+    console.log(this.state)
     return (
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>

@@ -22,22 +22,22 @@ export default class Project extends Component {
             const projectDetails =
                 <section key={project.id}>
                     <button className='collapsible' onClick={() => { this.toggle(index) }}>{project.title}
-                        <em>${project.budget}</em>  
-                        {project.status.id===1 ? <em>Start Date: {project.startDate} </em>: ""}
-                        {project.status.id===2 ? <em>Estimated Due Date: {project.estimatedDueDate} </em>: ""}
-                        {project.status.id===3 ? <em>Completion Date: {project.completionDate} </em>: ""}
+                        <span>${project.budget}</span>  
+                        {project.status.id===1 ? <span>Start Date: {project.startDate} </span>: ""}
+                        {project.status.id===2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span>: ""}
+                        {project.status.id===3 ? <span>Completion Date: {project.completionDate} </span>: ""}
                         </button>
                     
                         <div className={`project-content ${expandedClassName}`}>
-                            <p><em>Title:</em>{project.title}</p>
-                            <p><em>Client:</em>{project.client[0].full_name}</p>
-                            <p><em>Project Manager:</em>{project.projectManager[0].full_name}</p>
-                            <p><em>Description :</em>{project.description}</p>
-                            <p><em>Budget:</em>{project.budget}</p>
-                            <p><em>Status:</em>{project.status.title}</p>
-                            <p><em>Start Date:</em>{project.startDate}</p>
-                            {project.estimatedDueDate ? <p><em>Estimated Due Date:</em>{project.estimatedDueDate}</p> : ""}
-                            {project.completionDate ? <p><em>Completion Date:</em>{project.completionDate}</p> : ''}
+                            <p><span>Title:</span>{project.title}</p>
+                            <p><span>Client:</span>{project.client[0].full_name}</p>
+                            <p><span>Project Manager:</span>{project.projectManager[0].full_name}</p>
+                            <p><span>Description :</span>{project.description}</p>
+                            <p><span>Budget:</span>{project.budget}</p>
+                            <p><span>Status:</span>{project.status.title}</p>
+                            <p><span>Start Date:</span>{project.startDate}</p>
+                            {project.estimatedDueDate ? <p><span>Estimated Due Date:</span>{project.estimatedDueDate}</p> : ""}
+                            {project.completionDate ? <p><span>Completion Date:</span>{project.completionDate}</p> : ''}
                         </div>
                     
                 </section>
