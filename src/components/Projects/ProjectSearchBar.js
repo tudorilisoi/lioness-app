@@ -90,6 +90,7 @@ export default class ProjectSearchBar extends Component {
     };
     getProjects(opts).then(res => {
       console.log(res)
+      
         this.context.setProjects(res);
 
     });

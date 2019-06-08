@@ -74,6 +74,7 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = { ...defaultOptions, ...opts }
+        
         let res = [...data.projects]
 
 
@@ -82,7 +83,7 @@ const ds = {
         if (mergedOpts.statusFilter) {
             res = res.filter(project => {
                 // 
-                return project.status.title === opts.statusFilter
+                return project.status.title === mergedOpts.statusFilter
             })
         }
         if (opts.searchQuery) {
