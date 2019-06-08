@@ -180,8 +180,6 @@ const ds = {
             }
         }
 
-
-       
         if (mergedOpts.budgetFilterAsending) {
             res = res.sort((a, b) => (b.budget - a.budget))
 
