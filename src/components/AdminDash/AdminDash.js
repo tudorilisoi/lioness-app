@@ -33,7 +33,7 @@ logoutClick=()=>{
             <nav role='navigation' className="navBar">
             <h3>Lioness</h3>
          <h4>Welcome!</h4>
-            <TabList>
+            {/* <TabList>
         <Tab>Home</Tab>
         <Tab>Clients</Tab>
         <Tab>Estimates</Tab>
@@ -41,7 +41,7 @@ logoutClick=()=>{
         <Tab>Billed Projects</Tab>
         <Tab>Project Managers</Tab>
         <Tab onSelect={(e)=>this.deleteCookieLoginInfo(e)}>Logout</Tab>
-        </TabList>
+        </TabList> */}
         </nav>
         <TabPanel>
        <HomePage/>
