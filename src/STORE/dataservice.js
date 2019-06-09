@@ -19,9 +19,10 @@ const defaultOptions = {
     dateTypeFilter: null,
     timePeriodFilter: null,
     dateSortAsc: null,
-    dateOne: null,
+    beforeDate: null,
     dateTwo: null,
     roleFilter: null,
+    noSorting:true,
     pageNumber: 1,
 }
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
@@ -154,7 +155,7 @@ const ds = {
 
         }
 
-        if (mergedOpts.dateSortAsc) {
+        if (mergedOpts.dateSortAsc===true && !mergedOpts.noSorting ) {
             
             if (mergedOpts.dateTypeFilter === 'startDate') {
                 res = res.sort((a, b) => (new Date(b.startDate) - new Date(a.startDate)))
@@ -169,7 +170,7 @@ const ds = {
 
             }
         }
-        if (!mergedOpts.dateSortAsc) {
+        if (mergedOpts.dateSortAsc=== false && !mergedOpts.noSorting) {
             if (mergedOpts.dateTypeFilter === 'startDate') {
                 res = res.sort((a, b) => (new Date(a.startDate) - new Date(b.startDate)))
             }
@@ -181,11 +182,11 @@ const ds = {
             }
         }
 
-        if (mergedOpts.budgetFilterAsending) {
+        if (mergedOpts.budgetFilterAsending===true && !mergedOpts.noSorting && mergedOpts.dateSortAsc===null) {
             res = res.sort((a, b) => (b.budget - a.budget))
 
         }
-        if (!mergedOpts.budgetFilterAsending) {
+        if (mergedOpts.budgetFilterAsending===false && !mergedOpts.noSorting && mergedOpts.dateSortAsc===null) {
             res = res.sort((a, b) => (a.budget - b.budget))
 
         }

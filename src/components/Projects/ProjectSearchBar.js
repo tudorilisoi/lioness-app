@@ -13,6 +13,7 @@ export default class ProjectSearchBar extends Component {
       dateTypeFilter: null,
       timePeriodFilter: null,
       dateSortAsc: null,
+      noSorting:null,
       dateOne: null,
       dateTwo: null,
       currentPageNumber: 1,
@@ -39,11 +40,15 @@ export default class ProjectSearchBar extends Component {
     if (sortType === "asc") {
       this.setState({
         budgetSortAsc: true,
+        dateSortAsc:null,
+        noSorting:null,
         currentPageNumber:1
       }, ()=>{this.fetchData()});
     } else {
       this.setState({
         budgetSortAsc: false,
+        dateSortAsc:null,
+        noSorting:null,
         currentPageNumber:1
       }, ()=>{this.fetchData()});
     }
@@ -60,11 +65,15 @@ export default class ProjectSearchBar extends Component {
     if (dateSort === "asc") {
       this.setState({
         dateSortAsc: true,
+        budgetSortAsc: null,
+        noSorting:null,
         currentPageNumber:1
       },()=>{console.log(`this is datesortChange true`,this.fetchData())} );
     } else {
       this.setState({
         dateSortAsc: false,
+        budgetSortAsc: null,
+        noSorting:null,
         currentPageNumber:1
       },()=>{console.log(`this is datesortChange false`,this.fetchData())});
     }
@@ -86,6 +95,7 @@ export default class ProjectSearchBar extends Component {
       dateOne: this.state.dateOne,
       dateTwo: this.state.dateTwo,
       statusFilter: this.props.status,
+      noSorting:this.state.noSorting,
       pageNumber: this.state.currentPageNumber
     };
     getProjects(opts).then(res => {

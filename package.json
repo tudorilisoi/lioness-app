@@ -12,6 +12,7 @@
     "moment": "^2.24.0",
     "prettyjson": "^1.2.1",
     "react": "^16.8.6",
+    "react-dates": "^20.2.2",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-router-tabs": "^1.3.2",
