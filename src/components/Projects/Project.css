@@ -29,12 +29,12 @@
   background-color: #f1f1f1;
 }
 
-.project-content {
+.button-content {
   max-height: 0px;
   overflow: hidden;
   transition: all 200ms ease-in-out;
 }
 
-.project-content.expanded {
+.button-content.expanded {
   max-height: 1000px;
 }

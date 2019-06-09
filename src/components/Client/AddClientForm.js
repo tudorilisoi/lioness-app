@@ -5,7 +5,7 @@ export default class AddClientForm extends Component{
 render(){
     return(
         <div className='add-client-form'>
-
+New Client
         <form>
             <label htmlFor='client-name'>Name:</label>
             <input type='text'/>
@@ -13,6 +13,7 @@ render(){
             <input type='email'/>
             <label htmlFor='client-phone'>Phone:</label>
             <input type='tel'/>
+            <button>Submit</button>
         </form>
         </div>
     )

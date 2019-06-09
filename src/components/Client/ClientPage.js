@@ -4,6 +4,7 @@ import LionessContext from '../../LionessContext/LionessContext'
 import ds from '../../STORE/dataservice';
 import Client from '../Client/Client'
 import Navbar from '../Nav/Nav'
+import {Link} from 'react-router-dom'
 const {getUsers, getProjects, handleFetchError }  =ds
 export default class ClientPage extends Component{
 
@@ -21,7 +22,9 @@ static contextType= LionessContext;
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
                 <h2>Clients</h2>
+                <Link to='/add-client-form'>
                 <button>Add Client</button>
+                </Link>
                 <button>Email Client</button>
                 
                  <Client />

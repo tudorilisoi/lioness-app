@@ -5,33 +5,36 @@ export default class Client extends Component{
 static contextType= LionessContext
 constructor(){
     super()
-    this.state= {
-        on: false,
+    this.state = {
+        expandedIndex: false,
     }
 }
-toggle=()=>{
+toggle = (index) => {
+    const { expandedIndex } = this.state
     this.setState({
-        on: !this.state.on
+        expandedIndex: expandedIndex === index ? -1 : index
     })
 }
 
 render(){  
-    const clients= this.context.users.map(user=>{
+    console.log(this.state)
+    const clients= this.context.users.map((user, index)=>{
+        const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
         const clientDetails= 
         <section key={user.id}>
-            <button className='collapsible' onClick={this.toggle}>{user.full_name}
+            <button className='collapsible' onClick={()=> {this.toggle(index)}}>{user.full_name}
             
            </button>
-           {this.state.on &&
+          
         
- <div className='client-content'>
+ <div className={`button-content ${expandedClassName}`}>
      <p><em>Name:</em>{user.full_name}</p>
      <p><em>Email :</em>{user.email}</p>
      <p><em>Phone :</em>{user.phone}</p>
  
 
 </div>
-}
+
         </section>
         return clientDetails
     })

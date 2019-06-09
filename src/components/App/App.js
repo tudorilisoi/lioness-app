@@ -12,6 +12,7 @@ import ActiveProjectsPage from '../Projects/ActiveProjectsPage';
 import ProjectManagerPage from '../ProjectManagers/ProjectManagerPage';
 import EstimatesPage from '../Projects/EstimatesPage';
 import BilledProjectsPage from '../Projects/BilledProjectsPage';
+import AddClientForm from '../Client/AddClientForm'
 import './App.css'
 class App extends Component {
   constructor(props) {
@@ -81,6 +82,7 @@ this.setState({projectsLoaded: false})
           <Route exact path='/estimates' component={EstimatesPage}/>
           <Route exact path='/active-projects' component={ActiveProjectsPage}/>
           <Route exact path='/billed-projects' component={BilledProjectsPage}/>
+          <Route exact path='/add-client-form' component={AddClientForm}/>
         </LionessContext.Provider>
       </div>
     );

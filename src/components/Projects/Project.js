@@ -26,9 +26,11 @@ export default class Project extends Component {
                         {project.status.id===1 ? <span>Start Date: {project.startDate} </span>: ""}
                         {project.status.id===2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span>: ""}
                         {project.status.id===3 ? <span>Completion Date: {project.completionDate} </span>: ""}
+                        
                         </button>
                     
-                        <div className={`project-content ${expandedClassName}`}>
+                        <div className={`button-content ${expandedClassName}`}>
+                        <button>Delete</button>
                             <p><span>Title:</span>{project.title}</p>
                             <p><span>Client:</span>{project.client[0].full_name}</p>
                             <p><span>Project Manager:</span>{project.projectManager[0].full_name}</p>

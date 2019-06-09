@@ -5,17 +5,27 @@ export default class ProjectManager extends Component{
     static contextType= LionessContext
     constructor(){
         super()
+        this.state = {
+            expandedIndex: false,
+        }
+    }
+    toggle = (index) => {
+        const { expandedIndex } = this.state
+        this.setState({
+            expandedIndex: expandedIndex === index ? -1 : index
+        })
     }
     render(){
-        const projectManagers= this.context.users.map(user=>{          
+        const projectManagers= this.context.users.map((user, index)=>{          
+            const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
             const projectManagerDetails= 
             <section key={user.id}>
-                <button className='collapsible'>{user.full_name}
-                <p><em>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</em></p>
+                <button className='collapsible' onClick={()=> {this.toggle(index)}}>{user.full_name}
+                <p><span>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</span></p>
                </button>
-     <div className='projectManager-content'>
-         <p><em>Name:</em>{user.full_name}</p>
-         <p><em>Email :</em>{user.email}</p>
+     <div className={`button-content ${expandedClassName}`}>
+         <p><span>Name:</span>{user.full_name}</p>
+         <p><span>Email :</span>{user.email}</p>
      
     
     </div>
