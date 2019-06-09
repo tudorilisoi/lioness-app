@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ds from "../../STORE/dataservice";
 import config from "../../config";
-import { Route, withRouter } from "react-router-dom";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import AdminDash from '../AdminDash/AdminDash'
@@ -73,14 +73,13 @@ this.setState({projectsLoaded: false})
     return (
       <div className="App">    
         <LionessContext.Provider value={contextValue}>
+          <BrowserRouter>
+          <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path='/admin-dash' component={AdminDash}/>
-          <Route exact path='/project-managers' component={ProjectManagerPage}/>
-          <Route exact path='/clients' component={ClientPage}/>
-          <Route exact path='/estimates' component={EstimatesPage}/>
-          <Route exact path='/active-projects' component={ActiveProjectsPage}/>
-          <Route exact path='/billed-projects' component={BilledProjectsPage}/>
+          </Switch>
+          </BrowserRouter>
         </LionessContext.Provider>
       </div>
     );
