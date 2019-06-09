@@ -44,7 +44,7 @@ logoutClick=()=>{
                 </div>
          <div className='tabs'>
              <Switch>
-             <Route path={`${path}`} component={HomePage}></Route>
+             <Route path={`${path}`} exact component={HomePage}></Route>
              <Route path={`${path}/clients`} exact component={ClientPage}></Route>
              <Route path={`${path}/estimates`} exact component={EstimatesPage}></Route>
              <Route path={`${path}/active-projects`} exact component={ActiveProjectsPage}></Route>
@@ -53,12 +53,6 @@ logoutClick=()=>{
              </Switch>
          </div>
         </nav>
-        
-    
-    
-       
-        
-          
             </div>
         )
     }
