@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
-import { createStatement } from "typescript";
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 const { getProjects, statuses } = ds;
 export default class ProjectSearchBar extends Component {
   static contextType = LionessContext;
@@ -14,8 +15,8 @@ export default class ProjectSearchBar extends Component {
       timePeriodFilter: null,
       dateSortAsc: null,
       noSorting:null,
-      dateOne: null,
-      dateTwo: null,
+      afterDate: null,
+      beforeDate: null,
       currentPageNumber: 1,
       totalPages:null,
     };
@@ -79,11 +80,11 @@ export default class ProjectSearchBar extends Component {
     }
     
   }
-  dateOneChange(date) {
-    this.setState({ dateOne: date });
+  afterDateChange(date) {
+    this.setState({ afterDate: date });
   }
-  dateTwoChange(date) {
-    this.setState({ dateTwo: date });
+  beforeDateChange(date) {
+    this.setState({ beforeDate: date });
   }
   fetchData=()=>{
       
@@ -92,8 +93,8 @@ export default class ProjectSearchBar extends Component {
       dateTypeFilter: this.state.dateTypeFilter,
       timePeriodFilter: this.state.timePeriodFilter,
       dateSortAsc: this.state.dateSortAsc,
-      dateOne: this.state.dateOne,
-      dateTwo: this.state.dateTwo,
+      afterDate: this.state.afterDate,
+      beforeDate: this.state.beforeDate,
       statusFilter: this.props.status,
       noSorting:this.state.noSorting,
       pageNumber: this.state.currentPageNumber
@@ -148,7 +149,10 @@ export default class ProjectSearchBar extends Component {
     Filter By:
           <label htmlFor="sort">Type of Date</label>
           {dateTypes()}
-          <label htmlFor="sort">Time Period</label>
+          
+         
+          
+          {/* <label htmlFor="sort">Time Period</label>
           <select
             className="sortResults"
             id="sortResults"
@@ -165,18 +169,19 @@ export default class ProjectSearchBar extends Component {
             <option value="before">Before</option>
             <option value="after">After</option>
             <option value="betweenDates">Between Dates</option>
-          </select>
-          <label htmlFor="date">Date One</label>
+          </select> */}
+          <div className='dates'>
+          <label htmlFor="date">After</label>
           <input
             type="date"
-            onChange={e => this.dateOneChange(e.target.value)}
+            onChange={e => this.afterDateChange(e.target.value)}
           />
-          <label htmlFor="date">Date Two</label>
+          <label htmlFor="date">Before</label>
           <input
             type="date"
-            onChange={e => this.dateTwoChange(e.target.value)}
+            onChange={e => this.beforeDateChange(e.target.value)}
           />
-         
+         </div>
           <button type="submit" className="submitProjectFilters">
             Submit
           </button>

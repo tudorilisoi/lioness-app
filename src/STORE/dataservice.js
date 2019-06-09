@@ -19,8 +19,8 @@ const defaultOptions = {
     dateTypeFilter: null,
     timePeriodFilter: null,
     dateSortAsc: null,
+    afterDate: null,
     beforeDate: null,
-    dateTwo: null,
     roleFilter: null,
     noSorting:true,
     pageNumber: 1,
@@ -92,68 +92,57 @@ const ds = {
                 let res = false
             })
         }
-        if (mergedOpts.timePeriodFilter) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
-                if (mergedOpts.timePeriodFilter === 'before') {
-                    res = res.filter(project => {
-                        return dayjs(project.startDate).isBefore(dayjs(mergedOpts.dateOne))
-                    })
-                }
-                if (mergedOpts.timePeriodFilter === 'after') {
-                    res = res.filter(project => {
-                        return dayjs(project.startDate).isAfter(dayjs(mergedOpts.dateOne))
-                    })
-                }
-                if (mergedOpts.timePeriodFilter === 'betweenDates') {
-
-                    res = res.filter(project => {
-                        return dayjs(project.startDate).isBetween(dayjs(mergedOpts.dateOne), dayjs(mergedOpts.dateTwo))
-
-                    })
-                }
-            }
-
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                if (mergedOpts.timePeriodFilter === 'before') {
-                    res = res.filter(project => {
-                        return dayjs(project.estimatedDueDate).isBefore(dayjs(mergedOpts.dateOne))
-                    })
-                }
-                if (mergedOpts.timePeriodFilter === 'after') {
-                    res = res.filter(project => {
-                        return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.dateOne))
-                    })
-                }
-
-                if (mergedOpts.timePeriodFilter === 'betweenDates') {
-
-                    res = res.filter(project => {
-                        return dayjs(project.estimatedDueDate).isBetween(dayjs(mergedOpts.dateOne), dayjs(mergedOpts.dateTwo))
-
-                    })
-                }
-            }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
-                if (mergedOpts.timePeriodFilter === 'before') {
-                    res = res.filter(project => {
-                        return dayjs(project.completionDate).isBefore(dayjs(mergedOpts.dateOne))
-                    })
-                }
-                if (mergedOpts.timePeriodFilter === 'after') {
-                    res = res.filter(project => {
-                        return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.dateOne))
-                    })
-                }
-                if (mergedOpts.timePeriodFilter === 'betweenDates') {
-
-                    res = res.filter(project => {
-                        return dayjs(project.completionDate).isBetween(dayjs(mergedOpts.dateOne), dayjs(mergedOpts.dateTwo))
-
-                    })
-                }
-            }
-
+       if(mergedOpts.beforeDate){
+        if (mergedOpts.dateTypeFilter === 'startDate') {
+            res = res.filter(project => {
+                return dayjs(project.startDate).isBefore(dayjs(mergedOpts.beforeDate))
+            })
         }
+        if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
+            res = res.filter(project => {
+                return dayjs(project.estimatedDueDate).isBefore(dayjs(mergedOpts.beforeDate))
+            })
+        }
+        if (mergedOpts.dateTypeFilter === 'completionDate') {
+            res = res.filter(project => {
+                return dayjs(project.completionDate).isBefore(dayjs(mergedOpts.beforeDate))
+            })
+        }
+       }
+       if(mergedOpts.afterDate){
+        if (mergedOpts.dateTypeFilter === 'startDate') {
+            res = res.filter(project => {
+                return dayjs(project.startDate).isAfter(dayjs(mergedOpts.afterDate))
+            })
+        }
+        if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
+            res = res.filter(project => {
+                return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.afterDate))
+            })
+        }
+        if (mergedOpts.dateTypeFilter === 'completionDate') {
+            res = res.filter(project => {
+                return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.afterDate))
+            })
+        }
+       }
+       if(mergedOpts.afterDate && mergedOpts.beforeDate){
+        if (mergedOpts.dateTypeFilter === 'startDate') {
+            res = res.filter(project => {
+                return dayjs(project.startDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
+            })
+        }
+        if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
+            res = res.filter(project => {
+                return dayjs(project.estimatedDueDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
+            })
+        }
+        if (mergedOpts.dateTypeFilter === 'completionDate') {
+            res = res.filter(project => {
+                return dayjs(project.completionDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
+            })
+        }
+       }
 
         if (mergedOpts.dateSortAsc===true && !mergedOpts.noSorting ) {
             
