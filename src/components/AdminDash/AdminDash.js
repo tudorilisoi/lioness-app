@@ -31,11 +31,13 @@ logoutClick=()=>{
         return(
             <div>
             <nav role='navigation' className="navBar">
+                <div className='heading'>
             <h3>Lioness</h3>
          <h4>Welcome!</h4>
          <button onClick={()=>this.logoutClick()}>
             Log Out
         </button>
+        </div>
                 <div className='links'>
                 
                     <NavTab to={`${path}/home`}className='link'>Home</NavTab>

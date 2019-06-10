@@ -3,7 +3,24 @@ nav {
   background-color: #89593F;
   margin-bottom: 0;
 }
-
+.heading{
+  display:flex;
+  flex-direction: column;
+}
+.heading button{
+  width:33%;
+  
+}
+.links{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.links a{
+  text-decoration: none;
+  padding:10px;
+  color:black;
+}
 nav ul {
   /* display: flex; */
   /* flex-direction: column; */
