@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ds from "../../STORE/dataservice";
 import config from "../../config";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import AdminDash from '../AdminDash/AdminDash'
@@ -77,7 +77,8 @@ this.setState({projectsLoaded: false})
           <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginForm} />
-          <Route exact path='/admin-dash' component={AdminDash}/>
+          <Route  path='/admin-dash' 
+          component={AdminDash}/>
           </Switch>
           </BrowserRouter>
         </LionessContext.Provider>
