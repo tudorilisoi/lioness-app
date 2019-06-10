@@ -7,18 +7,19 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 const { getProjects, statuses } = ds;
 export default class ProjectSearchBar extends Component {
   static contextType = LionessContext;
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       budgetSortAsc: null,
-      dateTypeFilter: null,
+      dateTypeFilter: this.getSelectedDateOption(props),
       timePeriodFilter: null,
       dateSortAsc: null,
-      noSorting:null,
+      noSorting: null,
       afterDate: null,
       beforeDate: null,
       currentPageNumber: 1,
-      totalPages:null,
+      totalPages: null,
     };
   }
 
@@ -26,59 +27,59 @@ export default class ProjectSearchBar extends Component {
     if (pageNum === "prev" && this.state.currentPageNumber > 1) {
       this.setState({
         currentPageNumber: this.state.currentPageNumber - 1
-      }, ()=>{this.fetchData()});
+      }, () => { this.fetchData() });
     }
     if (pageNum === "next") {
       this.setState({
-        currentPageNumber:this.state.currentPageNumber + 1
-      }, ()=>{this.fetchData()});
+        currentPageNumber: this.state.currentPageNumber + 1
+      }, () => { this.fetchData() });
     }
-    
+
 
   };
   budgetChange = sortType => {
-      
+
     if (sortType === "asc") {
       this.setState({
         budgetSortAsc: true,
-        dateSortAsc:null,
-        noSorting:null,
-        currentPageNumber:1
-      }, ()=>{this.fetchData()});
+        dateSortAsc: null,
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => { this.fetchData() });
     } else {
       this.setState({
         budgetSortAsc: false,
-        dateSortAsc:null,
-        noSorting:null,
-        currentPageNumber:1
-      }, ()=>{this.fetchData()});
+        dateSortAsc: null,
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => { this.fetchData() });
     }
   };
   dateTypeChange = dateType => {
-      
+
     this.setState({ dateTypeFilter: dateType });
   };
   timePeriodChange = timePeriod => {
     this.setState({ timePeriodFilter: timePeriod });
   };
   dateSortChange(dateSort) {
-      
+
     if (dateSort === "asc") {
       this.setState({
         dateSortAsc: true,
         budgetSortAsc: null,
-        noSorting:null,
-        currentPageNumber:1
-      },()=>{console.log(`this is datesortChange true`,this.fetchData())} );
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => { console.log(`this is datesortChange true`, this.fetchData()) });
     } else {
       this.setState({
         dateSortAsc: false,
         budgetSortAsc: null,
-        noSorting:null,
-        currentPageNumber:1
-      },()=>{console.log(`this is datesortChange false`,this.fetchData())});
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => { console.log(`this is datesortChange false`, this.fetchData()) });
     }
-    
+
   }
   afterDateChange(date) {
     this.setState({ afterDate: date });
@@ -86,8 +87,8 @@ export default class ProjectSearchBar extends Component {
   beforeDateChange(date) {
     this.setState({ beforeDate: date });
   }
-  fetchData=()=>{
-      
+  fetchData = () => {
+
     const opts = {
       budgetFilterAsending: this.state.budgetSortAsc,
       dateTypeFilter: this.state.dateTypeFilter,
@@ -96,13 +97,13 @@ export default class ProjectSearchBar extends Component {
       afterDate: this.state.afterDate,
       beforeDate: this.state.beforeDate,
       statusFilter: this.props.status,
-      noSorting:this.state.noSorting,
+      noSorting: this.state.noSorting,
       pageNumber: this.state.currentPageNumber
     };
     getProjects(opts).then(res => {
       console.log(res)
-      
-        this.context.setProjects(res);
+
+      this.context.setProjects(res);
 
     });
   };
@@ -111,10 +112,31 @@ export default class ProjectSearchBar extends Component {
     this.fetchData();
   }
 
+  getSelectedDateOption(props) {
+    const isInProgress = props.status === "in progress"
+    const isBilled = props.status === "billed"
+    const isEstimate = props.status === "estimate"
+    if (isEstimate) {
+      return 'startDate'
+    }
+    if (isInProgress) {
+      return 'estimatedDueDate'
+    }
+    if (isBilled) {
+      return 'completionDate'
+    }
+    return 'startDate'
+  }
+
 
   render() {
-      
+
+    const isInProgress = this.props.status === "in progress"
+    const isBilled = this.props.status === "billed"
+    const isEstimate = this.props.status === "estimate"
+
     const dateTypes = () => {
+      const selectedOption = this.state.dateTypeFilter
       return (
         <select
           className="sortResults"
@@ -123,19 +145,21 @@ export default class ProjectSearchBar extends Component {
           aria-label="dropdown menu of sort options for results"
           onChange={e => this.dateTypeChange(e.target.value)}
         >
-         <option selected disabled="">Choose One</option>
-          <option value="startDate">Start Date</option>
-          {this.props.status === "in progress" ||
-          this.props.status === "billed" ? (
-            <option value="estimatedDueDate">Estimated Due Date</option>
+          <option selected disabled="">Choose One</option>
+          <option selected={'startDate' === selectedOption} value="startDate">Start Date</option>
+          {isInProgress || isBilled
+            ? (
+              <option
+                selected={'estimatedDueDate' === selectedOption}
+                value="estimatedDueDate">Estimated Due Date</option>
+            ) : (
+              ""
+            )}
+          {isBilled ? (
+            <option selected={'completionDate' === selectedOption} value="completionDate">Completion Date</option>
           ) : (
-            ""
-          )}
-          {this.props.status === "billed" ? (
-            <option value="completionDate">Completion Date</option>
-          ) : (
-            ""
-          )}
+              ""
+            )}
         </select>
       );
     };
@@ -146,12 +170,12 @@ export default class ProjectSearchBar extends Component {
           <label htmlFor="search"> Search</label>
           <input type="text" id="search" name="search" />
           <button type="submit">Search! </button>
-    Filter By:
+          Filter By:
           <label htmlFor="sort">Type of Date</label>
           {dateTypes()}
-          
-         
-          
+
+
+
           {/* <label htmlFor="sort">Time Period</label>
           <select
             className="sortResults"
@@ -171,17 +195,17 @@ export default class ProjectSearchBar extends Component {
             <option value="betweenDates">Between Dates</option>
           </select> */}
           <div className='dates'>
-          <label htmlFor="date">After</label>
-          <input
-            type="date"
-            onChange={e => this.afterDateChange(e.target.value)}
-          />
-          <label htmlFor="date">Before</label>
-          <input
-            type="date"
-            onChange={e => this.beforeDateChange(e.target.value)}
-          />
-         </div>
+            <label htmlFor="date">After</label>
+            <input
+              type="date"
+              onChange={e => this.afterDateChange(e.target.value)}
+            />
+            <label htmlFor="date">Before</label>
+            <input
+              type="date"
+              onChange={e => this.beforeDateChange(e.target.value)}
+            />
+          </div>
           <button type="submit" className="submitProjectFilters">
             Submit
           </button>
@@ -221,8 +245,8 @@ export default class ProjectSearchBar extends Component {
             </button>
           </div>
         </form>
-        <button value="prev"onClick={e=>this.changePage(e.target.value)}>Previous</button>
-        <button value="next"onClick={e=>this.changePage(e.target.value)}>Next</button>
+        <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+        <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
       </div>
     );
   }

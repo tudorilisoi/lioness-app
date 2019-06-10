@@ -36,5 +36,6 @@
 }
 
 .button-content.expanded {
-  max-height: 1000px;
+  max-height: 9000px;
+  overflow: auto;
 }
