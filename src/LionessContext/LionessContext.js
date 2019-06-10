@@ -1,31 +1,32 @@
 import React from 'react'
-const LionessContext =React.createContext(
+import ds from '../STORE/dataservice'
+const LionessContext = React.createContext(
     {
-        projects:[],
-        users:[],
+        projects: ds.defaultProjectData,
+        users: [],
         currentUser: null,
         viewProjectStatus: null,
         viewProjectStatusLoaded: false,
         projectsLoaded: false,
-        usersLoaded:false,
+        usersLoaded: false,
         currentUserLoaded: false,
-        history:{},
-        setCurrentUser: () =>{
+        history: {},
+        setCurrentUser: () => {
 
         },
-        setUsers: () =>{
+        setUsers: () => {
 
         },
-        setProjects: () =>{
+        setProjects: () => {
 
         },
-        beforeProjectFetch: ()=>{
+        beforeProjectFetch: () => {
 
         },
-        beforeUserFetch: () =>{
+        beforeUserFetch: () => {
 
         },
-        setViewProjectStatus: ()=>{
+        setViewProjectStatus: () => {
 
         },
     }

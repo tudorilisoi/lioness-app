@@ -19,7 +19,7 @@ class App extends Component {
     super(props);
     this.state = {
       users: [],
-      projects: [],
+      projects: ds.defaultProjectData,
       currentUser:null,   
       error: null,
       usersLoaded: false,

@@ -16,8 +16,8 @@ export default class Project extends Component {
         })
     }
     render() {
-
-        const projects = this.context.projects.map((project, index) => {
+        // debugger
+        const projects = this.context.projects.data.map((project, index) => {
             const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
             const projectDetails =
                 <section key={project.id}>
