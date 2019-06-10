@@ -4,17 +4,27 @@ const LionessContext = React.createContext(
     {
         projects: ds.defaultProjectData,
         users: [],
+        roles:[],
+      statuses:[],
         currentUser: null,
         viewProjectStatus: null,
         viewProjectStatusLoaded: false,
         projectsLoaded: false,
         usersLoaded: false,
+        rolesLoaded:false,
+      statusesLoaded:false,
         currentUserLoaded: false,
         history: {},
         setCurrentUser: () => {
 
         },
         setUsers: () => {
+
+        },
+        setRoles: () => {
+
+        },
+        setStatuses: () => {
 
         },
         setProjects: () => {

@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 
 // see https://react-select.com/home#getting-started
 import Select from 'react-select'
+import LionessContext from '../../LionessContext/LionessContext';
 
 function dateForInput(dateString) {
     return dayjs(dateString).format('YYYY-MM-DD')
@@ -15,6 +16,7 @@ function dateFromInput(dateString) {
 
 
 export default class EditProject extends Component {
+    static contextType=LionessContext;
     constructor(props) {
         super(props)
         const { project } = this.props
@@ -51,15 +53,19 @@ export default class EditProject extends Component {
 
 
     render() {
-        const { title, status, id, description, startDate } = this.state
+        
+        const { title, status, id, description, startDate, budget } = this.state
         const formattedStartDate = dateForInput(startDate)
-        console.log('date, fmtDate', startDate, formattedStartDate)
+        console.log(`edit form`, this.state)
+        console.log(`hello context`, this.context.statuses)
 
         // const jsStartDate = dateToJS(startDateString)
         // debugger
         const { editMode } = this.props
 
-        const options = [
+        const options = 
+        
+        [
             { value: 'chocolate', label: 'Chocolate' },
             { value: 'strawberry', label: 'Strawberry' },
             { value: 'vanilla', label: 'Vanilla' }
@@ -91,6 +97,13 @@ export default class EditProject extends Component {
                     type='date'
                     initialValue={startDate} editMode={editMode}
                 /></p>
+                <p><span>Budget: :</span><ControlledInput
+                    onChange={value => this.onChange('budget', value)}
+                    tag='input'
+                    type='number'
+                    initialValue={budget} editMode={editMode}
+                /></p>
+
 
             </form>
         )

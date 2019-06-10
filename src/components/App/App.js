@@ -20,8 +20,12 @@ class App extends Component {
     this.state = {
       users: [],
       projects: ds.defaultProjectData,
+      roles:[],
+      statuses:[],
       currentUser:null,   
       error: null,
+      rolesLoaded:false,
+      statusesLoaded:false,
       usersLoaded: false,
       projectsLoaded: false,
       currentUserLoaded: false,
@@ -45,6 +49,18 @@ this.setState({projectsLoaded: false})
       users
     });
   };
+setRoles= roles =>{
+  this.setState({
+    rolesLoaded:true,
+    roles
+  })
+}
+setStatuses= statuses =>{
+this.setState({
+  statusesLoaded:true,
+  statuses
+})
+}
   setCurrentUser = currentUser =>{
     this.setState({
       currentUserLoaded: true,
@@ -60,11 +76,17 @@ this.setState({projectsLoaded: false})
     const contextValue = {
       projects: this.state.projects,
       users: this.state.users,
+      roles:this.state.roles,
+      statuses:this.state.statuses,
+      rolesLoaded:this.state.rolesLoaded,
+      statusesLoaded:this.state.statusesLoaded,
       projectsLoaded: this.state.projectsLoaded,
       usersLoaded: this.state.usersLoaded,
       currentUser:this.state.currentUser,
       history: this.props.history,
       setCurrentUser: this.setCurrentUser,
+      setRoles:this.setRoles,
+      setStatuses:this.setStatuses,
       setUsers: this.setUsers,
       setProjects:this.setProjects,
       beforeProjectFetch: this.beforeProjectFetch,

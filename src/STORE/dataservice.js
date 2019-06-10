@@ -57,6 +57,24 @@ const ds = {
     deleteCookieLoginInfo: () => {
         Cookie.remove("credentials");
     },
+    getRoles:(opts = {})=>{
+        if (!ds.getCookieLoginInfo()) {
+            // throw new Error(NOT_LOGGED_IN)
+            return Promise.reject(new Error(NOT_LOGGED_IN))
+        }
+        const mergedOpts = { ...defaultOptions, ...opts }
+        let res = [...data.roles]
+        return Promise.resolve(res)
+    },
+    getStatuses:(opts = {})=>{
+        if (!ds.getCookieLoginInfo()) {
+            // throw new Error(NOT_LOGGED_IN)
+            return Promise.reject(new Error(NOT_LOGGED_IN))
+        }
+        const mergedOpts = { ...defaultOptions, ...opts }
+        let res = [...data.statuses]
+        return Promise.resolve(res)
+    },
     getUsers: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)

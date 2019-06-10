@@ -6,7 +6,7 @@ import ds from '../../STORE/dataservice';
 import DataLoader from '../DataLoader/DataLoader'
 
 import LionessContext from '../../LionessContext/LionessContext'
-const {getUsers, getProjects, handleFetchError }  =ds
+const {getUsers, getProjects, handleFetchError, getRoles, getStatuses }  =ds
 export default class EstimatesPage extends Component{
     static contextType= LionessContext;
     render(){
@@ -24,6 +24,14 @@ export default class EstimatesPage extends Component{
                 promise={getUsers()} 
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
+                 <DataLoader 
+                promise={getRoles()} 
+                onReject = {handleFetchError}
+                onDataLoaded={this.context.setRoles}/>
+                 <DataLoader 
+                promise={getStatuses()} 
+                onReject = {handleFetchError}
+                onDataLoaded={this.context.setStatuses}/>
                 <h2>Estimates</h2>
                 <ProjectSearchBar status={opts.statusFilter}/>
                 <Project />
