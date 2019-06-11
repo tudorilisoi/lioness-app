@@ -25,7 +25,7 @@ export default class ProjectManagerPage extends Component {
         />
         <h2>Project Managers</h2>
         <UserSearchBar role={opts.roleFilter} />
-        <ProjectManager />
+        <ProjectManager role={opts.roleFilter}/>
       </div>
     );
   }

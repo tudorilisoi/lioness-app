@@ -24,7 +24,7 @@ export default class ContractorsPage extends Component {
         />
         <h2>Contractors</h2>
         <UserSearchBar role={opts.roleFilter} />
-        <Contractor />
+        <Contractor role={opts.roleFilter}/>
       </div>
     );
   }
