@@ -10,9 +10,11 @@ export default class UserSearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      nameSort:null,
+      userNameSortAsc:null,
+      activeProjSortAsc:null,
       currentPageNumber: 1,
       totalPages:null,
+      noSorting: null,
     };
   }
 
@@ -30,11 +32,48 @@ export default class UserSearchBar extends Component {
     
 
   };
-  
+  userNameSortChange=(nameSort)=>{
+    
+    if (nameSort === "asc") {
+      this.setState({
+        userNameSortAsc: true,
+        activeProjSortAsc:null,
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => { this.fetchData() });
+    } else {
+      this.setState({
+        userNameSortAsc: false,
+        activeProjSortAsc:null,
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => {  this.fetchData() });
+    }
+  }
+  activeProjSortChange=(actProjSort)=>{
+    if (actProjSort === "asc") {
+      this.setState({
+        userNameSortAsc: null,
+        activeProjSortAsc:true,
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => { this.fetchData() });
+    } else {
+      this.setState({
+        userNameSortAsc: null,
+        activeProjSortAsc:false,
+        noSorting: null,
+        currentPageNumber: 1
+      }, () => {  this.fetchData() });
+    }
+  }
   fetchData=()=>{
       
     const opts = {
-        nameSort:this.state.nameSort,
+      userNameSortAsc:this.state.userNameSortAsc,
+      noSorting:this.state.noSorting,
+      activeProjSortAsc:this.state.activeProjSortAsc,
+      roleFilter:this.props.role,
     };
     getUsers(opts).then(res => {
       console.log(res)
@@ -50,92 +89,46 @@ export default class UserSearchBar extends Component {
 
 
   render() {
-      
-    const dateTypes = () => {
-      return (
-        <select
-          className="sortResults"
-          id="sortResults"
-          name="sortResults-dropdown"
-          aria-label="dropdown menu of sort options for results"
-          onChange={e => this.dateTypeChange(e.target.value)}
-        >
-         <option selected disabled="">Choose One</option>
-          <option value="startDate">Start Date</option>
-          {this.props.status === "in progress" ||
-          this.props.status === "billed" ? (
-            <option value="estimatedDueDate">Estimated Due Date</option>
-          ) : (
-            ""
-          )}
-          {this.props.status === "billed" ? (
-            <option value="completionDate">Completion Date</option>
-          ) : (
-            ""
-          )}
-        </select>
-      );
-    };
-    console.log(this.state)
-    return (
+        return (
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>
           <label htmlFor="search"> Search</label>
           <input type="text" id="search" name="search" />
           <button type="submit">Search! </button>
-    Filter By:
-          <label htmlFor="sort">Type of Date</label>
-          {dateTypes()}
-        
-          <div className='dates'>
-          <label htmlFor="date">After</label>
-          <input
-            type="date"
-            onChange={e => this.afterDateChange(e.target.value)}
-          />
-          <label htmlFor="date">Before</label>
-          <input
-            type="date"
-            onChange={e => this.beforeDateChange(e.target.value)}
-          />
-         </div>
-          <button type="submit" className="submitProjectFilters">
-            Submit
-          </button>
           Sort by:
           <div className="sort-buttons">
             <button
               type="button"
-              name="date-new"
+              name="name-asc"
               value="asc"
-              onClick={e => this.dateSortChange(e.target.value)}
+              onClick={e => this.userNameSortChange(e.target.value)}
             >
-              Date (Newest)
+              Name (A-Z)
             </button>
             <button
               type="button"
-              name="date-old"
+              name="name-dez"
               value="des"
-              onClick={e => this.dateSortChange(e.target.value)}
+              onClick={e => this.userNameSortChange(e.target.value)}
             >
-              Date (Oldest)
+              Name (Z-A)
             </button>
-            <button
+        {this.props.role===3|| this.props.role===4 ?<button
+          type="button"
+          name="active-project-high"
+          value="asc"
+          onClick={e => this.activeProjSortChange(e.target.value)}
+        >
+          Active Projects (Highest)
+        </button> :''}
+            {this.props.role===3|| this.props.role===4 ?<button
               type="button"
-              name="budget-high"
-              value="asc"
-              onClick={e => this.budgetChange(e.target.value)}
-            >
-              Budget (Highest)
-            </button>
-            <button
-              type="button"
-              name="budget-low"
+              name="active-project-low"
               value="des"
-              onClick={e => this.budgetChange(e.target.value)}
+              onClick={e => this.activeProjSortChange(e.target.value)}
             >
-              Budget (Lowest)
-            </button>
+              Active Projects (Lowest)
+            </button> :''}
           </div>
         </form>
         <button value="prev"onClick={e=>this.changePage(e.target.value)}>Previous</button>

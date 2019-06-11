@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ControlledInput from "./ControlledInput";
+import ControlledInput from "../ControlledInput/ControlledInput";
 import dayjs from "dayjs";
 import ds from "../../STORE/dataservice";
 

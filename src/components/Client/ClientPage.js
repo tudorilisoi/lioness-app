@@ -23,13 +23,13 @@ static contextType= LionessContext;
                 onReject = {handleFetchError}
                 onDataLoaded={this.context.setUsers}/>
                 <h2>Clients</h2>
-                <UserSearchBar/>
+                <UserSearchBar role={opts.roleFilter}/>
                 <Link to='/add-client-form'>
                 <button>Add Client</button>
                 </Link>
                 <button>Email Client</button>
                 
-                 <Client />
+                 <Client role={opts.roleFilter}/>
             </div>
         )
     }

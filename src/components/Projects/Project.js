@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import LionessContext from '../../LionessContext/LionessContext';
-import EditProject from './EditProject'
+import EditProject from '../EditProject/EditProject'
 import './Project.css'
 export default class Project extends Component {
     static contextType = LionessContext
@@ -32,19 +32,19 @@ export default class Project extends Component {
            
          const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
          const editingModeClassName=isEditing ? 'show':''
-            const viewMode = (
-                <>
-                    <p><span>Title:</span>{project.title}</p>
-                    <p><span>Client:</span>{project.client[0].full_name}</p>
-                    <p><span>Project Manager:</span>{project.projectManager[0].full_name}</p>
-                    <p><span>Description :</span>{project.description}</p>
-                    <p><span>Budget:</span>{project.budget}</p>
-                    <p><span>Status:</span>{project.status.title}</p>
-                    <p><span>Start Date:</span>{project.startDate}</p>
-                    {project.estimatedDueDate ? <p><span>Estimated Due Date:</span>{project.estimatedDueDate}</p> : ""}
-                    {project.completionDate ? <p><span>Completion Date:</span>{project.completionDate}</p> : ''}
-                </>
-            )
+            // const viewMode = (
+            //     <>
+            //         <p><span>Title:</span>{project.title}</p>
+            //         <p><span>Client:</span>{project.client[0].full_name}</p>
+            //         <p><span>Project Manager:</span>{project.projectManager[0].full_name}</p>
+            //         <p><span>Description :</span>{project.description}</p>
+            //         <p><span>Budget:</span>{project.budget}</p>
+            //         <p><span>Status:</span>{project.status.title}</p>
+            //         <p><span>Start Date:</span>{project.startDate}</p>
+            //         {project.estimatedDueDate ? <p><span>Estimated Due Date:</span>{project.estimatedDueDate}</p> : ""}
+            //         {project.completionDate ? <p><span>Completion Date:</span>{project.completionDate}</p> : ''}
+            //     </>
+            // )
             const projectDetails =
                 <section key={project.id}>
                     <button className='collapsible' onClick={() => { this.toggle(index) }}>{project.title}

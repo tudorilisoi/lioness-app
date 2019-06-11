@@ -5,6 +5,7 @@ import ClientPage from '../Client/ClientPage'
 import ActiveProjectsPage from '../Projects/ActiveProjectsPage'
 import BilledProjectsPage from '../Projects/BilledProjectsPage'
 import ProjectManagerPage from '../ProjectManagers/ProjectManagerPage'
+import ContractorsPage from '../Contractors/ContractorsPage'
 import HomePage from '../Home/HomePage'
 import { Route, Switch, Redirect} from 'react-router-dom'
 import ds from '../../STORE/dataservice';
@@ -39,7 +40,7 @@ logoutClick=()=>{
                     <NavTab to={`${path}/active-projects`}className='link'>Active Projects</NavTab>
                     <NavTab to={`${path}/billed-projects`}className='link'>Billed Projects</NavTab>
                     <NavTab to={`${path}/project-managers`}className='link'>Project Managers</NavTab>
-                    
+                    <NavTab to={`${path}/contractors`}className='link'>Contractors</NavTab>
                 </div>
          <div className='tabs'>
              <Switch>
@@ -54,6 +55,7 @@ logoutClick=()=>{
              <Route path={`${path}/active-projects`}  exact component={ActiveProjectsPage}></Route>
              <Route path={`${path}/billed-projects`}  exact component={BilledProjectsPage}></Route>
              <Route path={`${path}/project-managers`}  exact component={ProjectManagerPage}></Route>
+             <Route path={`${path}/contractors`}  exact component={ContractorsPage}></Route>
              </Switch>
              
          </div>

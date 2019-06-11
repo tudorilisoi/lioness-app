@@ -19,9 +19,11 @@ const defaultOptions = {
     dateTypeFilter: null,
     timePeriodFilter: null,
     dateSortAsc: null,
+    userNameSortAsc:null,
     afterDate: null,
     beforeDate: null,
     roleFilter: null,
+    activeProjSortAsc:null,
     noSorting: true,
     pageNumber: 1,
 }
@@ -81,12 +83,30 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = { ...defaultOptions, ...opts }
+        console.log(`getUsers Opts`, mergedOpts)
         let res = [...data.users]
         if (mergedOpts.roleFilter) {
             res = res.filter(user => user.role.id === mergedOpts.roleFilter)
         }
-        // return res
-        // const result= parse(stringify(res))
+       if (mergedOpts.userNameSortAsc=== true && !mergedOpts.noSorting){
+        res = res.sort((a, b) => {
+            return  a.full_name.localeCompare(b.full_name);
+        })
+       }
+       if (mergedOpts.userNameSortAsc=== false && !mergedOpts.noSorting){
+        res = res.sort((a, b) => {
+            return  b.full_name.localeCompare(a.full_name);
+        })
+        
+       }
+       if (mergedOpts.activeProjSortAsc=== true && !mergedOpts.noSorting && mergedOpts.userNameSortAsc===null){
+           
+         
+           console.log(`hi active projects count`)
+       }
+       if (mergedOpts.activeProjSortAsc=== false && !mergedOpts.noSorting && mergedOpts.userNameSortAsc===null){
+        console.log(`hi active projects count false`)
+    }
         return Promise.resolve(res)
     },
     getProjects: (opts = {}) => {
@@ -231,17 +251,6 @@ const ds = {
             return Promise.resolve(findUser)
         }
     },
-    // statusFilter: (status)=>{
-    //     let projects= [...data.projects]
-    //     if(status==='allProjects'){
-    //         return Promise.resolve(projects)
-    //     }else {
-    //         const projectByStatus= projects.filter(project=>project.status===status)
-    // return Promise.resolve(projectByStatus)
-    //     }
-    // },
-
-    // getProjects: () => {}
 }
 export default ds
 
