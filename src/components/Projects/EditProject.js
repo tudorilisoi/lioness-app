@@ -63,20 +63,26 @@ export default class EditProject extends Component {
         // debugger
         const { editMode } = this.props
 
+        
+     const statusesOpts= this.context.statuses.map(status=>{
         const options = 
         
-        [
-            { value: 'chocolate', label: 'Chocolate' },
-            { value: 'strawberry', label: 'Strawberry' },
-            { value: 'vanilla', label: 'Vanilla' }
-        ]
+            { value: status.id, label: status.title }
+            // { value: 'strawberry', label: 'Strawberry' },
+            // { value: 'vanilla', label: 'Vanilla' }
+        
+        return options
+     })
+        
+console.log(`hello status opts`,statusesOpts)
+    
 
         return (
             <form>
                 <div><span>Status:</span>{!editMode ? status.title : (
                     <Select
-                        options={options}
-                        defaultValue={options[2]}
+                        options={statusesOpts}
+                        defaultValue={statusesOpts[0]}
                         onChange={value => this.onChange('status', value)}
                     />
                 )}</div>
