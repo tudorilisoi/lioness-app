@@ -235,8 +235,9 @@ export default class EditProject extends Component {
             editMode={editMode}
           />
         </p>
+        <button>Save</button>
       </form>
-      <button>Save</button>
+      
       </div>
     );
   }
