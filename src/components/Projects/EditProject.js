@@ -23,7 +23,19 @@ export default class EditProject extends Component {
     const { project } = this.props;
     this.state = {
       ...project,
-      validationMessages:null
+      validationMessages:{
+        title:'',
+      status:'',
+      description:'',
+      startDate:'',
+      budget:'',
+      estimatedDueDate:'',
+      client:'',
+      projectManager:'',
+      contractors:''
+
+
+      }
 
     };
     "startDate completionDate estimatedDueDate"
@@ -46,9 +58,16 @@ export default class EditProject extends Component {
 
   validateField = (fieldName, value) => {
     console.log(`validating "${fieldName}" against the value of: ${value}`);
+    if(value==='')
     switch (fieldName) {
       case "title":
+      this.setState({validationMessages:{
+        title:'Title can not be empty'
+      }})
       case "description":
+          this.setState({validationMessages:{
+            description:'Description can not be empty'
+          }})
         //TODO setState with proper validation messages
         break;
 
