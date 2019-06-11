@@ -39,3 +39,9 @@
   max-height: 9000px;
   overflow: auto;
 }
+.saveButton{
+  display:none
+}
+.saveButton.show{
+display:block;
+}

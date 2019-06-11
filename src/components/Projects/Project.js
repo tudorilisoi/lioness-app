@@ -29,7 +29,9 @@ export default class Project extends Component {
         // debugger
         const projects = this.context.projects.data.map((project, index) => {
             const isEditing = this.state.editModeIndex === index
-            const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
+           
+         const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
+         const editingModeClassName=isEditing ? 'show':''
             const viewMode = (
                 <>
                     <p><span>Title:</span>{project.title}</p>
@@ -57,7 +59,7 @@ export default class Project extends Component {
                         <button>Delete</button>
                         <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button>
                         <EditProject project={project} editMode={isEditing} />
-
+                        <button className={`saveButton ${editingModeClassName}`}>Save</button>
                     </div>
 
                 </section>

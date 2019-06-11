@@ -58,9 +58,10 @@ export default class EditProject extends Component {
 
   validateField = (fieldName, value) => {
     console.log(`validating "${fieldName}" against the value of: ${value}`);
-    if(value==='')
+    
     switch (fieldName) {
       case "title":
+          if(value==='')
       this.setState({validationMessages:{
         title:'Title can not be empty'
       }})
@@ -95,7 +96,8 @@ export default class EditProject extends Component {
       estimatedDueDate,
       client,
       projectManager,
-      contractors
+      contractors,
+      completionDate,
     } = this.state;
     const formattedStartDate = dateForInput(startDate);
 
@@ -209,6 +211,7 @@ export default class EditProject extends Component {
           <ControlledInput
             onChange={value => this.onChange("title", value)}
             tag="input"
+            required={true}
             initialValue={title}
             editMode={editMode}
           />
@@ -218,6 +221,7 @@ export default class EditProject extends Component {
           <ControlledInput
             onChange={value => this.onChange("description", value)}
             tag="input"
+            required={true}
             initialValue={description}
             editMode={editMode}
           />
@@ -228,33 +232,49 @@ export default class EditProject extends Component {
             onChange={value => this.onChange("startDate", value)}
             tag="input"
             type="date"
+            required={true}
             initialValue={startDate}
             editMode={editMode}
           />
         </p>
-        <p>
+       <p className={status.id===2 || status.id===3 ? 'show':''}>
           <span>Estimated Due Date :</span>
           <ControlledInput
             onChange={value => this.onChange("estimatedDueDate", value)}
             tag="input"
             type="date"
+            required={true}
             initialValue={
               estimatedDueDate === "Invalid Date" ? "" : estimatedDueDate
             }
             editMode={editMode}
           />
-        </p>
-        <p>
+        </p> 
+       { status.id===3 ? <p>
+          <span>Completion Date :</span>
+          <ControlledInput
+            onChange={value => this.onChange("estimatedDueDate", value)}
+            tag="input"
+            type="date"
+            required={true}
+            initialValue={
+              completionDate === "Invalid Date" ? "" : completionDate
+            }
+            editMode={editMode}
+          />
+        </p> :''}
+        <p> 
           <span>Budget: :</span>
           <ControlledInput
             onChange={value => this.onChange("budget", value)}
             tag="input"
             type="number"
+            required={true}
             initialValue={budget}
             editMode={editMode}
           />
         </p>
-        <button>Save</button>
+        
       </form>
       
       </div>
