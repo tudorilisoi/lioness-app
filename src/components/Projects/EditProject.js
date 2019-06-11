@@ -22,7 +22,9 @@ export default class EditProject extends Component {
     super(props);
     const { project } = this.props;
     this.state = {
-      ...project
+      ...project,
+      validationMessages:null
+
     };
     "startDate completionDate estimatedDueDate"
       .split(" ")
@@ -77,7 +79,6 @@ export default class EditProject extends Component {
       contractors
     } = this.state;
     const formattedStartDate = dateForInput(startDate);
-    console.log(`edit form`, this.state);
 
     // const jsStartDate = dateToJS(startDateString)
     // debugger
@@ -131,6 +132,7 @@ export default class EditProject extends Component {
     currentContractorNames.join(" and ");
 
     return (
+      <div>
       <form>
         <div>
           <span>Status:</span>
@@ -234,6 +236,8 @@ export default class EditProject extends Component {
           />
         </p>
       </form>
+      <button>Save</button>
+      </div>
     );
   }
 }

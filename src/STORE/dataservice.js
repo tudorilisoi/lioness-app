@@ -99,8 +99,6 @@ const ds = {
         let res = [...data.projects]
 
 
-        console.log(`getProjects`, mergedOpts)
-
         if (mergedOpts.statusFilter) {
             res = res.filter(project => {
                 // 
@@ -205,11 +203,9 @@ const ds = {
         const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
         const numPages = Math.ceil(res.length / ITEMS_PER_PAGE)
         const totalItemCount = res.length
-        console.log(`total count: ${totalItemCount}, numPages: ${numPages}`)
-        res = res.slice(begin, end)
-        // console.log('paged projects:', res)
 
-        // console.log(`pagination: from ${begin} to ${end}`)
+        res = res.slice(begin, end)
+      
 
 
         return Promise.resolve({

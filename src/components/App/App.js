@@ -5,14 +5,7 @@ import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import AdminDash from '../AdminDash/AdminDash'
-import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
-import ClientPage from '../Client/ClientPage.js'
 import LionessContext from "../../LionessContext/LionessContext";
-import ActiveProjectsPage from '../Projects/ActiveProjectsPage';
-import ProjectManagerPage from '../ProjectManagers/ProjectManagerPage';
-import EstimatesPage from '../Projects/EstimatesPage';
-import BilledProjectsPage from '../Projects/BilledProjectsPage';
-import AddClientForm from '../Client/AddClientForm'
 import './App.css'
 class App extends Component {
   constructor(props) {

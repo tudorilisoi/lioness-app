@@ -3,7 +3,6 @@ import "./ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 const { getProjects, statuses } = ds;
 export default class ProjectSearchBar extends Component {
   static contextType = LionessContext;
@@ -70,14 +69,14 @@ export default class ProjectSearchBar extends Component {
         budgetSortAsc: null,
         noSorting: null,
         currentPageNumber: 1
-      }, () => { console.log(`this is datesortChange true`, this.fetchData()) });
+      }, () => { this.fetchData() });
     } else {
       this.setState({
         dateSortAsc: false,
         budgetSortAsc: null,
         noSorting: null,
         currentPageNumber: 1
-      }, () => { console.log(`this is datesortChange false`, this.fetchData()) });
+      }, () => {  this.fetchData() });
     }
 
   }
@@ -101,7 +100,6 @@ export default class ProjectSearchBar extends Component {
       pageNumber: this.state.currentPageNumber
     };
     getProjects(opts).then(res => {
-      console.log(res)
 
       this.context.setProjects(res);
 
@@ -163,7 +161,6 @@ export default class ProjectSearchBar extends Component {
         </select>
       );
     };
-    console.log(this.state)
     return (
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>
@@ -173,27 +170,6 @@ export default class ProjectSearchBar extends Component {
           Filter By:
           <label htmlFor="sort">Type of Date</label>
           {dateTypes()}
-
-
-
-          {/* <label htmlFor="sort">Time Period</label>
-          <select
-            className="sortResults"
-            id="sortResults"
-            name="sortResults-dropdown"
-            aria-label="dropdown menu of sort options for results"
-            onChange={e => this.timePeriodChange(e.target.value)}
-          >
-            <option value="" selected disabled>
-              Choose One
-            </option>
-            <option value="all" defaultValue>
-              All
-            </option>
-            <option value="before">Before</option>
-            <option value="after">After</option>
-            <option value="betweenDates">Between Dates</option>
-          </select> */}
           <div className='dates'>
             <label htmlFor="date">After</label>
             <input

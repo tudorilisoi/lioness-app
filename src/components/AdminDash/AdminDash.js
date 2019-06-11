@@ -1,27 +1,20 @@
 import React, {Component} from 'react'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { RoutedTabs, NavTab} from "react-router-tabs";
+import { NavTab} from "react-router-tabs";
 import EstimatesPage from '../Projects/EstimatesPage'
 import ClientPage from '../Client/ClientPage'
-import AddClientForm from '../Client/AddClientForm'
 import ActiveProjectsPage from '../Projects/ActiveProjectsPage'
 import BilledProjectsPage from '../Projects/BilledProjectsPage'
 import ProjectManagerPage from '../ProjectManagers/ProjectManagerPage'
 import HomePage from '../Home/HomePage'
-import {Link, Route, Switch, Redirect} from 'react-router-dom'
-import DataLoader from '../DataLoader/DataLoader'
+import { Route, Switch, Redirect} from 'react-router-dom'
 import ds from '../../STORE/dataservice';
 import './AdminDash.css'
 import LionessContext from '../../LionessContext/LionessContext'
 
 import "react-tabs/style/react-tabs.css";
 const {deleteCookieLoginInfo} = ds
-const {getUsers, getProjects, handleFetchError }  =ds
 export default class AdminDash extends Component{
-static contextType= LionessContext;
-constructor(){
-    super()
-}
+static contextType= LionessContext
 logoutClick=()=>{
     deleteCookieLoginInfo()
     this.props.history.push('/login')

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import NavBar from '../Nav/Nav';
 import Project from './Project'
 import ProjectSearchBar from './ProjectSearchBar'
 import ds from '../../STORE/dataservice';
