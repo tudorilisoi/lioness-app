@@ -99,11 +99,12 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = { ...defaultOptions, ...opts }
-        console.log(`getUsers Opts`, mergedOpts)
+        // console.log(`getUsers Opts`, mergedOpts)
         let res = [...data.users]
         if (mergedOpts.roleFilter) {
             res = res.filter(user => user.role.id === mergedOpts.roleFilter)
         }
+
         if (mergedOpts.userNameSortAsc === true && !mergedOpts.noSorting) {
             res = res.sort((a, b) => {
                 return a.full_name.localeCompare(b.full_name);
@@ -124,6 +125,7 @@ const ds = {
             console.log(`hi active projects count false`)
         }
         return delay(Promise.resolve(res), Math.random() * 1000)
+
     },
     getProjects: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
