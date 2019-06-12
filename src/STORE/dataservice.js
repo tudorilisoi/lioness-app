@@ -12,6 +12,8 @@ dayjs.extend(isBetween)
 const { parse, stringify } = fjs
 
 let data = parse(JSON.stringify(dataString));
+
+//TODO split this into separate defaults for users, roles and so on
 const defaultOptions = {
     statusFilter: null,
     searchQuery: null,
@@ -19,20 +21,20 @@ const defaultOptions = {
     dateTypeFilter: null,
     timePeriodFilter: null,
     dateSortAsc: null,
-    userNameSortAsc:null,
+    userNameSortAsc: null,
     afterDate: null,
     beforeDate: null,
     roleFilter: null,
-    activeProjSortAsc:null,
+    activeProjSortAsc: null,
     noSorting: true,
     pageNumber: 1,
 }
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
 const ITEMS_PER_PAGE = 10
 
-function delay(promiseObj) {
-    return Promise(resolve => {
-        window.setTimeout(resolve(promiseObj), 2000)
+function delay(promiseObj, delayMillis = 2000) {
+    return new Promise(resolve => {
+        window.setTimeout(() => resolve(promiseObj), delayMillis)
     })
 }
 
@@ -59,7 +61,7 @@ const ds = {
     deleteCookieLoginInfo: () => {
         Cookie.remove("credentials");
     },
-    getRoles:(opts = {})=>{
+    getRoles: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
@@ -68,14 +70,14 @@ const ds = {
         let res = [...data.roles]
         return Promise.resolve(res)
     },
-    getStatuses:(opts = {})=>{
+    getStatuses: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = { ...defaultOptions, ...opts }
         let res = [...data.statuses]
-        return Promise.resolve(res)
+        return delay(Promise.resolve(res), 500)
     },
     getUsers: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
@@ -88,26 +90,26 @@ const ds = {
         if (mergedOpts.roleFilter) {
             res = res.filter(user => user.role.id === mergedOpts.roleFilter)
         }
-       if (mergedOpts.userNameSortAsc=== true && !mergedOpts.noSorting){
-        res = res.sort((a, b) => {
-            return  a.full_name.localeCompare(b.full_name);
-        })
-       }
-       if (mergedOpts.userNameSortAsc=== false && !mergedOpts.noSorting){
-        res = res.sort((a, b) => {
-            return  b.full_name.localeCompare(a.full_name);
-        })
-        
-       }
-       if (mergedOpts.activeProjSortAsc=== true && !mergedOpts.noSorting && mergedOpts.userNameSortAsc===null){
-           
-         
-           console.log(`hi active projects count`)
-       }
-       if (mergedOpts.activeProjSortAsc=== false && !mergedOpts.noSorting && mergedOpts.userNameSortAsc===null){
-        console.log(`hi active projects count false`)
-    }
-        return Promise.resolve(res)
+        if (mergedOpts.userNameSortAsc === true && !mergedOpts.noSorting) {
+            res = res.sort((a, b) => {
+                return a.full_name.localeCompare(b.full_name);
+            })
+        }
+        if (mergedOpts.userNameSortAsc === false && !mergedOpts.noSorting) {
+            res = res.sort((a, b) => {
+                return b.full_name.localeCompare(a.full_name);
+            })
+
+        }
+        if (mergedOpts.activeProjSortAsc === true && !mergedOpts.noSorting && mergedOpts.userNameSortAsc === null) {
+
+
+            console.log(`hi active projects count`)
+        }
+        if (mergedOpts.activeProjSortAsc === false && !mergedOpts.noSorting && mergedOpts.userNameSortAsc === null) {
+            console.log(`hi active projects count false`)
+        }
+        return delay(Promise.resolve(res))
     },
     getProjects: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
@@ -225,14 +227,14 @@ const ds = {
         const totalItemCount = res.length
 
         res = res.slice(begin, end)
-      
 
 
-        return Promise.resolve({
+
+        return delay(Promise.resolve({
             data: res,
             numPages,
             totalItemCount,
-        })
+        }))
     },
     getUserLogin: (email, password) => {
 
