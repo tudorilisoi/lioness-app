@@ -76,7 +76,7 @@ export default class ProjectSearchBar extends Component {
         budgetSortAsc: null,
         noSorting: null,
         currentPageNumber: 1
-      }, () => {  this.fetchData() });
+      }, () => { this.fetchData() });
     }
 
   }
@@ -126,6 +126,9 @@ export default class ProjectSearchBar extends Component {
     return 'startDate'
   }
 
+  componentDidMount() {
+    this.fetchData()
+  }
 
   render() {
 

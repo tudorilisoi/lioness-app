@@ -78,12 +78,16 @@ export default class EditProject extends Component {
   };
 
   componentDidMount() {
-    getStatuses().then(res => {
+
+    // TODO keep users filter in the local state
+    // Even better, create a component which filters users by a search string
+
+    /* getStatuses().then(res => {
       this.context.setStatuses(res);
     });
     getUsers().then(res => {
       this.context.setUsers(res);
-    });
+    }); */
   }
   render() {
     const {
