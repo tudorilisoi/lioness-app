@@ -58,7 +58,7 @@ export default class UserSelector extends Component {
         const props = {
             onChange: this.onChange,
             isMulti: multiple,
-            // defaultOptions: true,
+            defaultOptions: true,
             value: this.state.selected,
             loadOptions: loadUsersPromise,
         }
