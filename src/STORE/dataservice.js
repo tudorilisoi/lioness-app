@@ -43,9 +43,9 @@ console.log('parsed data', data)
 const ds = {
 
     /**
-     * compares two circular data structures received from the get*
+     * compares two circular data objects
      * 
-     * useful for avoidding unnecessary state updates
+     * useful for avoiding unnecessary state updates when using setProjects, setRoles, etc.
      * @param {Object} objOne 
      * @param Object} objTwo 
      */
