@@ -33,7 +33,7 @@ const defaultOptions = {
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
 const ITEMS_PER_PAGE = 10
 
-function delay(promiseObj, delayMillis = 2000) {
+function delay(promiseObj, delayMillis = 1000) {
     return new Promise(resolve => {
         window.setTimeout(() => resolve(promiseObj), delayMillis)
     })
@@ -124,7 +124,7 @@ const ds = {
         if (mergedOpts.activeProjSortAsc === false && !mergedOpts.noSorting && mergedOpts.userNameSortAsc === null) {
             console.log(`hi active projects count false`)
         }
-        return delay(Promise.resolve(res), Math.random() * 2000)
+        return delay(Promise.resolve(res), Math.random() * 1000)
     },
     getProjects: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
