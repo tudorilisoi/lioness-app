@@ -2,6 +2,7 @@
 import dataString from './flattenedData.json';
 import Cookie from "js.cookie"
 import fjs from 'flatted/cjs';
+import { default as deterministicStringify } from 'json-stable-stringify'
 import { reject } from 'q';
 import { createEmitAndSemanticDiagnosticsBuilderProgram, reduceEachLeadingCommentRange } from 'typescript';
 import { history } from '../index';
@@ -40,6 +41,18 @@ function delay(promiseObj, delayMillis = 2000) {
 
 console.log('parsed data', data)
 const ds = {
+
+    /**
+     * compares two circular data structures received from the get*
+     * 
+     * useful for avoidding unnecessary state updates
+     * @param {Object} objOne 
+     * @param Object} objTwo 
+     */
+
+    areObjectsDeepEqual(objOne, objTwo) {
+        return deterministicStringify(stringify(objOne)) === deterministicStringify(stringify(objTwo))
+    },
 
     defaultProjectData: { data: [], numPages: 0, totalItemCount: 0 },
 
@@ -109,7 +122,7 @@ const ds = {
         if (mergedOpts.activeProjSortAsc === false && !mergedOpts.noSorting && mergedOpts.userNameSortAsc === null) {
             console.log(`hi active projects count false`)
         }
-        return delay(Promise.resolve(res))
+        return delay(Promise.resolve(res), Math.random() * 2000)
     },
     getProjects: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
