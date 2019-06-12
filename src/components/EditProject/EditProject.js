@@ -78,12 +78,15 @@ export default class EditProject extends Component {
   };
 
   componentDidMount() {
-    getStatuses().then(res => {
+
+    // TODO keeps users filter in the local state
+
+    /* getStatuses().then(res => {
       this.context.setStatuses(res);
     });
     getUsers().then(res => {
       this.context.setUsers(res);
-    });
+    }); */
   }
   render() {
     const {
