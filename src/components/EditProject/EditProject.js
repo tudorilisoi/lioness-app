@@ -103,7 +103,8 @@ export default class EditProject extends Component {
 
     // TODO pass statuses as a property
     // Do NOT use context any level deep, just on the *Page components
-    
+    // this is now broken
+
     const statusesOpts = this.context.statuses.map(status => {
       const options = { value: status.id, label: status.title };
       // { value: 'strawberry', label: 'Strawberry' },
