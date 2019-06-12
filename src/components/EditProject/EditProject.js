@@ -119,8 +119,7 @@ export default class EditProject extends Component {
     // debugger
     let currentContractorNames = contractors.map(contractor => {
       return contractor.full_name;
-    });
-    currentContractorNames = currentContractorNames.join(", ");
+    }).join(", ");
     return (
       <div>
         <form>
