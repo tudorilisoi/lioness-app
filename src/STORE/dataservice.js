@@ -99,13 +99,13 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = { ...defaultOptions, ...opts }
-        console.log(`getUsers Opts`, mergedOpts)
+        // console.log(`getUsers Opts`, mergedOpts)
         let res = [...data.users]
-        
+
         if (mergedOpts.roleFilter) {
             res = res.filter(user => user.role.id === mergedOpts.roleFilter)
         }
-        
+
         if (mergedOpts.searchQuery) {
             res = res.filter(u => u.full_name.toLowerCase().indexOf(mergedOpts.searchQuery.toLowerCase()) === 0)
         }
@@ -123,6 +123,7 @@ const ds = {
         }
 
         return delay(Promise.resolve(res), Math.random() * 1000)
+
     },
     getProjects: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
