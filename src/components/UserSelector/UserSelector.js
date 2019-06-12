@@ -29,7 +29,7 @@ export default class UserSelector extends Component {
                 return isSelected
             })
             console.log(selectedUsers.map(u => u.full_name))
-            onChange(multiple ? selectedUsers[0] : selectedUsers)
+            onChange(!multiple ? selectedUsers[0] : selectedUsers)
         })
     }
 

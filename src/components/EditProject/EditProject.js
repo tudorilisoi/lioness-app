@@ -85,7 +85,8 @@ export default class EditProject extends Component {
     // TODO keep users filter in the local state
     // Even better, create a component which filters users by a search string
 
-    /* getStatuses().then(res => {
+    /* 
+    getStatuses().then(res => {
       this.context.setStatuses(res);
     });
     getUsers().then(res => {
@@ -172,7 +173,7 @@ export default class EditProject extends Component {
             ) : (
                 <Select
                   options={statusesOpts}
-                  defaultValue={prevStatus[0]}
+                  value={prevStatus[0]}
                   onChange={value => this.onChange("status", value)}
                 />
               )}
@@ -183,7 +184,7 @@ export default class EditProject extends Component {
               client[0].full_name
             ) : (
                 <UserSelector
-                  onChange={value => this.onChange("client", value)}
+                  onChange={value => this.onChange("client", [value])}
                   multiple={false} defaultValue={client[0]} roleFilter={2} />
               )}
           </div>
@@ -192,13 +193,9 @@ export default class EditProject extends Component {
             {!editMode ? (
               projectManager[0].full_name
             ) : (
-                // <Select
-                //   options={pmOpts}
-                //   defaultValue={prevPm[0]}
-                //   onChange={value => this.onChange("projectManager", value)}
-                // 
-                // />
-                null
+                <UserSelector
+                  onChange={value => this.onChange("projectManager", [value])}
+                  multiple={false} defaultValue={projectManager[0]} roleFilter={4} />
               )}
           </div>
           <div>
@@ -206,15 +203,13 @@ export default class EditProject extends Component {
             {!editMode ? (
               currentContractorNames
             ) : (
-                // <Select
-                //   defaultValue={prevContractors}
-                //   isMulti
-                //   name="colors"
-                //   options={contractorOpts}
-                //   className="basic-multi-select"
-                //   classNamePrefix="select"
-                // />
-                null
+                <UserSelector
+                  onChange={value => this.onChange("contractors", [value])}
+                  multiple={true} defaultValue={contractors} roleFilter={3}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                />
+
               )}
           </div>
           <p>
