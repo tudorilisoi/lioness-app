@@ -12,7 +12,10 @@ export default class EstimatesPage extends Component {
         statusFilter: 'estimate',
     }
 
-    componentDidMount() {
+    // TODO remove this!! It is disabled anyway because I prefixed with a _
+    _componentDidMount() {
+
+        console.log(this.props)
 
         const dataFetchPromise = Promise.all([
             getProjects(EstimatesPage.opts),
