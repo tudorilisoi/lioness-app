@@ -23,6 +23,7 @@ class App extends Component {
       usersLoaded: false,
       projectsLoaded: false,
       currentUserLoaded: false,
+      reloadProjects:null,
     };
   }
   beforeProjectFetch = () => {
@@ -31,11 +32,13 @@ class App extends Component {
   beforeUserFetch = () => {
     this.setState({ usersLoaded: false, })
   }
-  setProjects = projects => {
+  setProjects = (projects, reloadFn) => {
     if (ds.areObjectsDeepEqual(projects, this.state.projects)) {
+      console.log('Projects are up to date')
       return
     }
     this.setState({
+      reloadProjects: reloadFn,
       projectsLoaded: true,
       projects
     });
@@ -83,6 +86,7 @@ class App extends Component {
       return <h1>There is an error:{error.toString()}</h1>;
     }
     const contextValue = {
+      reloadProjects: this.state.reloadProjects,
       projects: this.state.projects,
       users: this.state.users,
       roles: this.state.roles,

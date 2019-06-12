@@ -102,7 +102,7 @@ export default class ProjectSearchBar extends Component {
       pageNumber: this.state.currentPageNumber
     };
     getProjects(opts).then(res => {
-      this.context.setProjects(res);
+      this.context.setProjects(res, this.fetchData);
     });
     getStatuses().then(res=>{
       this.context.setStatuses(res);
