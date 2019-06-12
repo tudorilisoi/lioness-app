@@ -101,9 +101,15 @@ const ds = {
         const mergedOpts = { ...defaultOptions, ...opts }
         console.log(`getUsers Opts`, mergedOpts)
         let res = [...data.users]
+        
         if (mergedOpts.roleFilter) {
             res = res.filter(user => user.role.id === mergedOpts.roleFilter)
         }
+        
+        if (mergedOpts.searchQuery) {
+            res = res.filter(u => u.full_name.toLowerCase().indexOf(mergedOpts.searchQuery.toLowerCase()) === 0)
+        }
+
         if (mergedOpts.userNameSortAsc === true && !mergedOpts.noSorting) {
             res = res.sort((a, b) => {
                 return a.full_name.localeCompare(b.full_name);
@@ -115,14 +121,7 @@ const ds = {
             })
 
         }
-        if (mergedOpts.activeProjSortAsc === true && !mergedOpts.noSorting && mergedOpts.userNameSortAsc === null) {
 
-
-            console.log(`hi active projects count`)
-        }
-        if (mergedOpts.activeProjSortAsc === false && !mergedOpts.noSorting && mergedOpts.userNameSortAsc === null) {
-            console.log(`hi active projects count false`)
-        }
         return delay(Promise.resolve(res), Math.random() * 1000)
     },
     getProjects: (opts = {}) => {
