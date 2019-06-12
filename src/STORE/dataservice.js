@@ -83,7 +83,7 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = { ...defaultOptions, ...opts }
-        console.log(`getUsers Opts`, mergedOpts)
+        // console.log(`getUsers Opts`, mergedOpts)
         let res = [...data.users]
         if (mergedOpts.roleFilter) {
             res = res.filter(user => user.role.id === mergedOpts.roleFilter)
@@ -100,9 +100,12 @@ const ds = {
         
        }
        if (mergedOpts.activeProjSortAsc=== true && !mergedOpts.noSorting && mergedOpts.userNameSortAsc===null){
-           
-         
-           console.log(`hi active projects count`)
+          res= res.map(user=>{
+            let projects=user.projects.filter(project=>project.status.title==='in progress').length
+        return projects
+           }
+            )
+           console.log(`hi active projects count`,res)
        }
        if (mergedOpts.activeProjSortAsc=== false && !mergedOpts.noSorting && mergedOpts.userNameSortAsc===null){
         console.log(`hi active projects count false`)
