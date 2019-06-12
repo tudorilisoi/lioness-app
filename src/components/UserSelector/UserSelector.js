@@ -25,7 +25,7 @@ export default class UserSelector extends Component {
             const selArr = !multiple ? [selected] : selected
             // debugger
             const selectedUsers = this.cache.filter(u => {
-                const isSelected = selArr.find(i => i.value === u.id)
+                const isSelected = !selArr ? false : selArr.find(i => i.value === u.id)
                 return isSelected
             })
             console.log(selectedUsers.map(u => u.full_name))
