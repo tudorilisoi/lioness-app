@@ -51,7 +51,9 @@ const ds = {
      */
 
     areObjectsDeepEqual(objOne, objTwo) {
-        return deterministicStringify(stringify(objOne)) === deterministicStringify(stringify(objTwo))
+        const flatOne = JSON.parse(stringify(objOne))
+        const flatTwo = JSON.parse(stringify(objTwo))
+        return deterministicStringify(flatOne) === deterministicStringify(flatTwo)
     },
 
     defaultProjectData: { data: [], numPages: 0, totalItemCount: 0 },
