@@ -80,19 +80,7 @@ export default class EditProject extends Component {
     }
   };
 
-  componentDidMount() {
-
-    // TODO keep users filter in the local state
-    // Even better, create a component which filters users by a search string
-
-    /* 
-    getStatuses().then(res => {
-      this.context.setStatuses(res);
-    });
-    getUsers().then(res => {
-      this.context.setUsers(res);
-    }); */
-  }
+ 
   render() {
     const {
       title,
@@ -113,6 +101,9 @@ export default class EditProject extends Component {
     // debugger
     const { editMode } = this.props;
 
+    // TODO pass statuses as a property
+    // Do NOT use context any level deep, just on the *Page components
+    
     const statusesOpts = this.context.statuses.map(status => {
       const options = { value: status.id, label: status.title };
       // { value: 'strawberry', label: 'Strawberry' },
@@ -123,46 +114,11 @@ export default class EditProject extends Component {
     const prevStatus = statusesOpts.filter(
       status => status.value === this.state.status.id
     );
-    // const clientList = this.context.users.filter(user => user.role.id === 2);
-    // const clientOpts = clientList.map(client => {
-    //   const options = { value: client.id, label: client.full_name };
-    //   return options;
-    // });
-    // const prevClient = clientOpts.filter(
-    //   client => client.value === this.state.client[0].id
-    // );
-    // const projectManagerList = this.context.users.filter(
-    //   user => user.role.id === 4
-    // );
-    // const pmOpts = projectManagerList.map(pm => {
-    //   const options = { value: pm.id, label: pm.full_name };
-    //   return options;
-    // });
-    // const prevPm = pmOpts.filter(
-    //   pm => pm.value === this.state.projectManager[0].id
-    // );
-    // const contractorList = this.context.users.filter(
-    //   user => user.role.id === 3
-    // );
-    // const contractorOpts = contractorList.map(contractor => {
-    //   const options = { value: contractor.id, label: contractor.full_name };
-    //   return options;
-    // });
 
-    // let currentContractorFilter = this.state.contractors.map(contractor => {
-    //   return contractor.id;
-    // });
-    // let prevContractors = contractorOpts.filter(contractor =>
-    //   currentContractorFilter.includes(contractor.value)
-    // );
     let currentContractorNames = contractors.map(contractor => {
       return contractor.full_name;
     });
     currentContractorNames.join(" and ");
-
-    // console.log('Editing:', this.state.project)
-
-
     return (
       <div>
         <form>
