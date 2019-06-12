@@ -3,7 +3,6 @@ import "./LoginForm.css";
 import LionessContext from "../../LionessContext/LionessContext";
 import ValidationErrors from '../ValidationErrors/ValidationErrors';
 import ds from '../../STORE/dataservice';
-import { thisTypeAnnotation } from "@babel/types";
 import * as EmailValidator from 'email-validator'
 
 const {getUserLogin, setCookieLoginInfo, getCookieLoginInfo }  =ds
