@@ -13,6 +13,7 @@ export default class EstimatesPage extends Component {
     }
 
     // TODO remove this!! It is disabled anyway because I prefixed with a _
+    // this is just an example on how to fetch multiple promises
     _componentDidMount() {
 
         console.log(this.props)
