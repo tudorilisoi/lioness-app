@@ -3,7 +3,9 @@ import AsyncSelect from "react-select/async";
 import ds from '../../STORE/dataservice';
 const { getUsers, getProjects, handleFetchError, getRoles, getStatuses } = ds
 
-const mapUsersToOptions = users => users.map(u => { return { value: u.id, label: u.full_name } })
+const mapUsersToOptions = users =>
+    users.map(u => { return { value: u.id, label: u.full_name } })
+        .sort((a, b) => a.label.localeCompare(b.label))
 
 export default class UserSelector extends Component {
     // TODO propTypes defaultValue, roleFilter, onChange, multiple

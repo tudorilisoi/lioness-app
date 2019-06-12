@@ -115,6 +115,7 @@ export default class EditProject extends Component {
     const prevStatus = statusesOpts.find(
       s => s.value === status.id
     );
+    console.log('status value', prevStatus)
     // debugger
     let currentContractorNames = contractors.map(contractor => {
       return contractor.full_name;
@@ -130,8 +131,9 @@ export default class EditProject extends Component {
             ) : (
                 <Select
                   options={statusesOpts}
-                  value={prevStatus}
-                  onChange={value => this.onChange("status", value)}
+                  defaultValue={prevStatus}
+                  onChange={option => this.onChange("status",
+                    this.context.statuses.find(i => i.id === option.value))}
                 />
               )}
           </div>
@@ -200,7 +202,7 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
-          <p className={status.id === 2 || status.id === 3 ? 'show' : ''}>
+          <p className={status.id === 2 || status.id === 3 ? 'show' : 'hide'}>
             <span>Estimated Due Date :</span>
             <ControlledInput
               onChange={value => this.onChange("estimatedDueDate", value)}
