@@ -39,13 +39,13 @@ for (let i = 0; i < 2; i++) {
     password: faker.internet.password(),
     //associated objects
     role: adminRole, //the role Object corresponding to the role_id
-    isAdmin: true,
+    // isAdmin: true,
     projects: []
   };
   users.push(admin);
 }
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 100; i++) {
   const remainingRoles = [...roles];
   remainingRoles.shift();
   const randomRole =
@@ -58,7 +58,7 @@ for (let i = 0; i < 20; i++) {
     full_name: faker.name.findName(),
     phone: faker.phone.phoneNumberFormat(),
     password: faker.internet.password(),
-    isAdmin: false,
+    // isAdmin: false,
     //associated objects
     role: randomRole, //the role Object corresponding to the role_id
     // projects: []
@@ -101,9 +101,9 @@ for (let i = 0; i < 1000; i++) {
       projectStatus.id === 2 || projectStatus.id === 3 ? estimatedDate : null,
     completionDate: projectStatus.id === 3 ? billedDate : null,
     //associated objects
-    client: [client], //relation based on client_id
+    client: client, //relation based on client_id
     contractors: [contractor1, contractor2],
-    projectManager: [projectManager]
+    projectManager: projectManager
   };
 
   contractor1.projects.push(project);

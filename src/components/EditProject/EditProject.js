@@ -80,7 +80,7 @@ export default class EditProject extends Component {
     }
   };
 
- 
+
   render() {
     const {
       title,
@@ -112,10 +112,10 @@ export default class EditProject extends Component {
 
       return options;
     });
-    const prevStatus = statusesOpts.filter(
-      status => status.value === this.state.status.id
+    const prevStatus = statusesOpts.find(
+      s => s.value === status.id
     );
-
+    // debugger
     let currentContractorNames = contractors.map(contractor => {
       return contractor.full_name;
     });
@@ -130,7 +130,7 @@ export default class EditProject extends Component {
             ) : (
                 <Select
                   options={statusesOpts}
-                  value={prevStatus[0]}
+                  value={prevStatus}
                   onChange={value => this.onChange("status", value)}
                 />
               )}
@@ -138,21 +138,21 @@ export default class EditProject extends Component {
           <div>
             <span>Client:</span>
             {!editMode ? (
-              client[0].full_name
+              client.full_name
             ) : (
                 <UserSelector
                   onChange={value => this.onChange("client", [value])}
-                  multiple={false} defaultValue={client[0]} roleFilter={2} />
+                  multiple={false} defaultValue={client} roleFilter={2} />
               )}
           </div>
           <div>
             <span>Project Manager:</span>
             {!editMode ? (
-              projectManager[0].full_name
+              projectManager.full_name
             ) : (
                 <UserSelector
                   onChange={value => this.onChange("projectManager", [value])}
-                  multiple={false} defaultValue={projectManager[0]} roleFilter={4} />
+                  multiple={false} defaultValue={projectManager} roleFilter={4} />
               )}
           </div>
           <div>
@@ -196,7 +196,7 @@ export default class EditProject extends Component {
               tag="input"
               type="date"
               required={true}
-              initialValue={startDate}
+              initialValue={dateForInput(startDate)}
               editMode={editMode}
             />
           </p>
