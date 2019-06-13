@@ -1,6 +1,6 @@
 nav {
   margin-top: 0;
-  background-color: #89593F;
+  background-color:#AFC2D5;
   margin-bottom: 0;
 }
 .heading{
@@ -8,8 +8,15 @@ nav {
   flex-direction: column;
 }
 .heading button{
-  width:33%;
-  
+  width:100px;
+  background-color: #5A5A5B;
+  border:none;
+  border-radius: 8px;
+}
+.heading button:hover{
+  /* background-color: rgba (90, 90, 91, 0.2); */
+  opacity:0.8;
+  cursor:pointer;
 }
 .links{
   display:flex;
