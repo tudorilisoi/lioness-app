@@ -7,9 +7,14 @@ import DataLoader from '../DataLoader/DataLoader'
 import LionessContext from '../../LionessContext/LionessContext'
 const { getUsers, getProjects, handleFetchError, getRoles, getStatuses } = ds
 export default class EstimatesPage extends Component {
+    constructor(props) {
+        super(props)
+        this.projectRef = null;
+    }
     static contextType = LionessContext;
     static opts = {
         statusFilter: 'estimate',
+        //TODO make it filter with status number
     }
 
     // TODO remove this!! It is disabled anyway because I prefixed with a _
@@ -37,13 +42,15 @@ export default class EstimatesPage extends Component {
         dataFetchPromise.then(onDataLoaded).catch(handleFetchError)
 
     }
+
     render() {
 
         return (
             <div className='tab-page'>
                 <h2>Estimates</h2>
                 <ProjectSearchBar status={EstimatesPage.opts.statusFilter} />
-                <Project />
+                <button onClick={ev=>{this.projectRef && this.projectRef.addProject()}}>Add Project</button>
+                <Project ref={ref => this.projectRef = ref} />
             </div>
         )
     }
