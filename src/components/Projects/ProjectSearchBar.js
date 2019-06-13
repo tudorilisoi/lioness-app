@@ -10,27 +10,21 @@ export default class ProjectSearchBar extends Component {
     super(props);
 
     this.state = {
-      budgetSortAsc: null,
+      ...ds.projectsDefaultOptions,
       dateTypeFilter: this.getSelectedDateOption(props),
-      timePeriodFilter: null,
-      dateSortAsc: null,
-      noSorting: null,
-      afterDate: null,
-      beforeDate: null,
-      currentPageNumber: 1,
-      totalPages: null,
-    };
+      statusFilter: props.status,
+    }
   }
 
   changePage = (pageNum) => {
-    if (pageNum === "prev" && this.state.currentPageNumber > 1) {
+    if (pageNum === "prev" && this.state.pageNumber > 1) {
       this.setState({
-        currentPageNumber: this.state.currentPageNumber - 1
+        pageNumber: this.state.pageNumber - 1
       }, () => { this.fetchData() });
     }
     if (pageNum === "next") {
       this.setState({
-        currentPageNumber: this.state.currentPageNumber + 1
+        pageNumber: this.state.pageNumber + 1
       }, () => { this.fetchData() });
     }
 
@@ -40,17 +34,15 @@ export default class ProjectSearchBar extends Component {
 
     if (sortType === "asc") {
       this.setState({
-        budgetSortAsc: true,
-        dateSortAsc: null,
-        noSorting: null,
-        currentPageNumber: 1
+        budgetSort: ds.SORT_ASC,
+        dateSort: null,
+        pageNumber: 1
       }, () => { this.fetchData() });
     } else {
       this.setState({
-        budgetSortAsc: false,
-        dateSortAsc: null,
-        noSorting: null,
-        currentPageNumber: 1
+        budgetSort: ds.SORT_DESC,
+        dateSort: null,
+        pageNumber: 1
       }, () => { this.fetchData() });
     }
   };
@@ -58,24 +50,20 @@ export default class ProjectSearchBar extends Component {
 
     this.setState({ dateTypeFilter: dateType });
   };
-  timePeriodChange = timePeriod => {
-    this.setState({ timePeriodFilter: timePeriod });
-  };
+
   dateSortChange(dateSort) {
 
     if (dateSort === "asc") {
       this.setState({
-        dateSortAsc: true,
-        budgetSortAsc: null,
-        noSorting: null,
-        currentPageNumber: 1
+        dateSort: ds.SORT_ASC,
+        budgetSort: null,
+        pageNumber: 1
       }, () => { this.fetchData() });
     } else {
       this.setState({
-        dateSortAsc: false,
-        budgetSortAsc: null,
-        noSorting: null,
-        currentPageNumber: 1
+        dateSort: ds.SORT_DESC,
+        budgetSort: null,
+        pageNumber: 1
       }, () => { this.fetchData() });
     }
 
@@ -90,21 +78,11 @@ export default class ProjectSearchBar extends Component {
 
     console.log('Data fetched')
 
-    const opts = {
-      budgetFilterAsending: this.state.budgetSortAsc,
-      dateTypeFilter: this.state.dateTypeFilter,
-      timePeriodFilter: this.state.timePeriodFilter,
-      dateSortAsc: this.state.dateSortAsc,
-      afterDate: this.state.afterDate,
-      beforeDate: this.state.beforeDate,
-      statusFilter: this.props.status,
-      noSorting: this.state.noSorting,
-      pageNumber: this.state.currentPageNumber
-    };
+    const opts = this.state;
     getProjects(opts).then(res => {
       this.context.setProjects(res, this.fetchData);
     });
-    getStatuses().then(res=>{
+    getStatuses().then(res => {
       this.context.setStatuses(res);
     })
 

@@ -47,14 +47,15 @@ export default class UserSelector extends Component {
                 searchQuery: inputValue
             }
 
-            return getUsers(opts).then(users => {
-                this.cache = [...this.cache, ...users]
+            return getUsers(opts).then(response => {
+                console.log('Search: ', response)
+                this.cache = [...this.cache, ...response.data]
                 function onlyUnique(item, index, self) {
                     return self.findIndex(i => i.id === item.id) === index;
                 }
                 this.cache = this.cache.filter(onlyUnique)
                 // console.log(this.cache);
-                return mapUsersToOptions(users)
+                return mapUsersToOptions(response.data)
             })
         }
         const props = {

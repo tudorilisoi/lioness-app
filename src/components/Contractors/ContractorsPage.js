@@ -12,16 +12,6 @@ export default class ContractorsPage extends Component {
     const opts = { roleFilter: 3 };
     return (
       <div className="tab-page">
-        <DataLoader
-          onReject={handleFetchError}
-          promise={getProjects()}
-          onDataLoaded={this.context.setProjects}
-        />
-        <DataLoader
-          promise={getUsers(opts)}
-          onReject={handleFetchError}
-          onDataLoaded={this.context.setUsers}
-        />
         <h2>Contractors</h2>
         <UserSearchBar role={opts.roleFilter} />
         <Contractor role={opts.roleFilter}/>

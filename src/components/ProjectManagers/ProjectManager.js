@@ -23,7 +23,7 @@ export default class ProjectManager extends Component{
         })
     }
     render(){
-        const projectManagers= this.context.users.map((user, index)=>{          
+        const projectManagers= this.context.users.data.map((user, index)=>{          
             const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
             const isEditing = this.state.editModeIndex === index
         const editingModeClassName=isEditing ? 'show':''

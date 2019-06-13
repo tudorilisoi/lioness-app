@@ -24,7 +24,7 @@ export default class Contractor extends Component{
         })
     }
     render(){
-        const contractors= this.context.users.map((user, index)=>{          
+        const contractors= this.context.users.data.map((user, index)=>{          
             const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
             const isEditing = this.state.editModeIndex === index
         const editingModeClassName=isEditing ? 'show':''

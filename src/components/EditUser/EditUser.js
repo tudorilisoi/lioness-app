@@ -18,7 +18,7 @@ export default class EditUser extends Component {
       ...user,
 
     };
-    
+
   }
 
   onChange = (fieldName, value) => {
@@ -36,12 +36,12 @@ export default class EditUser extends Component {
 
   validateField = (fieldName, value) => {
     console.log(`validating "${fieldName}" against the value of: ${value}`);
-    
+
     switch (fieldName) {
       case "full_name":
-          
+
       case "email":
-          
+
         //TODO setState with proper validation messages
         break;
 
@@ -50,70 +50,58 @@ export default class EditUser extends Component {
     }
   };
 
-  componentDidMount() {
- const opts={roleFilter:this.props.role}
-    getUsers(opts).then(res => {
-      this.context.setUsers(res);
-    });
-  }
+ 
   render() {
     const {
-     full_name,
-     email,
-     phone,
-     id,
+      full_name,
+      email,
+      phone,
+      id,
     } = this.state;
-    
-    const { editMode } = this.props;
 
-    const fullNameOpts = this.context.users.map(user => {
-      const options = { value: user.id, label: user.full_name };
-      
-      return options;
-    });
-    const prevUserFullName = fullNameOpts.filter(
-      name => name.value === this.state.id
-    );
-    
+    const { editMode } = this.props;
+    //TODO add a role dropdown (cutom component)
     return (
       <div>
-      <form>
-        <div>
-          <span>Name</span>
-          {!editMode ? (
-            full_name
-          ) : (
-            <Select
-              options={fullNameOpts}
-              defaultValue={prevUserFullName[0]}
-              onChange={value => this.onChange("full_name", value)}
+        <form>
+          <div>
+            <span>Name</span>
+            {!editMode ? (
+              full_name
+            ) : (
+                <ControlledInput
+                  onChange={value => this.onChange("full_name", value)}
+                  tag="input"
+                  required={true}
+                  initialValue={full_name}
+                  editMode={editMode}
+                />
+              )}
+          </div>
+
+          <p>
+            <span>Email:</span>
+            <ControlledInput
+              onChange={value => this.onChange("email", value)}
+              tag="input"
+              required={true}
+              initialValue={email}
+              editMode={editMode}
             />
-          )}
-        </div>
-       
-        <p>
-          <span>Email:</span>
-          <ControlledInput
-            onChange={value => this.onChange("email", value)}
-            tag="input"
-            required={true}
-            initialValue={email}
-            editMode={editMode}
-          />
-        </p>
-        <p>
-          <span>Phone:</span>
-          <ControlledInput
-            onChange={value => this.onChange("phone", value)}
-            tag="input"
-            required={true}
-            initialValue={phone}
-            editMode={editMode}
-          />
-        </p>
-        
-      </form>
-      
+          </p>
+          <p>
+            <span>Phone:</span>
+            <ControlledInput
+              onChange={value => this.onChange("phone", value)}
+              tag="input"
+              required={true}
+              initialValue={phone}
+              editMode={editMode}
+            />
+          </p>
+
+        </form>
+
       </div>
     );
   }
