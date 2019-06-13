@@ -9,7 +9,7 @@ export default class ProjectSortButtons extends Component{
         this.state={
             noSort:null,
             budgetSortAsc: null,
-            dateSortAsc: null,
+            dateSort: null,
             currentPageNumber: 1, 
         }
     }
@@ -62,7 +62,7 @@ export default class ProjectSortButtons extends Component{
         if (dateSort === "asc") {
           this.setState(
             {
-              dateSortAsc: true,
+              dateSort: true,
               currentPageNumber: 1
             },
             () => {
@@ -72,7 +72,7 @@ export default class ProjectSortButtons extends Component{
         } else {
           this.setState(
             {
-              dateSortAsc: false,
+              dateSort: false,
               currentPageNumber: 1
             },
             () => {

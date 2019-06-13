@@ -13,22 +13,29 @@ const { parse, stringify } = fjs
 
 let data = parse(JSON.stringify(dataString));
 
+const SORT_ASC = 'ASC'
+const SORT_DESC = 'DESC'
+
 //TODO split this into separate defaults for users, roles and so on
-const defaultOptions = {
+const projectsDefaultOptions = {
     statusFilter: null,
     searchQuery: null,
-    budgetFilterAsending: null,
+    budgetSort: SORT_ASC,
     dateTypeFilter: null,
-    timePeriodFilter: null,
-    dateSortAsc: null,
-    userNameSortAsc: null,
+    dateSort: null,
     afterDate: null,
     beforeDate: null,
     roleFilter: null,
     activeProjSortAsc: null,
-    noSorting: true,
     pageNumber: 1,
 }
+const usersDefaultOptions = {
+    searchQuery: null,
+    userNameSortAsc: null,
+    roleFilter: null,
+    pageNumber: 1,
+}
+
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
 const ITEMS_PER_PAGE = 10
 
@@ -40,6 +47,11 @@ function delay(promiseObj, delayMillis = 1000) {
 
 console.log('parsed data', data)
 const ds = {
+
+    SORT_ASC,
+    SORT_DESC,
+    projectsDefaultOptions,
+    usersDefaultOptions,
 
     /**
      * compares two circular data objects
@@ -81,7 +93,7 @@ const ds = {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
-        const mergedOpts = { ...defaultOptions, ...opts }
+
         let res = [...data.roles]
         return Promise.resolve(res)
     },
@@ -90,7 +102,6 @@ const ds = {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
-        const mergedOpts = { ...defaultOptions, ...opts }
         let res = [...data.statuses]
         return delay(Promise.resolve(res), 500)
     },
@@ -99,7 +110,7 @@ const ds = {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
-        const mergedOpts = { ...defaultOptions, ...opts }
+        const mergedOpts = { ...usersDefaultOptions, ...opts }
 
         console.log('getUsers filters:', mergedOpts)
 
@@ -144,7 +155,9 @@ const ds = {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
-        const mergedOpts = { ...defaultOptions, ...opts }
+        const mergedOpts = { ...projectsDefaultOptions, ...opts }
+
+        console.log('getProjects filters:', mergedOpts)
 
         let res = [...data.projects]
 
@@ -212,42 +225,27 @@ const ds = {
             }
         }
 
-        if (mergedOpts.dateSortAsc === true && !mergedOpts.noSorting) {
-
+        if (mergedOpts.dateSort) {
+            const direction = mergedOpts.dateSort === ds.SORT_ASC ? 1 : -1
             if (mergedOpts.dateTypeFilter === 'startDate') {
-                res = res.sort((a, b) => (new Date(b.startDate) - new Date(a.startDate)))
+                res = res.sort((a, b) => direction * (new Date(b.startDate) - new Date(a.startDate)))
 
             }
             if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                res = res.sort((a, b) => (new Date(b.estimatedDueDate) - new Date(a.estimatedDueDate)))
+                res = res.sort((a, b) => direction * (new Date(b.estimatedDueDate) - new Date(a.estimatedDueDate)))
 
             }
             if (mergedOpts.dateTypeFilter === 'completionDate') {
-                res = res.sort((a, b) => (new Date(b.completionDate) - new Date(a.completionDate)))
+                res = res.sort((a, b) => direction * (new Date(b.completionDate) - new Date(a.completionDate)))
 
             }
         }
-        if (mergedOpts.dateSortAsc === false && !mergedOpts.noSorting) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
-                res = res.sort((a, b) => (new Date(a.startDate) - new Date(b.startDate)))
-            }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                res = res.sort((a, b) => (new Date(a.estimatedDueDate) - new Date(b.estimatedDueDate)))
-            }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
-                res = res.sort((a, b) => (new Date(a.completionDate) - new Date(b.completionDate)))
-            }
+
+
+        if (mergedOpts.budgetSort) {
+            const direction = mergedOpts.budgetSort === ds.SORT_ASC ? 1 : -1
+            res = res.sort((a, b) => direction * (b.budget - a.budget))
         }
-
-        if (mergedOpts.budgetFilterAsending === true && !mergedOpts.noSorting && mergedOpts.dateSortAsc === null) {
-            res = res.sort((a, b) => (b.budget - a.budget))
-
-        }
-        if (mergedOpts.budgetFilterAsending === false && !mergedOpts.noSorting && mergedOpts.dateSortAsc === null) {
-            res = res.sort((a, b) => (a.budget - b.budget))
-
-        }
-
 
         const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
         const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
