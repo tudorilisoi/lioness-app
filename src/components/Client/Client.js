@@ -78,7 +78,7 @@ export default class Client extends Component {
                         {!this.state.newClient ?  <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
                         <EditUser user={user} editMode={isEditing} role={this.props.role} />
                         <button className={`saveButton ${editingModeClassName}`}>Save</button>
-                            <button onClick={()=>this.cancelAddClient()}>Cancel</button>
+                            <button onClick={()=>this.cancelAddClient()}className={`saveButton ${editingModeClassName}`}>Cancel</button>
                     </div>
 
                 </section>
