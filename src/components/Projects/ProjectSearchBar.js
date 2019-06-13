@@ -3,7 +3,7 @@ import "./ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
-const { getProjects, statuses } = ds;
+const { getProjects, getStatuses } = ds;
 export default class ProjectSearchBar extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -88,6 +88,8 @@ export default class ProjectSearchBar extends Component {
   }
   fetchData = () => {
 
+    console.log('Data fetched')
+
     const opts = {
       budgetFilterAsending: this.state.budgetSortAsc,
       dateTypeFilter: this.state.dateTypeFilter,
@@ -100,10 +102,12 @@ export default class ProjectSearchBar extends Component {
       pageNumber: this.state.currentPageNumber
     };
     getProjects(opts).then(res => {
-
-      this.context.setProjects(res);
-
+      this.context.setProjects(res, this.fetchData);
     });
+    getStatuses().then(res=>{
+      this.context.setStatuses(res);
+    })
+
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -131,6 +135,7 @@ export default class ProjectSearchBar extends Component {
   }
 
   render() {
+    console.log('render Searchbar')
 
     const isInProgress = this.props.status === "in progress"
     const isBilled = this.props.status === "billed"

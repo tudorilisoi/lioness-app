@@ -11,16 +11,7 @@ export default class ActiveProjectsPage extends Component{
     render(){
         const opts= {statusFilter: 'in progress'}
         return(
-            <div className='tab-page'>
-                <DataLoader 
-                onReject = {handleFetchError}
-                promise={getProjects(opts)} 
-                onDataLoaded={this.context.setProjects}
-                />
-                <DataLoader 
-                promise={getUsers()} 
-                onReject = {handleFetchError}
-                onDataLoaded={this.context.setUsers}/>
+            <div className='tab-page'>               
                 <h2>Active Projects</h2>
                 <ProjectSearchBar status={opts.statusFilter}/>
                 <Project />

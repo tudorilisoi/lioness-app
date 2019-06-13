@@ -29,9 +29,9 @@ export default class Project extends Component {
         // debugger
         const projects = this.context.projects.data.map((project, index) => {
             const isEditing = this.state.editModeIndex === index
-           
-         const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
-         const editingModeClassName=isEditing ? 'show':''
+
+            const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
+            const editingModeClassName = isEditing ? 'show' : ''
             const projectDetails =
                 <section key={project.id}>
                     <button className='collapsible' onClick={() => { this.toggle(index) }}>{project.title}
@@ -46,7 +46,14 @@ export default class Project extends Component {
                         <button>Delete</button>
                         <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button>
                         <EditProject project={project} editMode={isEditing} />
-                        <button className={`saveButton ${editingModeClassName}`}>Save</button>
+                        <button
+                            onClick={() => {
+                                //TODO write a saveProject function in ds
+                                //TODO save and reload after that
+                                console.log(this.context)
+                                this.context.reloadProjects()
+                            }}
+                            className={`saveButton ${editingModeClassName}`}>Save</button>
                     </div>
 
                 </section>

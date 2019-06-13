@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ControlledInput from "../ControlledInput/ControlledInput";
+import UserSelector from "../UserSelector/UserSelector";
 import dayjs from "dayjs";
 import ds from "../../STORE/dataservice";
 
@@ -22,17 +23,17 @@ export default class EditProject extends Component {
     super(props);
     const { project } = this.props;
     this.state = {
-      ...project,
-      validationMessages:{
-        title:'',
-      status:'',
-      description:'',
-      startDate:'',
-      budget:'',
-      estimatedDueDate:'',
-      client:'',
-      projectManager:'',
-      contractors:''
+      project,
+      validationMessages: {
+        title: '',
+        status: '',
+        description: '',
+        startDate: '',
+        budget: '',
+        estimatedDueDate: '',
+        client: '',
+        projectManager: '',
+        contractors: ''
 
 
       }
@@ -45,11 +46,9 @@ export default class EditProject extends Component {
 
   onChange = (fieldName, value) => {
     this.validateField(fieldName, value);
-
+    const changedProject = { ...this.state.project, [fieldName]: value }
     this.setState(
-      {
-        [fieldName]: value
-      },
+      changedProject,
       () => {
         console.log("EDIT STATE", this.state);
       }
@@ -58,17 +57,21 @@ export default class EditProject extends Component {
 
   validateField = (fieldName, value) => {
     console.log(`validating "${fieldName}" against the value of: ${value}`);
-    
+
     switch (fieldName) {
       case "title":
-          if(value==='')
-      this.setState({validationMessages:{
-        title:'Title can not be empty'
-      }})
+        if (value === '')
+          this.setState({
+            validationMessages: {
+              title: 'Title can not be empty'
+            }
+          })
       case "description":
-          this.setState({validationMessages:{
-            description:'Description can not be empty'
-          }})
+        this.setState({
+          validationMessages: {
+            description: 'Description can not be empty'
+          }
+        })
         //TODO setState with proper validation messages
         break;
 
@@ -77,18 +80,6 @@ export default class EditProject extends Component {
     }
   };
 
-  componentDidMount() {
-
-    // TODO keep users filter in the local state
-    // Even better, create a component which filters users by a search string
-
-     getStatuses().then(res => {
-      this.context.setStatuses(res);
-    });
-    // getUsers().then(res => {
-    //   this.context.setUsers(res);
-    // }); 
-  }
   render() {
     const {
       title,
@@ -102,12 +93,16 @@ export default class EditProject extends Component {
       projectManager,
       contractors,
       completionDate,
-    } = this.state;
+    } = this.state.project; //   //destructure the project since we're not spreading it in the astate anymore
     const formattedStartDate = dateForInput(startDate);
 
     // const jsStartDate = dateToJS(startDateString)
     // debugger
     const { editMode } = this.props;
+
+    // TODO pass statuses as a property
+    // Do NOT use context any level deep, just on the *Page components
+    // this is now broken
 
     const statusesOpts = this.context.statuses.map(status => {
       const options = { value: status.id, label: status.title };
@@ -116,171 +111,135 @@ export default class EditProject extends Component {
 
       return options;
     });
-    const prevStatus = statusesOpts.filter(
-      status => status.value === this.state.status.id
+    const prevStatus = statusesOpts.find(
+      s => s.value === status.id
     );
-    const clientList = this.context.users.filter(user => user.role.id === 2);
-    const clientOpts = clientList.map(client => {
-      const options = { value: client.id, label: client.full_name };
-      return options;
-    });
-    const prevClient = clientOpts.filter(
-      client => client.value === this.state.client[0].id
-    );
-    const projectManagerList = this.context.users.filter(
-      user => user.role.id === 4
-    );
-    const pmOpts = projectManagerList.map(pm => {
-      const options = { value: pm.id, label: pm.full_name };
-      return options;
-    });
-    const prevPm = pmOpts.filter(
-      pm => pm.value === this.state.projectManager[0].id
-    );
-    const contractorList = this.context.users.filter(
-      user => user.role.id === 3
-    );
-    const contractorOpts = contractorList.map(contractor => {
-      const options = { value: contractor.id, label: contractor.full_name };
-      return options;
-    });
-
-    let currentContractorFilter = this.state.contractors.map(contractor => {
-      return contractor.id;
-    });
-    let prevContractors = contractorOpts.filter(contractor =>
-      currentContractorFilter.includes(contractor.value)
-    );
+    console.log('status value', prevStatus)
+    // debugger
     let currentContractorNames = contractors.map(contractor => {
       return contractor.full_name;
-    });
-    currentContractorNames.join(" and ");
-
+    }).join(", ");
     return (
       <div>
-      <form>
-        <div>
-          <span>Status:</span>
-          {!editMode ? (
-            status.title
-          ) : (
-            <Select
-              options={statusesOpts}
-              defaultValue={prevStatus[0]}
-              onChange={value => this.onChange("status", value)}
+        <form>
+          <div>
+            <span>Status:</span>
+            {!editMode ? (
+              status.title
+            ) : (
+                <Select
+                  options={statusesOpts}
+                  defaultValue={prevStatus}
+                  onChange={option => this.onChange("status",
+                    this.context.statuses.find(i => i.id === option.value))}
+                />
+              )}
+          </div>
+          <div>
+            <span>Client:</span>
+            {!editMode ? (
+              client.full_name
+            ) : (
+                <UserSelector
+                  onChange={value => this.onChange("client", [value])}
+                  multiple={false} defaultValue={client} roleFilter={2} />
+              )}
+          </div>
+          <div>
+            <span>Project Manager:</span>
+            {!editMode ? (
+              projectManager.full_name
+            ) : (
+                <UserSelector
+                  onChange={value => this.onChange("projectManager", [value])}
+                  multiple={false} defaultValue={projectManager} roleFilter={4} />
+              )}
+          </div>
+          <div>
+            <span>Contractors:</span>
+            {!editMode ? (
+              currentContractorNames
+            ) : (
+                <UserSelector
+                  onChange={value => this.onChange("contractors", [value])}
+                  multiple={true} defaultValue={contractors} roleFilter={3}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                />
+
+              )}
+          </div>
+          <p>
+            <span>Title:</span>
+            <ControlledInput
+              onChange={value => this.onChange("title", value)}
+              tag="input"
+              required={true}
+              initialValue={title}
+              editMode={editMode}
             />
-          )}
-        </div>
-        <div>
-          <span>Client:</span>
-          {!editMode ? (
-            client[0].full_name
-          ) : (
-            <Select
-              options={clientOpts}
-              defaultValue={prevClient[0]}
-              onChange={value => this.onChange("client", value)}
+          </p>
+          <p>
+            <span>Description :</span>
+            <ControlledInput
+              onChange={value => this.onChange("description", value)}
+              tag="input"
+              required={true}
+              initialValue={description}
+              editMode={editMode}
             />
-          )}
-        </div>
-        <div>
-          <span>Project Manager:</span>
-          {!editMode ? (
-            projectManager[0].full_name
-          ) : (
-            <Select
-              options={pmOpts}
-              defaultValue={prevPm[0]}
-              onChange={value => this.onChange("projectManager", value)}
+          </p>
+          <p>
+            <span>Start Date :</span>
+            <ControlledInput
+              onChange={value => this.onChange("startDate", value)}
+              tag="input"
+              type="date"
+              required={true}
+              initialValue={dateForInput(startDate)}
+              editMode={editMode}
             />
-          )}
-        </div>
-        <div>
-          <span>Contractors:</span>
-          {!editMode ? (
-            currentContractorNames
-          ) : (
-            <Select
-              defaultValue={prevContractors}
-              isMulti
-              name="colors"
-              options={contractorOpts}
-              className="basic-multi-select"
-              classNamePrefix="select"
+          </p>
+          <p className={status.id === 2 || status.id === 3 ? 'show' : 'hide'}>
+            <span>Estimated Due Date :</span>
+            <ControlledInput
+              onChange={value => this.onChange("estimatedDueDate", value)}
+              tag="input"
+              type="date"
+              required={true}
+              initialValue={
+                estimatedDueDate === "Invalid Date" ? "" : estimatedDueDate
+              }
+              editMode={editMode}
             />
-          )}
-        </div>
-        <p>
-          <span>Title:</span>
-          <ControlledInput
-            onChange={value => this.onChange("title", value)}
-            tag="input"
-            required={true}
-            initialValue={title}
-            editMode={editMode}
-          />
-        </p>
-        <p>
-          <span>Description :</span>
-          <ControlledInput
-            onChange={value => this.onChange("description", value)}
-            tag="input"
-            required={true}
-            initialValue={description}
-            editMode={editMode}
-          />
-        </p>
-        <p>
-          <span>Start Date :</span>
-          <ControlledInput
-            onChange={value => this.onChange("startDate", value)}
-            tag="input"
-            type="date"
-            required={true}
-            initialValue={startDate}
-            editMode={editMode}
-          />
-        </p>
-       <p className={status.id===2 || status.id===3 ? 'show':''}>
-          <span>Estimated Due Date :</span>
-          <ControlledInput
-            onChange={value => this.onChange("estimatedDueDate", value)}
-            tag="input"
-            type="date"
-            required={true}
-            initialValue={
-              estimatedDueDate === "Invalid Date" ? "" : estimatedDueDate
-            }
-            editMode={editMode}
-          />
-        </p> 
-       { status.id===3 ? <p>
-          <span>Completion Date :</span>
-          <ControlledInput
-            onChange={value => this.onChange("estimatedDueDate", value)}
-            tag="input"
-            type="date"
-            required={true}
-            initialValue={
-              completionDate === "Invalid Date" ? "" : completionDate
-            }
-            editMode={editMode}
-          />
-        </p> :''}
-        <p> 
-          <span>Budget: :</span>
-          <ControlledInput
-            onChange={value => this.onChange("budget", value)}
-            tag="input"
-            type="number"
-            required={true}
-            initialValue={budget}
-            editMode={editMode}
-          />
-        </p>
-        
-      </form>
-      
+          </p>
+          {status.id === 3 ? <p>
+            <span>Completion Date :</span>
+            <ControlledInput
+              onChange={value => this.onChange("estimatedDueDate", value)}
+              tag="input"
+              type="date"
+              required={true}
+              initialValue={
+                completionDate === "Invalid Date" ? "" : completionDate
+              }
+              editMode={editMode}
+            />
+          </p> : ''}
+          <p>
+            <span>Budget: :</span>
+            <ControlledInput
+              onChange={value => this.onChange("budget", value)}
+              tag="input"
+              type="number"
+              required={true}
+              initialValue={budget}
+              editMode={editMode}
+            />
+          </p>
+
+        </form>
+
       </div>
     );
   }
