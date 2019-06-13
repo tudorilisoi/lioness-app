@@ -8,6 +8,8 @@ const newProjectTemplate = {
         status: {},
         description: '',
         startDate: '',
+        estimatedDueDate: '',
+        completionDate: '',
         budget: '',
         estimatedDueDate: '',
         client: {},
@@ -90,6 +92,7 @@ export default class Project extends Component {
                                 this.context.reloadProjects()
                             }}
                             className={`saveButton ${editingModeClassName}`}>Save</button>
+                    <button onClick={()=>this.cancelAddProject()}className={`saveButton ${editingModeClassName}`}>Cancel</button>
                     </div>
 
                 </section>

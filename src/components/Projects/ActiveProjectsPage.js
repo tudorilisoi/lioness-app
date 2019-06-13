@@ -6,6 +6,10 @@ import DataLoader from '../DataLoader/DataLoader'
 import LionessContext from '../../LionessContext/LionessContext'
 const {getUsers, getProjects, handleFetchError }  =ds
 export default class ActiveProjectsPage extends Component{
+    constructor(props) {
+        super(props)
+        this.projectRef = null;
+    }
     static contextType= LionessContext;
  
     render(){
@@ -14,7 +18,8 @@ export default class ActiveProjectsPage extends Component{
             <div className='tab-page'>               
                 <h2>Active Projects</h2>
                 <ProjectSearchBar status={opts.statusFilter}/>
-                <Project />
+                <button onClick={ev=>{this.projectRef && this.projectRef.addProject()}}>Add Project</button>
+                <Project ref={ref => this.projectRef = ref} />
             </div>
         )
     }
