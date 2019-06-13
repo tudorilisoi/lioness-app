@@ -80,7 +80,6 @@ export default class EditProject extends Component {
     }
   };
 
-
   render() {
     const {
       title,
