@@ -46,10 +46,16 @@ export default class Client extends Component {
             newClient: { ...newClientTemplate }
         })
     }
+    cancelAddClient=()=>{
+        this.setState({
+            editModeIndex: false,
+            expandedIndex: false,
+            newClient: null
+        })
+    }
 
 
     render() {
-        console.log(this.state)
         // debugger
         const clientsList = [...this.context.users.data]
         if (this.state.newClient) {
@@ -68,11 +74,11 @@ export default class Client extends Component {
 
                     <div className={`button-content ${expandedClassName}`}>
 
-                        <button>Delete</button>
-                        <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button>
+                        {!this.state.newClient ?  <button>Delete</button> :''}
+                        {!this.state.newClient ?  <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
                         <EditUser user={user} editMode={isEditing} role={this.props.role} />
                         <button className={`saveButton ${editingModeClassName}`}>Save</button>
-
+                            <button onClick={()=>this.cancelAddClient()}>Cancel</button>
                     </div>
 
                 </section>
