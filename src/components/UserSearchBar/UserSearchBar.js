@@ -72,6 +72,7 @@ export default class UserSearchBar extends Component {
     console.log('Data fetched')
 
     const opts = {
+      pageNumber: this.state.currentPageNumber,
       userNameSortAsc: this.state.userNameSortAsc,
       noSorting: this.state.noSorting,
       activeProjSortAsc: this.state.activeProjSortAsc,

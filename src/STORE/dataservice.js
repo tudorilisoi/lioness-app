@@ -99,6 +99,9 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         const mergedOpts = { ...defaultOptions, ...opts }
+
+        console.log('getUsers filters:', mergedOpts)
+
         // console.log(`getUsers Opts`, mergedOpts)
         let res = [...data.users]
 
