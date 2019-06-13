@@ -19,8 +19,6 @@ export default class ClientPage extends Component {
             <div className='tab-page'>
                 <h2>Clients</h2>
                 <UserSearchBar role={opts.roleFilter} />
-                {/* <Link to='/add-client-form'>
-                </Link> */}
                 <button onClick={ev=>{this.clientRef && this.clientRef.addClient()}}>Add Client</button>
                 <button>Email Client</button>
                 <Client ref={ref => this.clientRef = ref} role={opts.roleFilter} />

@@ -35,10 +35,10 @@ logoutClick=()=>{
                 <div className='links'>
                 
                     <NavTab to={`${path}/home`}className='link'>Home</NavTab>
-                    <NavTab to={`${path}/clients`}className='link'>Clients</NavTab>
                     <NavTab to={`${path}/estimates`}className='link'>Estimates</NavTab>
                     <NavTab to={`${path}/active-projects`}className='link'>Active Projects</NavTab>
-                    <NavTab to={`${path}/billed-projects`}className='link'>Billed Projects</NavTab>
+                <NavTab to={`${path}/billed-projects`}className='link'>Billed Projects</NavTab>
+                <NavTab to={`${path}/clients`}className='link'>Clients</NavTab>
                     <NavTab to={`${path}/project-managers`}className='link'>Project Managers</NavTab>
                     <NavTab to={`${path}/contractors`}className='link'>Contractors</NavTab>
                 </div>
