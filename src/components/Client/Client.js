@@ -24,7 +24,8 @@ toggleeditModeIndex = (index) => {
 }
 render(){  
     console.log(this.state)
-    const clients= this.context.users.map((user, index)=>{
+    // debugger
+    const clients= this.context.users.data.map((user, index)=>{
         const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
         const isEditing = this.state.editModeIndex === index
         const editingModeClassName=isEditing ? 'show':''

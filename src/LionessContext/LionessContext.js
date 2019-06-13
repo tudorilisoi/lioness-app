@@ -3,7 +3,7 @@ import ds from '../STORE/dataservice'
 const LionessContext = React.createContext(
     {
         projects: ds.defaultProjectData,
-        users: [],
+        users: ds.defaultUserData,
         roles:[],
       statuses:[],
         currentUser: null,

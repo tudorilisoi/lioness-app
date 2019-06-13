@@ -56,6 +56,7 @@ const ds = {
     },
 
     defaultProjectData: { data: [], numPages: 0, totalItemCount: 0 },
+    defaultUserData: { data: [], numPages: 0, totalItemCount: 0 },
 
     // statuses: ["estimate", "in progress", "billed", "other"],
 
@@ -124,8 +125,18 @@ const ds = {
             })
 
         }
+        const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
+        const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
+        const numPages = Math.ceil(res.length / ITEMS_PER_PAGE)
+        const totalItemCount = res.length
 
-        return delay(Promise.resolve(res), Math.random() * 1000)
+        res = res.slice(begin, end)
+
+        return delay(Promise.resolve({
+            data: res,
+            numPages,
+            totalItemCount,
+        }))
 
     },
     getProjects: (opts = {}) => {

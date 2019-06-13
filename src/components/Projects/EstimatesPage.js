@@ -41,11 +41,6 @@ export default class EstimatesPage extends Component {
 
         return (
             <div className='tab-page'>
-                {/* <DataLoader
-                    onReject={handleFetchError}
-                    promise={dataFetchPromise}
-                    onDataLoaded={onDataLoaded} /> */}
-
                 <h2>Estimates</h2>
                 <ProjectSearchBar status={EstimatesPage.opts.statusFilter} />
                 <Project />

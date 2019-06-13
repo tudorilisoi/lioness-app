@@ -13,19 +13,9 @@ export default class ProjectManagerPage extends Component {
     const opts = { roleFilter: 4 };
     return (
       <div className="tab-page">
-        <DataLoader
-          onReject={handleFetchError}
-          promise={getProjects()}
-          onDataLoaded={this.context.setProjects}
-        />
-        <DataLoader
-          promise={getUsers(opts)}
-          onReject={handleFetchError}
-          onDataLoaded={this.context.setUsers}
-        />
         <h2>Project Managers</h2>
         <UserSearchBar role={opts.roleFilter} />
-        <ProjectManager role={opts.roleFilter}/>
+        <ProjectManager role={opts.roleFilter} />
       </div>
     );
   }

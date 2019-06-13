@@ -14,14 +14,6 @@ static contextType= LionessContext;
         const opts= {roleFilter: 2}
         return(
             <div className='tab-page'>
-                {/* <DataLoader 
-                onReject = {handleFetchError}
-                promise={getProjects()} 
-                onDataLoaded={this.context.setProjects}/>
-                <DataLoader 
-                promise={getUsers(opts)} 
-                onReject = {handleFetchError}
-                onDataLoaded={this.context.setUsers}/> */}
                 <h2>Clients</h2>
                 <UserSearchBar role={opts.roleFilter}/>
                 <Link to='/add-client-form'>

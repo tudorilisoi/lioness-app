@@ -12,7 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
+      users: ds.defaultUserData,
       projects: ds.defaultProjectData,
       roles: [],
       statuses: [],
