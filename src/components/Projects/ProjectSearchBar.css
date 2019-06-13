@@ -6,4 +6,15 @@
     display:flex;
     align-items: center;
     margin:auto;
+  
 }
+  .searchBar button{
+    background-color: #5A5A5B;
+    border:none;
+    border-radius: 8px;
+    color:#F1FFFA;
+  }
+  .searchBar button:hover{
+    opacity:0.8;
+    cursor:pointer;
+  }

@@ -12,6 +12,7 @@ nav {
   background-color: #5A5A5B;
   border:none;
   border-radius: 8px;
+  color:#F1FFFA;
 }
 .heading button:hover{
   /* background-color: rgba (90, 90, 91, 0.2); */
