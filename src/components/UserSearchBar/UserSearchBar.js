@@ -109,7 +109,11 @@ export default class UserSearchBar extends Component {
               value="asc"
               onClick={e => this.userNameSortChange(e.target.value)}
             >
-              Name (A-Z)
+              Name
+              <br />
+              (A-Z)
+              
+              
             </button>
             <button
               type="button"
@@ -117,7 +121,7 @@ export default class UserSearchBar extends Component {
               value="des"
               onClick={e => this.userNameSortChange(e.target.value)}
             >
-              Name (Z-A)
+              Name<br /> (Z-A)
             </button>
             {this.props.role === 3 || this.props.role === 4 ? <button
               type="button"

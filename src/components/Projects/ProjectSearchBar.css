@@ -13,6 +13,7 @@
     border:none;
     border-radius: 8px;
     color:#F1FFFA;
+    width:80px;
   }
   .searchBar button:hover{
     opacity:0.8;
