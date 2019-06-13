@@ -10,10 +10,10 @@ export default class UserSearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      userNameSortAsc:null,
-      activeProjSortAsc:null,
+      userNameSortAsc: null,
+      activeProjSortAsc: null,
       currentPageNumber: 1,
-      totalPages:null,
+      totalPages: null,
       noSorting: null,
     };
   }
@@ -22,63 +22,64 @@ export default class UserSearchBar extends Component {
     if (pageNum === "prev" && this.state.currentPageNumber > 1) {
       this.setState({
         currentPageNumber: this.state.currentPageNumber - 1
-      }, ()=>{this.fetchData()});
+      }, () => { this.fetchData() });
     }
     if (pageNum === "next") {
       this.setState({
-        currentPageNumber:this.state.currentPageNumber + 1
-      }, ()=>{this.fetchData()});
+        currentPageNumber: this.state.currentPageNumber + 1
+      }, () => { this.fetchData() });
     }
-    
+
 
   };
-  userNameSortChange=(nameSort)=>{
-    
+  userNameSortChange = (nameSort) => {
+
     if (nameSort === "asc") {
       this.setState({
         userNameSortAsc: true,
-        activeProjSortAsc:null,
+        activeProjSortAsc: null,
         noSorting: null,
         currentPageNumber: 1
       }, () => { this.fetchData() });
     } else {
       this.setState({
         userNameSortAsc: false,
-        activeProjSortAsc:null,
+        activeProjSortAsc: null,
         noSorting: null,
         currentPageNumber: 1
-      }, () => {  this.fetchData() });
+      }, () => { this.fetchData() });
     }
   }
-  activeProjSortChange=(actProjSort)=>{
+  activeProjSortChange = (actProjSort) => {
     if (actProjSort === "asc") {
       this.setState({
         userNameSortAsc: null,
-        activeProjSortAsc:true,
+        activeProjSortAsc: true,
         noSorting: null,
         currentPageNumber: 1
       }, () => { this.fetchData() });
     } else {
       this.setState({
         userNameSortAsc: null,
-        activeProjSortAsc:false,
+        activeProjSortAsc: false,
         noSorting: null,
         currentPageNumber: 1
-      }, () => {  this.fetchData() });
+      }, () => { this.fetchData() });
     }
   }
-  fetchData=()=>{
-      
+  fetchData = () => {
+
+    console.log('Data fetched')
+
     const opts = {
-      userNameSortAsc:this.state.userNameSortAsc,
-      noSorting:this.state.noSorting,
-      activeProjSortAsc:this.state.activeProjSortAsc,
-      roleFilter:this.props.role,
+      userNameSortAsc: this.state.userNameSortAsc,
+      noSorting: this.state.noSorting,
+      activeProjSortAsc: this.state.activeProjSortAsc,
+      roleFilter: this.props.role,
     };
     getUsers(opts).then(res => {
       console.log(res)
-      
-        this.context.setUsers(res);
+      this.context.setUsers(res);
 
     });
   };
@@ -87,9 +88,13 @@ export default class UserSearchBar extends Component {
     this.fetchData();
   }
 
+  componentDidMount() {
+    this.fetchData()
+  }
+
 
   render() {
-        return (
+    return (
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>
           <label htmlFor="search"> Search</label>
@@ -113,26 +118,26 @@ export default class UserSearchBar extends Component {
             >
               Name (Z-A)
             </button>
-        {this.props.role===3|| this.props.role===4 ?<button
-          type="button"
-          name="active-project-high"
-          value="asc"
-          onClick={e => this.activeProjSortChange(e.target.value)}
-        >
-          Active Projects (Highest)
-        </button> :''}
-            {this.props.role===3|| this.props.role===4 ?<button
+            {this.props.role === 3 || this.props.role === 4 ? <button
+              type="button"
+              name="active-project-high"
+              value="asc"
+              onClick={e => this.activeProjSortChange(e.target.value)}
+            >
+              Active Projects (Highest)
+        </button> : ''}
+            {this.props.role === 3 || this.props.role === 4 ? <button
               type="button"
               name="active-project-low"
               value="des"
               onClick={e => this.activeProjSortChange(e.target.value)}
             >
               Active Projects (Lowest)
-            </button> :''}
+            </button> : ''}
           </div>
         </form>
-        <button value="prev"onClick={e=>this.changePage(e.target.value)}>Previous</button>
-        <button value="next"onClick={e=>this.changePage(e.target.value)}>Next</button>
+        <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+        <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
       </div>
     );
   }

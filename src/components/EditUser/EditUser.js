@@ -51,10 +51,10 @@ export default class EditUser extends Component {
   };
 
   componentDidMount() {
- const opts={roleFilter:this.props.role}
-    getUsers(opts).then(res => {
-      this.context.setUsers(res);
-    });
+//  const opts={roleFilter:this.props.role}
+//     getUsers(opts).then(res => {
+//       this.context.setUsers(res);
+//     });
   }
   render() {
     const {
