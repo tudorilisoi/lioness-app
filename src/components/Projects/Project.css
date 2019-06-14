@@ -44,6 +44,7 @@
 
 .button-content {
   max-height: 0px;
+  padding:0px !important;
   overflow: hidden;
   background-color: #f1f1f1;
   transition: all 200ms ease-in-out;
@@ -65,8 +66,4 @@
 }
 .editMode-buttons.show{
 display:block;
-}
-
-.hide {
-  display: none;
 }
