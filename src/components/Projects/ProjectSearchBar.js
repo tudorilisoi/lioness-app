@@ -31,43 +31,24 @@ export default class ProjectSearchBar extends Component {
 
   };
   budgetChange = sortType => {
-
-    if (sortType === "asc") {
-      this.setState({
-        budgetSort: ds.SORT_ASC,
-        dateSort: null,
-        pageNumber: 1
-      }, () => { this.fetchData() });
-    } else {
-      this.setState({
-        budgetSort: ds.SORT_DESC,
-        dateSort: null,
-        pageNumber: 1
-      }, () => { this.fetchData() });
-    }
+    this.setState({
+      budgetSort: sortType === "asc" ? ds.SORT_ASC : ds.SORT_DESC,
+      dateSort: null,
+      pageNumber: 1
+    }, () => { this.fetchData() });
   };
   dateTypeChange = dateType => {
-
     this.setState({ dateTypeFilter: dateType });
   };
 
   dateSortChange(dateSort) {
-
-    if (dateSort === "asc") {
-      this.setState({
-        dateSort: ds.SORT_ASC,
-        budgetSort: null,
-        pageNumber: 1
-      }, () => { this.fetchData() });
-    } else {
-      this.setState({
-        dateSort: ds.SORT_DESC,
-        budgetSort: null,
-        pageNumber: 1
-      }, () => { this.fetchData() });
-    }
-
+    this.setState({
+      dateSort: dateSort === "asc" ? ds.SORT_ASC : ds.SORT_DESC,
+      budgetSort: null,
+      pageNumber: 1
+    }, () => { this.fetchData() });
   }
+
   afterDateChange(date) {
     this.setState({ afterDate: date });
   }
@@ -208,6 +189,9 @@ export default class ProjectSearchBar extends Component {
           </div>
         </form>
         <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+        <span className="paginationInfo">
+          {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
+        </span>
         <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
       </div>
     );
