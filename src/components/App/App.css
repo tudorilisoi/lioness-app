@@ -1,13 +1,29 @@
-*{
+* {
   box-sizing: border-box;
-  margin:0;
+  margin: 0;
 }
-.App{   
+
+.App {
   height: 100vh;
-  max-width:1200px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* global styles */
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexed {
+  flex: 1;
+}
 
 .padded {
   padding: 1em;
