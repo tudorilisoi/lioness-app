@@ -16,7 +16,6 @@ let data = parse(JSON.stringify(dataString));
 const SORT_ASC = 'ASC'
 const SORT_DESC = 'DESC'
 
-//TODO split this into separate defaults for users, roles and so on
 const projectsDefaultOptions = {
     statusFilter: null,
     searchQuery: null,

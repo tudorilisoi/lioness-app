@@ -5,7 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 // need to explicitly import all needed icons 
 // NOTE copy-paste this line to library.add
 import {
-  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown
+  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle
 } from '@fortawesome/free-solid-svg-icons'
 
 import ds from "../../STORE/dataservice";
@@ -18,7 +18,7 @@ import LionessContext from "../../LionessContext/LionessContext";
 import './App.css'
 
 library.add(
-  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown
+  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle
 )
 
 const PrivateRoute = ({ component: Component, ...rest }) => (

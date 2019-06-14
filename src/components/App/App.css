@@ -52,6 +52,10 @@ button {
 
 /* these are reuseable across edit forms */
 
+.tab-content section{
+  border-bottom: 1px solid lightslategray;
+}
+
 .actionButtonsWrapper {
   display: flex;
   align-items: center;
