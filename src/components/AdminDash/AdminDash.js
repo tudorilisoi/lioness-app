@@ -14,11 +14,11 @@ import LionessContext from '../../LionessContext/LionessContext'
 
 import "react-tabs/style/react-tabs.css";
 import { faInfo } from '@fortawesome/free-solid-svg-icons';
-const { deleteCookieLoginInfo, getCookieLoginInfo, getUsers } = ds
+const { deletestoredLoginInfo, getstoredLoginInfo, getUsers } = ds
 export default class AdminDash extends Component {
     static contextType = LionessContext
     handleLogout = () => {
-        deleteCookieLoginInfo()
+        deletestoredLoginInfo()
         this.props.history.push('/login')
     }
 

@@ -23,7 +23,7 @@ library.add(
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    ds.getCookieLoginInfo()
+    ds.getstoredLoginInfo()
       ? <Component {...props} />
       : <Redirect to={{
           pathname: '/login',

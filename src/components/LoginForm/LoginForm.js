@@ -5,7 +5,7 @@ import ValidationErrors from '../ValidationErrors/ValidationErrors';
 import ds from '../../STORE/dataservice';
 import * as EmailValidator from 'email-validator'
 
-const { doLogin, setCookieLoginInfo, getCookieLoginInfo } = ds
+const { doLogin, setstoredLoginInfo, getstoredLoginInfo } = ds
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -22,7 +22,7 @@ export default class LoginForm extends Component {
     };
   }
   componentDidMount() {
-    const savedCredentials = getCookieLoginInfo();
+    const savedCredentials = getstoredLoginInfo();
     if (savedCredentials) {
       console.log('Logging in with saved(cookie) credentials', savedCredentials)
       this.setState(
@@ -104,7 +104,7 @@ export default class LoginForm extends Component {
           console.log('login: set user to ', data)
           this.context.setCurrentUser(data)
           const { id, email, full_name, password } = data
-          setCookieLoginInfo({
+          setstoredLoginInfo({
             id, email, full_name, password
           });
         }
