@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classnames from 'classnames'
 import LionessContext from '../../LionessContext/LionessContext';
 import EditProject from '../EditProject/EditProject'
 import './Project.css'
@@ -67,11 +68,11 @@ export default class Project extends Component {
         const projects = projectsList.map((project, index) => {
             const isEditing = this.state.editModeIndex === index
 
-            const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
+            const isExpanded = this.state.expandedIndex === index
             const editingModeClassName = isEditing ? 'show' : ''
             const projectDetails =
                 <section key={project.id}>
-                    <button className='collapsible' onClick={() => { this.toggle(index) }}>{project.title}
+                    <button className={classnames('collapsible', isExpanded ? 'hide' : null)} onClick={() => { this.toggle(index) }}>{project.title}
 
                         {!this.state.newProject ? <span>${project.budget}</span> : ''}
                         {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
@@ -80,7 +81,7 @@ export default class Project extends Component {
 
                     </button>
 
-                    <div className={`button-content ${expandedClassName}`}>
+                    <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
                         <div className='padded'>
                             {!this.state.newProject ? <button>Delete</button> : ''}
                             {!this.state.newProject ? <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
