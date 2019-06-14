@@ -97,7 +97,7 @@ export default class Project extends Component {
                                 </a>
                             </div>
                             <EditProject project={project} editMode={isEditing} />
-                            <div className='editButtonsWrapper'>
+                            <div className='buttonsRow'>
                                 <button
                                     onClick={() => {
                                         //TODO write a saveProject function in ds
