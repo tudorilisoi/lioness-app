@@ -73,14 +73,17 @@ export default class Project extends Component {
             const editingModeClassName = isEditing ? 'show' : ''
             const projectDetails =
                 <section key={project.id}>
-                    <div className={classnames('collapsible', isExpanded ? 'hide' : null)}
+                    <div className={classnames('collapsible', isExpanded ? '' : null)}
                         onClick={() => { this.toggle(index) }}>
-                        <Icon className='r-spaced' icon={isExpanded ? 'minus' : 'plus'} />
-                        {project.title}
-                        {!this.state.newProject ? <span>${project.budget}</span> : ''}
-                        {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
-                        {project.status.id === 2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span> : ""}
-                        {project.status.id === 3 ? <span>Completion Date: {project.completionDate} </span> : ""}
+                        <div className='collapsibleInner'>
+
+                            <Icon className='r-spaced' icon={isExpanded ? 'minus' : 'plus'} />
+                            {project.title}
+                            {!this.state.newProject ? <span>${project.budget}</span> : ''}
+                            {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
+                            {project.status.id === 2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span> : ""}
+                            {project.status.id === 3 ? <span>Completion Date: {project.completionDate} </span> : ""}
+                        </div>
 
                     </div>
 
