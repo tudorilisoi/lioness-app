@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LionessContext from '../../LionessContext/LionessContext';
 import EditUser from '../EditUser/EditUser'
 
-const newClientTemplate = {
+const newUserTemplate = {
     id: -1,
     email: '',
     username: '',
@@ -16,12 +16,12 @@ const newClientTemplate = {
 };
 
 
-export default class Client extends Component {
+export default class User extends Component {
     static contextType = LionessContext
     constructor() {
         super()
         this.state = {
-            newClient: null,
+            newUser: null,
             expandedIndex: false,
             editModeIndex: false,
         }
@@ -39,54 +39,58 @@ export default class Client extends Component {
         })
     }
 
-    addClient = () => {
+    addUser = () => {
         this.setState({
             editModeIndex: 0,
             expandedIndex: 0,
-            newClient: { ...newClientTemplate }
+            newUser: { ...newUserTemplate }
         })
     }
-    cancelAddClient=()=>{
+    cancelAddUser=()=>{
         this.setState({
             editModeIndex: false,
             expandedIndex: false,
-            newClient: null
+            newUser: null
         })
     }
 
 
     render() {
         // debugger
-        const clientsList = [...this.context.users.data]
-        if (this.state.newClient) {
-            clientsList.unshift(this.state.newClient)
+        const UsersList = [...this.context.users.data]
+        if (this.state.newUser) {
+            UsersList.unshift(this.state.newUser)
         }
-        const clients = clientsList.map((user, index) => {
+        const Users = UsersList.map((user, index) => {
             const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
             const isEditing = this.state.editModeIndex === index
             const editingModeClassName = isEditing ? 'show' : ''
-            const clientDetails =
+            const UserDetails =
                 <section key={user.id}>
-                    <button className='collapsible' onClick={() => { this.toggle(index) }}>{user.full_name}
-
+                    <button className='collapsible' onClick={() => { this.toggle(index) }} >{user.full_name}
+                    {!this.state.newUser ? <>
+                    { this.props.role !==2 ? 
+                    
+                    <p><span>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</span></p> : ''}
+                    </> :''}
                     </button>
 
 
                     <div className={`button-content ${expandedClassName}`}>
 
-                        {!this.state.newClient ?  <button>Delete</button> :''}
-                        {!this.state.newClient ?  <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
+                        {!this.state.newUser ?  <button>Delete</button> :''}
+                        {!this.state.newUser ?  <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
                         <EditUser user={user} editMode={isEditing} role={this.props.role} />
                         <button className={`saveButton ${editingModeClassName}`}>Save</button>
-                            <button onClick={()=>this.cancelAddClient()}className={`saveButton ${editingModeClassName}`}>Cancel</button>
+                            <button onClick={()=>this.cancelAddUser()}className={`saveButton ${editingModeClassName}`}>Cancel</button>
                     </div>
 
                 </section>
-            return clientDetails
+            return UserDetails
         })
         return (
             <div className='tab-content'>
-                {clients}
+                {Users}
             </div>
         )
     }

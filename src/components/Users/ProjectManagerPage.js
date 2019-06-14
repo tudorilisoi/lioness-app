@@ -1,16 +1,12 @@
 import React, { Component } from "react";
-import DataLoader from "../DataLoader/DataLoader";
 import LionessContext from "../../LionessContext/LionessContext";
-import ds from "../../STORE/dataservice";
-import NavBar from "../Nav/Nav";
 import "../AdminDash/AdminDash.css";
-import ProjectManager from "./ProjectManager";
 import UserSearchBar from "../UserSearchBar/UserSearchBar";
-const { getUsers, getProjects, handleFetchError } = ds;
+import User from './User'
 export default class ProjectManagerPage extends Component {
   constructor(props) {
     super(props)
-    this.projectManagerRef = null;
+    this.userRef = null;
 }
   static contextType = LionessContext;
   render() {
@@ -19,8 +15,11 @@ export default class ProjectManagerPage extends Component {
       <div className="tab-page">
         <h2>Project Managers</h2>
         <UserSearchBar role={opts.roleFilter} />
-        <button onClick={ev=>{this.projectManagerRef && this.projectManagerRef.addPm()}}>Add Project Manager</button>
-        <ProjectManager ref={ref => this.projectManagerRef = ref} role={opts.roleFilter} />
+        <div className='user-buttons'>
+                <button onClick={ev=>{this.userRef && this.userRef.addUser()}}>Add Project Manager</button>
+                <button>Email Project Manager</button>
+                </div>
+                <User ref={ref => this.userRef = ref} role={opts.roleFilter} />
       </div>
     );
   }

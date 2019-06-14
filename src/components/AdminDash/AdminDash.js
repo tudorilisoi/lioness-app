@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import { NavTab} from "react-router-tabs";
 import EstimatesPage from '../Projects/EstimatesPage'
-import ClientPage from '../Client/ClientPage'
+import ClientPage from '../Users/ClientPage'
 import ActiveProjectsPage from '../Projects/ActiveProjectsPage'
 import BilledProjectsPage from '../Projects/BilledProjectsPage'
-import ProjectManagerPage from '../ProjectManagers/ProjectManagerPage'
-import ContractorsPage from '../Contractors/ContractorsPage'
+import ProjectManagerPage from '../Users/ProjectManagerPage'
+import ContractorsPage from '../Users/ContractorsPage'
 import HomePage from '../Home/HomePage'
 import { Route, Switch, Redirect} from 'react-router-dom'
 import ds from '../../STORE/dataservice';

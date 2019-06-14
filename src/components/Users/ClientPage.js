@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import DataLoader from '../DataLoader/DataLoader'
 import LionessContext from '../../LionessContext/LionessContext'
-import ds from '../../STORE/dataservice';
-import Client from '../Client/Client'
-import Navbar from '../Nav/Nav'
-import { Link } from 'react-router-dom'
 import UserSearchBar from '../UserSearchBar/UserSearchBar'
-const { getUsers, getProjects, handleFetchError } = ds
+import User from './User'
+
 export default class ClientPage extends Component {
     constructor(props) {
         super(props)
-        this.clientRef = null;
+        this.userRef = null;
     }
     static contextType = LionessContext;
     render() {
@@ -19,9 +15,11 @@ export default class ClientPage extends Component {
             <div className='tab-page'>
                 <h2>Clients</h2>
                 <UserSearchBar role={opts.roleFilter} />
-                <button onClick={ev=>{this.clientRef && this.clientRef.addClient()}}>Add Client</button>
+                <div className='user-buttons'>
+                <button onClick={ev=>{this.userRef && this.userRef.addUser()}}>Add Client</button>
                 <button>Email Client</button>
-                <Client ref={ref => this.clientRef = ref} role={opts.roleFilter} />
+                </div>
+                <User ref={ref => this.userRef = ref} role={opts.roleFilter} />
             </div>
         )
     }

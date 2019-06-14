@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import DataLoader from "../DataLoader/DataLoader";
 import LionessContext from "../../LionessContext/LionessContext";
 import ds from "../../STORE/dataservice";
 import "../AdminDash/AdminDash.css";
-import Contractor from './Contractor'
+import User from './User'
 import UserSearchBar from "../UserSearchBar/UserSearchBar";
 const { getUsers, getProjects, handleFetchError } = ds;
 export default class ContractorsPage extends Component {
   constructor(props) {
     super(props)
-    this.contractorRef = null;
+    this.userRef = null;
 }
   static contextType = LionessContext;
   render() {
@@ -18,8 +17,11 @@ export default class ContractorsPage extends Component {
       <div className="tab-page">
         <h2>Contractors</h2>
         <UserSearchBar role={opts.roleFilter} />
-        <button onClick={ev=>{this.contractorRef && this.contractorRef.addContractor()}}>Add Contractor</button>
-        <Contractor ref={ref => this.contractorRef = ref} role={opts.roleFilter}/>
+        <div className='user-buttons'>
+                <button onClick={ev=>{this.userRef && this.userRef.addUser()}}>Add Contractor</button>
+                <button>Email Contractor</button>
+                </div>
+                <User ref={ref => this.userRef = ref} role={opts.roleFilter} />
       </div>
     );
   }
