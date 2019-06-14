@@ -67,7 +67,7 @@ export default class User extends Component {
             const editingModeClassName = isEditing ? 'show' : ''
             const UserDetails =
                 <section key={user.id}>
-                    <button className='collapsible' onClick={() => { this.toggle(index) }} >{user.full_name}
+                    <button className={`collapsible ${expandedClassName}` }onClick={() => { this.toggle(index) }} ><a className='userName'>{user.full_name}</a>
                     {!this.state.newUser ? <>
                     { this.props.role !==2 ? 
                     
