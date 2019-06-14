@@ -51,10 +51,20 @@ button {
   display: none;
 }
 
+/* these are reuseable across edit forms */
+
 .actionButtonsWrapper{
+  display:flex;
+  align-items: center;
   float:right;
   padding-left:1em;
 }
 .actionButton{
+  margin-left:.5em;
+}
+.closeButton{
+  color:red;
+  /* padding:.3em; */
+  font-size:20px;
   margin-left:.5em;
 }

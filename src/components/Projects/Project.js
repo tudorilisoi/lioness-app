@@ -90,7 +90,11 @@ export default class Project extends Component {
                                 {!this.state.newProject ? <button className='actionButton'><Icon icon="trash" /> Delete</button> : ''}
                                 {!this.state.newProject ?
                                     <button className='actionButton' onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
-                                    <button><Icon icon='fa-close'/></button>
+                                <a
+                                    onClick={() => { this.toggle(index) }}
+                                    href="#" className='closeButton'>
+                                    <Icon icon='times' />
+                                </a>
                             </div>
                             <EditProject project={project} editMode={isEditing} />
                             <div>
