@@ -129,7 +129,7 @@ export default class ProjectSearchBar extends Component {
           aria-label="dropdown menu of sort options for results"
           onChange={e => this.dateTypeChange(e.target.value)}
         >
-          <option selected disabled="">Choose One</option>
+          <option disabled="">Choose One</option>
           <option selected={'startDate' === selectedOption} value="startDate">Start Date</option>
           {isInProgress || isBilled
             ? (
