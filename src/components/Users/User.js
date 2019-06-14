@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LionessContext from '../../LionessContext/LionessContext';
 import EditUser from '../EditUser/EditUser'
-
+import './editContent.css'
 const newUserTemplate = {
     id: -1,
     email: '',
@@ -67,22 +67,26 @@ export default class User extends Component {
             const editingModeClassName = isEditing ? 'show' : ''
             const UserDetails =
                 <section key={user.id}>
-                    <button className={`collapsible ${expandedClassName}` }onClick={() => { this.toggle(index) }} ><a className='userName'>{user.full_name}</a>
+                  { !this.state.newUser ? <button className={`collapsible ${expandedClassName}` }onClick={() => { this.toggle(index) }} ><a className='userName'>{user.full_name}</a>
                     {!this.state.newUser ? <>
                     { this.props.role !==2 ? 
                     
-                    <p><span>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</span></p> : ''}
+                    <p><em>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</em></p> : ''}
                     </> :''}
-                    </button>
+                    </button> : ''}
 
 
                     <div className={`button-content ${expandedClassName}`}>
-
-                        {!this.state.newUser ?  <button>Delete</button> :''}
-                        {!this.state.newUser ?  <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
+                    <div >
+                    {!this.state.newUser ?  <button>Delete</button> :''}
+                    {!this.state.newUser ?  <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
+                    </div>
+                    
                         <EditUser user={user} editMode={isEditing} role={this.props.role} />
-                        <button className={`saveButton ${editingModeClassName}`}>Save</button>
-                            <button onClick={()=>this.cancelAddUser()}className={`saveButton ${editingModeClassName}`}>Cancel</button>
+                        <div className={`editMode-buttons ${editingModeClassName}`}>
+                        <button className='saveButton' >Save</button>
+                            <button className='saveButton' onClick={()=>this.cancelAddUser()}>Cancel</button>
+                            </div>
                     </div>
 
                 </section>
