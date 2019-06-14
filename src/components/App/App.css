@@ -28,3 +28,16 @@
 .padded {
   padding: 1em;
 }
+
+.l-spaced{
+  margin-left:1em;
+}
+
+.r-spaced{
+  margin-right:1em;
+}
+
+.h-spaced{
+  margin-left:1em;
+  margin-right:1em;
+}

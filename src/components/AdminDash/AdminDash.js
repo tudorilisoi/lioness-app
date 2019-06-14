@@ -21,6 +21,7 @@ export default class AdminDash extends Component {
         this.props.history.push('/login')
     }
     render() {
+        console.log('ctx', this.context)
         const { path } = this.props.match
         return (
             <div>
@@ -30,7 +31,7 @@ export default class AdminDash extends Component {
                             <h3>Lioness</h3>
                         </div>
                         <div className='userInfo flexed'>
-                            <h4>Welcome!</h4>
+                            <h4 className='r-spaced'>Welcome!</h4>
                             <button onClick={() => this.logoutClick()}>Log Out</button>
                         </div>
                     </div>
