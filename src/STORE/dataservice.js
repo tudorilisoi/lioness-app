@@ -80,24 +80,24 @@ const ds = {
             history.push('/login')
         }
     },
-    getstoredLoginInfo: () => {
+    getStoredLoginInfo: () => {
         return Cookie.get("credentials");
     },
-    setstoredLoginInfo: (loginData) => {
+    setStoredLoginInfo: (loginData) => {
         Cookie.set("credentials", loginData);
     },
-    deletestoredLoginInfo: () => {
+    deleteStoredLoginInfo: () => {
         Cookie.remove("credentials");
     },
     loadCurrentUser: () => {
-        const userInfo = ds.getstoredLoginInfo()
+        const userInfo = ds.getStoredLoginInfo()
         if (!(userInfo && userInfo.id)) {
             return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
         }
         return ds.getUsers({ idsFilter: [userInfo.id] })
     },
     getRoles: (opts = {}) => {
-        if (!ds.getstoredLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
@@ -106,7 +106,7 @@ const ds = {
         return Promise.resolve(res)
     },
     getStatuses: (opts = {}) => {
-        if (!ds.getstoredLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
@@ -114,7 +114,7 @@ const ds = {
         return delay(Promise.resolve(res), 500)
     },
     getUsers: (opts = {}) => {
-        if (!ds.getstoredLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
@@ -164,7 +164,7 @@ const ds = {
 
     },
     getProjects: (opts = {}) => {
-        if (!ds.getstoredLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }

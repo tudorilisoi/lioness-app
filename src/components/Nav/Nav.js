@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import EstimatesPage from '../Projects/EstimatesPage'
 import "react-tabs/style/react-tabs.css";
-const {deletestoredLoginInfo} = ds
+const {deleteStoredLoginInfo} = ds
 
 export default class Navbar extends Component{
     static propTypes= {
@@ -18,7 +18,7 @@ export default class Navbar extends Component{
         super()
     }
     logoutClick=()=>{
-        deletestoredLoginInfo()
+        deleteStoredLoginInfo()
         this.props.history.push('/login')
     }
     render(){
