@@ -41,8 +41,8 @@ export default class AdminDash extends Component {
         }
         return (
             <div>
-                <nav role='navigation' className="navBar">
-                    <div className='heading'>
+                <div  className="navBar">
+                    <header className='heading padded'>
                         <div className='logo flexed'>
                             <h3>Lioness</h3>
                         </div>
@@ -52,8 +52,8 @@ export default class AdminDash extends Component {
                             }</h4>
                             <button onClick={() => this.handleLogout()}>Log Out</button>
                         </div>
-                    </div>
-                    <div className='links'>
+                    </header>
+                    <nav className='links'>
 
                         <NavTab to={`${path}/home`} className='link'>Home</NavTab>
                         <NavTab to={`${path}/estimates`} className='link'>Estimates</NavTab>
@@ -62,7 +62,7 @@ export default class AdminDash extends Component {
                         <NavTab to={`${path}/clients`} className='link'>Clients</NavTab>
                         <NavTab to={`${path}/project-managers`} className='link'>Project Managers</NavTab>
                         <NavTab to={`${path}/contractors`} className='link'>Contractors</NavTab>
-                    </div>
+                    </nav>
                     <div className='tabs'>
                         <Switch>
                             <Route
@@ -80,7 +80,7 @@ export default class AdminDash extends Component {
                         </Switch>
 
                     </div>
-                </nav>
+                </div>
             </div>
         )
     }

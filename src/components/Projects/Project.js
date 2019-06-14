@@ -77,7 +77,7 @@ export default class Project extends Component {
                         onClick={() => { this.toggle(index) }}>
                         <div className='collapsibleInner'>
 
-                            <Icon className='r-spaced' icon={isExpanded ? 'minus' : 'plus'} />
+                            <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
                             {project.title}
                             {!this.state.newProject ? <span>${project.budget}</span> : ''}
                             {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
