@@ -84,8 +84,9 @@ export default class Project extends Component {
 
                     <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
                         <div className='padded'>
-                            {!this.state.newProject ? <button><Icon icon="trash"></Icon> Delete</button> : ''}
-                            {!this.state.newProject ? <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
+                            {!this.state.newProject ? <button><Icon icon="trash" /> Delete</button> : ''}
+                            {!this.state.newProject ? 
+                            <button onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
                             <EditProject project={project} editMode={isEditing} />
                             <button
                                 onClick={() => {
