@@ -19,7 +19,18 @@ import './App.css'
 
 library.add(
   faTrash, faEdit, faPlus, faMinus, faSave, faTimes
-  )
+)
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    ds.getCookieLoginInfo()
+      ? <Component {...props} />
+      : <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }} />
+  )} />
+)
 
 class App extends Component {
   constructor(props) {
@@ -87,6 +98,7 @@ class App extends Component {
     })
   }
   setCurrentUser = currentUser => {
+    console.log('setCurrentUser:', currentUser)
     this.setState({
       currentUserLoaded: true,
       currentUser
@@ -124,9 +136,9 @@ class App extends Component {
         <LionessContext.Provider value={contextValue}>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={LandingPage} />
               <Route exact path="/login" component={LoginForm} />
-              <Route path='/admin-dash'
+              <PrivateRoute exact path="/" component={LandingPage} />
+              <PrivateRoute path='/admin-dash'
                 component={AdminDash} />
             </Switch>
           </BrowserRouter>

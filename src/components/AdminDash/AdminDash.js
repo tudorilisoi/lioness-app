@@ -16,7 +16,7 @@ import "react-tabs/style/react-tabs.css";
 const { deleteCookieLoginInfo } = ds
 export default class AdminDash extends Component {
     static contextType = LionessContext
-    logoutClick = () => {
+    handleLogout = () => {
         deleteCookieLoginInfo()
         this.props.history.push('/login')
     }
@@ -32,7 +32,7 @@ export default class AdminDash extends Component {
                         </div>
                         <div className='userInfo flexed'>
                             <h4 className='r-spaced'>Welcome!</h4>
-                            <button onClick={() => this.logoutClick()}>Log Out</button>
+                            <button onClick={() => this.handleLogout()}>Log Out</button>
                         </div>
                     </div>
                     <div className='links'>
