@@ -3,7 +3,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
 
 // need to explicitly import all needed icons 
-import { faTrash, faEdit, faPlus, faMinus, faSave } from '@fortawesome/free-solid-svg-icons'
+// NOTE copy-paste this line to library.add
+import {
+  faTrash, faEdit, faPlus, faMinus, faSave, faTimes
+} from '@fortawesome/free-solid-svg-icons'
 
 import ds from "../../STORE/dataservice";
 import config from "../../config";
@@ -14,7 +17,9 @@ import AdminDash from '../AdminDash/AdminDash'
 import LionessContext from "../../LionessContext/LionessContext";
 import './App.css'
 
-library.add(faTrash, faEdit, faPlus, faMinus, faSave)
+library.add(
+  faTrash, faEdit, faPlus, faMinus, faSave, faTimes
+  )
 
 class App extends Component {
   constructor(props) {
