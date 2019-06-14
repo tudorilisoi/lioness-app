@@ -1,13 +1,11 @@
 /* eslint-disable import/first */
-import dataString from './flattenedData.json';
-import Cookie from "js.cookie"
-import fjs from 'flatted/cjs';
-import { default as deterministicStringify } from 'json-stable-stringify'
-import { reject } from 'q';
-import { history } from '../index';
 import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween'
-import moment from 'moment'
+import isBetween from 'dayjs/plugin/isBetween';
+import fjs from 'flatted/cjs';
+import Cookie from "js.cookie";
+import { default as deterministicStringify } from 'json-stable-stringify';
+import { history } from '../index';
+import dataString from './flattenedData.json';
 dayjs.extend(isBetween)
 const { parse, stringify } = fjs
 
@@ -16,7 +14,6 @@ let data = parse(JSON.stringify(dataString));
 const SORT_ASC = 'ASC'
 const SORT_DESC = 'DESC'
 
-//TODO split this into separate defaults for users, roles and so on
 const projectsDefaultOptions = {
     statusFilter: null,
     searchQuery: null,
@@ -30,6 +27,7 @@ const projectsDefaultOptions = {
     pageNumber: 1,
 }
 const usersDefaultOptions = {
+    idsFilter: null, // pass a non-empty array to fetch users by theirs ids
     searchQuery: null,
     userNameSortAsc: null,
     roleFilter: null,
@@ -79,17 +77,24 @@ const ds = {
             history.push('/login')
         }
     },
-    getCookieLoginInfo: () => {
+    getStoredLoginInfo: () => {
         return Cookie.get("credentials");
     },
-    setCookieLoginInfo: (loginData) => {
+    setStoredLoginInfo: (loginData) => {
         Cookie.set("credentials", loginData);
     },
-    deleteCookieLoginInfo: () => {
+    deleteStoredLoginInfo: () => {
         Cookie.remove("credentials");
     },
+    loadCurrentUser: () => {
+        const userInfo = ds.getStoredLoginInfo()
+        if (!(userInfo && userInfo.id)) {
+            return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
+        }
+        return ds.getUsers({ idsFilter: [userInfo.id] })
+    },
     getRoles: (opts = {}) => {
-        if (!ds.getCookieLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
@@ -98,7 +103,7 @@ const ds = {
         return Promise.resolve(res)
     },
     getStatuses: (opts = {}) => {
-        if (!ds.getCookieLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
@@ -106,7 +111,7 @@ const ds = {
         return delay(Promise.resolve(res), 500)
     },
     getUsers: (opts = {}) => {
-        if (!ds.getCookieLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
@@ -136,6 +141,11 @@ const ds = {
             })
 
         }
+
+        if (mergedOpts.idsFilter) {
+            res = res.filter(u => mergedOpts.idsFilter.includes(u.id))
+        }
+
         const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
         const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
         const numPages = Math.ceil(res.length / ITEMS_PER_PAGE)
@@ -151,7 +161,7 @@ const ds = {
 
     },
     getProjects: (opts = {}) => {
-        if (!ds.getCookieLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
@@ -262,7 +272,7 @@ const ds = {
             totalItemCount,
         }))
     },
-    getUserLogin: (email, password) => {
+    doLogin: (email, password) => {
 
         let users = [...data.users]
         let findUser = users.find(user => user.email === email)

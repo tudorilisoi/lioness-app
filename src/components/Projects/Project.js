@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import classnames from 'classnames'
 import LionessContext from '../../LionessContext/LionessContext';
 import EditProject from '../EditProject/EditProject'
 import './Project.css'
 const newProjectTemplate = {
-    id:-1,
+    id: -1,
     title: '',
-        status: {},
-        description: '',
-        startDate: '',
-        estimatedDueDate: '',
-        completionDate: '',
-        budget: '',
-        estimatedDueDate: '',
-        client: {},
-        projectManager: {},
-        contractors: []
+    status: {},
+    description: '',
+    startDate: '',
+    estimatedDueDate: '',
+    completionDate: '',
+    budget: '',
+    estimatedDueDate: '',
+    client: {},
+    projectManager: {},
+    contractors: []
 };
 
 
@@ -49,7 +51,7 @@ export default class Project extends Component {
             newProject: { ...newProjectTemplate }
         })
     }
-    cancelAddProject=()=>{
+    cancelAddProject = () => {
         this.setState({
             editModeIndex: false,
             expandedIndex: false,
@@ -58,47 +60,64 @@ export default class Project extends Component {
     }
     render() {
         // debugger
-        const projectsList=[...this.context.projects.data]
-        if(this.state.newProject){
+        const projectsList = [...this.context.projects.data]
+        if (this.state.newProject) {
             projectsList.unshift(this.state.newProject)
             console.log(projectsList)
         }
-        
+
         const projects = projectsList.map((project, index) => {
             const isEditing = this.state.editModeIndex === index
 
-            const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
+            const isExpanded = this.state.expandedIndex === index
             const editingModeClassName = isEditing ? 'show' : ''
             const projectDetails =
                 <section key={project.id}>
-                    <button className='collapsible' onClick={() => { this.toggle(index) }}>{project.title}
-                       
-                        {!this.state.newProject ? <span>${project.budget}</span> :''}
-                {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
-                {project.status.id === 2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span> : ""}
-                {project.status.id === 3 ? <span>Completion Date: {project.completionDate} </span> : ""}
+                    <div className={classnames('collapsible', isExpanded ? '' : null)}
+                        onClick={() => { this.toggle(index) }}>
+                        <div className='collapsibleInner'>
 
-                    </button>
+                            <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
+                            {project.title}
+                            {!this.state.newProject ? <span>${project.budget}</span> : ''}
+                            {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
+                            {project.status.id === 2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span> : ""}
+                            {project.status.id === 3 ? <span>Completion Date: {project.completionDate} </span> : ""}
+                        </div>
 
-                    <div className={`button-content ${expandedClassName}`}>
-                       { !this.state.newProject? <button>Delete</button> :''}
-                        {!this.state.newProject? <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button>:''}
-                        <EditProject project={project} editMode={isEditing} />
-                        <button
-                            onClick={() => {
-                                //TODO write a saveProject function in ds
-                                //TODO save and reload after that
-                                console.log(this.context)
-                                this.context.reloadProjects()
-                            }}
-                            className={`saveButton ${editingModeClassName}`}>Save</button>
-                    <button onClick={()=>this.cancelAddProject()}className={`saveButton ${editingModeClassName}`}>Cancel</button>
+                    </div>
+
+                    <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
+                        <div className='padded'>
+                            <div className='actionButtonsWrapper'>
+                                {!this.state.newProject ? <button className='actionButton'><Icon icon="trash" /> Delete</button> : ''}
+                                {!this.state.newProject ?
+                                    <button className='actionButton' onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
+                                {/* <a
+                                    onClick={() => { this.toggle(index) }}
+                                    href="#" className='closeButton'>
+                                    <Icon icon='times' />
+                                </a> */}
+                            </div>
+                            <EditProject project={project} editMode={isEditing} />
+                            <div className='buttonsRow'>
+                                <button
+                                    onClick={() => {
+                                        //TODO write a saveProject function in ds
+                                        //TODO save and reload after that
+                                        console.log(this.context)
+                                        this.context.reloadProjects()
+                                    }}
+                                    className={`saveButton flexed ${editingModeClassName}`}>Save</button>
+                                <button onClick={() => this.cancelAddProject()} className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>
+                            </div>
+                        </div>
                     </div>
 
                 </section>
             return projectDetails
         })
-console.log(`what is happening`,projects)
+        console.log(`what is happening`, projects)
         return (
             <div className='tab-content'>
                 {projects}

@@ -8,14 +8,6 @@ export default class HomePage extends Component{
     render(){
         return(
             <div className='tab-page'>
-            <DataLoader 
-            onReject = {handleFetchError}
-            promise={getProjects()} 
-            onDataLoaded={this.context.setProjects}/>
-            <DataLoader 
-            promise={getUsers()} 
-            onReject = {handleFetchError}
-            onDataLoaded={this.context.setUsers}/>
             <h2>Hi!</h2>
             </div>
         )

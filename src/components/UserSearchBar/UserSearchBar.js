@@ -33,40 +33,25 @@ export default class UserSearchBar extends Component {
 
   };
   userNameSortChange = (nameSort) => {
+    this.setState({
+      userNameSortAsc: nameSort === "asc" ? true : false,
+      activeProjSortAsc: null,
+      noSorting: null,
+      currentPageNumber: 1
+    }, () => { this.fetchData() });
 
-    if (nameSort === "asc") {
-      this.setState({
-        userNameSortAsc: true,
-        activeProjSortAsc: null,
-        noSorting: null,
-        currentPageNumber: 1
-      }, () => { this.fetchData() });
-    } else {
-      this.setState({
-        userNameSortAsc: false,
-        activeProjSortAsc: null,
-        noSorting: null,
-        currentPageNumber: 1
-      }, () => { this.fetchData() });
-    }
   }
   activeProjSortChange = (actProjSort) => {
-    if (actProjSort === "asc") {
-      this.setState({
-        userNameSortAsc: null,
-        activeProjSortAsc: true,
-        noSorting: null,
-        currentPageNumber: 1
-      }, () => { this.fetchData() });
-    } else {
-      this.setState({
-        userNameSortAsc: null,
-        activeProjSortAsc: false,
-        noSorting: null,
-        currentPageNumber: 1
-      }, () => { this.fetchData() });
-    }
+
+    this.setState({
+      userNameSortAsc: null,
+      activeProjSortAsc: actProjSort === "asc" ? true : false,
+      noSorting: null,
+      currentPageNumber: 1
+    }, () => { this.fetchData() });
+
   }
+
   fetchData = () => {
 
     console.log('Data fetched')
@@ -99,9 +84,9 @@ export default class UserSearchBar extends Component {
       <div className="tab-navBar">
         <form onSubmit={e => this.handleSubmit(e)}>
           <div className='searchBar'>
-          <label htmlFor="search"> </label>
-          <input type="text" id="search" name="search" />
-          <button type="submit">Search! </button>
+            <label htmlFor="search"> </label>
+            <input type="text" id="search" name="search" />
+            <button type="submit">Search! </button>
           </div>
           <div className="sort-buttons">
             <button
@@ -113,8 +98,8 @@ export default class UserSearchBar extends Component {
               Name
               <br />
               (A-Z)
-              
-              
+
+
             </button>
             <button
               type="button"
@@ -141,10 +126,10 @@ export default class UserSearchBar extends Component {
               Active Projects (Lowest)
             </button> : ''}
             <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
-        <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+            <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
           </div>
         </form>
-        
+
       </div>
     );
   }

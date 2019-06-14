@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import AsyncSelect from "react-select/async";
 import ds from '../../STORE/dataservice';
 const { getUsers, getProjects, handleFetchError, getRoles, getStatuses } = ds
@@ -8,8 +9,13 @@ const mapUsersToOptions = users =>
         .sort((a, b) => a.label.localeCompare(b.label))
 
 export default class UserSelector extends Component {
-    // TODO propTypes defaultValue, roleFilter, onChange, multiple
-    // defaultValue is an userObject or an array
+    static propTypes = {
+        defaultValue: PropTypes.object, //an user object
+        roleFilter: PropTypes.any, //a role ID
+        onChange: PropTypes.func,
+        multiple: PropTypes.bool,
+        renderFn: PropTypes.any, //if this is provided we will use it as a render() return value
+    }
     constructor(props) {
         super(props)
         const { defaultValue, multiple } = this.props
@@ -37,7 +43,12 @@ export default class UserSelector extends Component {
 
     render() {
         const { users } = this.state
-        const { onChange, roleFilter, defaultValue, multiple } = this.props
+        const { onChange, roleFilter, defaultValue, multiple, renderFn } = this.props
+
+        if (renderFn) {
+            return renderFn()
+        }
+
         // const value = mapUsersToOptions(multiple ? defaultValue : [defaultValue])
         const loadUsersPromise = inputValue => {
             const opts = {

@@ -80,6 +80,31 @@ export default class EditProject extends Component {
     }
   };
 
+  renderNonEdit() {
+    const {
+      title,
+      status,
+      id,
+      description,
+      startDate,
+      budget,
+      estimatedDueDate,
+      client,
+      projectManager,
+      contractors,
+      completionDate,
+    } = this.state.project; //   //destructure the project since we're not spreading it in the astate anymore
+    const formattedStartDate = dateForInput(startDate);
+    return (
+      <div className={'padded'}>
+        <div className={''}>
+          XXX
+        </div>
+      </div>
+    )
+
+  }
+
   render() {
     const {
       title,
@@ -99,6 +124,9 @@ export default class EditProject extends Component {
     // const jsStartDate = dateToJS(startDateString)
     // debugger
     const { editMode } = this.props;
+    // if(!editMode){
+    //   return this.renderNonEdit()
+    // }
 
     // TODO pass statuses as a property
     // Do NOT use context any level deep, just on the *Page components
@@ -114,8 +142,7 @@ export default class EditProject extends Component {
     const prevStatus = statusesOpts.find(
       s => s.value === status.id
     );
-    console.log('status value', prevStatus)
-    // debugger
+
     let currentContractorNames = contractors.map(contractor => {
       return contractor.full_name;
     }).join(", ");

@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import ds from '../../STORE/dataservice'
-const {deleteCookieLoginInfo} = ds
+const {deleteStoredLoginInfo} = ds
 export default class LogoutButton extends Component{
     static propTypes= {
         history: PropTypes.object.isRequired,
     }
     logoutClick=()=>{
-        deleteCookieLoginInfo()
+        deleteStoredLoginInfo()
         this.props.history.push('/login')
     }
     render(){

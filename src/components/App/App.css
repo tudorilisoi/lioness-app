@@ -1,8 +1,85 @@
-*{
+* {
   box-sizing: border-box;
-  margin:0;
+  margin: 0;
 }
-.App{
-   
+
+.App {
   height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* global styles */
+
+button {
+  padding: .3em;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexed {
+  flex: 1;
+}
+
+.padded {
+  padding: 1em;
+}
+
+.l-spaced {
+  margin-left: 1em;
+}
+
+.r-spaced {
+  margin-right: 1em;
+}
+
+.h-spaced {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.hide {
+  display: none;
+}
+
+/* these are reuseable across edit forms */
+
+.tab-content section{
+  border-bottom: 1px solid lightslategray;
+}
+
+.actionButtonsWrapper {
+  display: flex;
+  align-items: center;
+  float: right;
+  padding-left: 1em;
+}
+
+.actionButton {
+  margin-left: .5em;
+}
+
+.closeButton {
+  color: teal;
+  /* padding:.3em; */
+  font-size: 20px;
+  margin-left: .5em;
+}
+
+.buttonsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.buttonsRow button {
+  margin: 0 .3em 0 .3em;
 }

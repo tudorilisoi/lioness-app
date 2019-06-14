@@ -1,4 +1,14 @@
 import React, { Component } from "react";
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fab } from '@fortawesome/free-brands-svg-icons'
+
+// need to explicitly import all needed icons 
+//find icons @ https://fontawesome.com/icons?d=gallery&q=add%20user&m=free
+// NOTE copy-paste this line to library.add
+import {
+  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle
+} from '@fortawesome/free-solid-svg-icons'
+
 import ds from "../../STORE/dataservice";
 import config from "../../config";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
@@ -6,8 +16,23 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import AdminDash from '../AdminDash/AdminDash'
 import LionessContext from "../../LionessContext/LionessContext";
-
 import './App.css'
+
+library.add(
+  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle
+)
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    ds.getStoredLoginInfo()
+      ? <Component {...props} />
+      : <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }} />
+  )} />
+)
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +48,7 @@ class App extends Component {
       usersLoaded: false,
       projectsLoaded: false,
       currentUserLoaded: false,
-      reloadProjects:null,
+      reloadProjects: null,
     };
   }
   beforeProjectFetch = () => {
@@ -74,6 +99,7 @@ class App extends Component {
     })
   }
   setCurrentUser = currentUser => {
+    console.log('setCurrentUser:', currentUser)
     this.setState({
       currentUserLoaded: true,
       currentUser
@@ -111,9 +137,9 @@ class App extends Component {
         <LionessContext.Provider value={contextValue}>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={LandingPage} />
               <Route exact path="/login" component={LoginForm} />
-              <Route path='/admin-dash'
+              <PrivateRoute exact path="/" component={LandingPage} />
+              <PrivateRoute path='/admin-dash'
                 component={AdminDash} />
             </Switch>
           </BrowserRouter>
