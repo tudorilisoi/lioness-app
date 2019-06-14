@@ -89,6 +89,13 @@ const ds = {
     deleteCookieLoginInfo: () => {
         Cookie.remove("credentials");
     },
+    loadCurrentUser: () => {
+        const userInfo = ds.getCookieLoginInfo()
+        if (!(userInfo && userInfo.id)) {
+            return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
+        }
+        return ds.getUsers({ idsFilter: [userInfo.id] })
+    },
     getRoles: (opts = {}) => {
         if (!ds.getCookieLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
@@ -137,7 +144,7 @@ const ds = {
             })
 
         }
-        
+
         if (mergedOpts.idsFilter) {
             res = res.filter(u => mergedOpts.idsFilter.includes(u.id))
         }

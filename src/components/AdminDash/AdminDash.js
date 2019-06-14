@@ -23,17 +23,13 @@ export default class AdminDash extends Component {
     }
 
     componentDidMount() {
-        const userInfo = getCookieLoginInfo()
-        if (userInfo && userInfo.id) {
-            getUsers({ idsFilter: [userInfo.id] }).then(res => {
+        ds.loadCurrentUser()
+            .then(res => {
                 this.context.setCurrentUser(res.data[0])
             }).catch((e) => {
                 console.error(e)
                 this.handleLogout()
             })
-        } else {
-            this.handleLogout()
-        }
     }
 
     render() {
