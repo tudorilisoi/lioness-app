@@ -103,8 +103,10 @@ export default class LoginForm extends Component {
         if (data) {
           console.log('login: set user to ', data)
           this.context.setCurrentUser(data)
-          setCookieLoginInfo({ email: data.email, password: data.password });
-          //  debugger
+          const { id, email, full_name, password } = data
+          setCookieLoginInfo({
+            id, email, full_name, password
+          });
         }
         return data
       })

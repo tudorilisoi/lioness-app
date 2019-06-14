@@ -30,6 +30,7 @@ const projectsDefaultOptions = {
     pageNumber: 1,
 }
 const usersDefaultOptions = {
+    idsFilter: null, // pass a non-empty array to fetch users by theirs ids
     searchQuery: null,
     userNameSortAsc: null,
     roleFilter: null,
@@ -136,6 +137,11 @@ const ds = {
             })
 
         }
+        
+        if (mergedOpts.idsFilter) {
+            res = res.filter(u => mergedOpts.idsFilter.includes(u.id))
+        }
+
         const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
         const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
         const numPages = Math.ceil(res.length / ITEMS_PER_PAGE)

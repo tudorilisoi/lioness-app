@@ -13,16 +13,36 @@ import './AdminDash.css'
 import LionessContext from '../../LionessContext/LionessContext'
 
 import "react-tabs/style/react-tabs.css";
-const { deleteCookieLoginInfo } = ds
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
+const { deleteCookieLoginInfo, getCookieLoginInfo, getUsers } = ds
 export default class AdminDash extends Component {
     static contextType = LionessContext
     handleLogout = () => {
         deleteCookieLoginInfo()
         this.props.history.push('/login')
     }
+
+    componentDidMount() {
+        const userInfo = getCookieLoginInfo()
+        if (userInfo && userInfo.id) {
+            getUsers({ idsFilter: [userInfo.id] }).then(res => {
+                this.context.setCurrentUser(res.data[0])
+            }).catch((e) => {
+                console.error(e)
+                this.handleLogout()
+            })
+        } else {
+            this.handleLogout()
+        }
+    }
+
     render() {
         console.log('ctx', this.context)
         const { path } = this.props.match
+        let welcome = 'Loading...'
+        if (this.context.currentUser) {
+            welcome = `Welcome, ${this.context.currentUser.full_name}!`
+        }
         return (
             <div>
                 <nav role='navigation' className="navBar">
@@ -31,7 +51,9 @@ export default class AdminDash extends Component {
                             <h3>Lioness</h3>
                         </div>
                         <div className='userInfo flexed'>
-                            <h4 className='r-spaced'>Welcome!</h4>
+                            <h4 className='r-spaced'>{
+                                welcome
+                            }</h4>
                             <button onClick={() => this.handleLogout()}>Log Out</button>
                         </div>
                     </div>
