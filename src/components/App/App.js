@@ -3,7 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
 
 // need to explicitly import all needed icons 
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faEdit, faPlus, faMinus, faSave } from '@fortawesome/free-solid-svg-icons'
 
 import ds from "../../STORE/dataservice";
 import config from "../../config";
@@ -14,7 +14,7 @@ import AdminDash from '../AdminDash/AdminDash'
 import LionessContext from "../../LionessContext/LionessContext";
 import './App.css'
 
-library.add(faTrash, faEdit)
+library.add(faTrash, faEdit, faPlus, faMinus, faSave)
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class App extends Component {
       usersLoaded: false,
       projectsLoaded: false,
       currentUserLoaded: false,
-      reloadProjects:null,
+      reloadProjects: null,
     };
   }
   beforeProjectFetch = () => {

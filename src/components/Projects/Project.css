@@ -1,4 +1,3 @@
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
 .collapsible {
   background-color:  #6CAE75;;
   display: flex;
@@ -20,17 +19,7 @@
   float:right;
   font-size: 15px;
 }
-.collapsible > a:before{
-  float: left !important;
-  font-family: FontAwesome;
-  content:"\f067";
-  padding-right: 5px;
-  text-align: right;
-}
-.expanded > a:before{
-  float: left !important;
-  content:"\f068";
-}
+
 .active, .collapsible:hover {
   opacity:0.8;
 }

@@ -50,3 +50,11 @@ button {
 .hide {
   display: none;
 }
+
+.actionButtonsWrapper{
+  float:right;
+  padding-left:1em;
+}
+.actionButton{
+  margin-left:.5em;
+}

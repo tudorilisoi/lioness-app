@@ -73,30 +73,36 @@ export default class Project extends Component {
             const editingModeClassName = isEditing ? 'show' : ''
             const projectDetails =
                 <section key={project.id}>
-                    <button className={classnames('collapsible', isExpanded ? 'hide' : null)} onClick={() => { this.toggle(index) }}>{project.title}
-
+                    <div className={classnames('collapsible', isExpanded ? 'hide' : null)}
+                        onClick={() => { this.toggle(index) }}>
+                        <Icon className='r-spaced' icon={isExpanded ? 'minus' : 'plus'} />
+                        {project.title}
                         {!this.state.newProject ? <span>${project.budget}</span> : ''}
                         {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
                         {project.status.id === 2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span> : ""}
                         {project.status.id === 3 ? <span>Completion Date: {project.completionDate} </span> : ""}
 
-                    </button>
+                    </div>
 
                     <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
                         <div className='padded'>
-                            {!this.state.newProject ? <button><Icon icon="trash" /> Delete</button> : ''}
-                            {!this.state.newProject ? 
-                            <button onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
+                            <div className='actionButtonsWrapper'>
+                                {!this.state.newProject ? <button className='actionButton'><Icon icon="trash" /> Delete</button> : ''}
+                                {!this.state.newProject ?
+                                    <button className='actionButton' onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
+                            </div>
                             <EditProject project={project} editMode={isEditing} />
-                            <button
-                                onClick={() => {
-                                    //TODO write a saveProject function in ds
-                                    //TODO save and reload after that
-                                    console.log(this.context)
-                                    this.context.reloadProjects()
-                                }}
-                                className={`saveButton ${editingModeClassName}`}>Save</button>
-                            <button onClick={() => this.cancelAddProject()} className={`saveButton ${editingModeClassName}`}>Cancel</button>
+                            <div>
+                                <button
+                                    onClick={() => {
+                                        //TODO write a saveProject function in ds
+                                        //TODO save and reload after that
+                                        console.log(this.context)
+                                        this.context.reloadProjects()
+                                    }}
+                                    className={`saveButton ${editingModeClassName}`}>Save</button>
+                                <button onClick={() => this.cancelAddProject()} className={`saveButton ${editingModeClassName}`}>Cancel</button>
+                            </div>
                         </div>
                     </div>
 
