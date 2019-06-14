@@ -43,7 +43,12 @@ export default class UserSelector extends Component {
 
     render() {
         const { users } = this.state
-        const { onChange, roleFilter, defaultValue, multiple } = this.props
+        const { onChange, roleFilter, defaultValue, multiple, renderFn } = this.props
+
+        if (renderFn) {
+            return renderFn()
+        }
+
         // const value = mapUsersToOptions(multiple ? defaultValue : [defaultValue])
         const loadUsersPromise = inputValue => {
             const opts = {

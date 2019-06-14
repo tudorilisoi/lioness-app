@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fab } from '@fortawesome/free-brands-svg-icons'
+
+// need to explicitly import all needed icons 
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+
 import ds from "../../STORE/dataservice";
 import config from "../../config";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
@@ -6,8 +12,10 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import AdminDash from '../AdminDash/AdminDash'
 import LionessContext from "../../LionessContext/LionessContext";
-
 import './App.css'
+
+library.add(faTrash, faEdit)
+
 class App extends Component {
   constructor(props) {
     super(props);

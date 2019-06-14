@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import LionessContext from '../../LionessContext/LionessContext';
 import EditProject from '../EditProject/EditProject'
@@ -83,7 +84,7 @@ export default class Project extends Component {
 
                     <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
                         <div className='padded'>
-                            {!this.state.newProject ? <button>Delete</button> : ''}
+                            {!this.state.newProject ? <button><Icon icon="trash"></Icon> Delete</button> : ''}
                             {!this.state.newProject ? <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
                             <EditProject project={project} editMode={isEditing} />
                             <button
