@@ -11,6 +11,10 @@
 
 /* global styles */
 
+button {
+  padding:.3em;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
