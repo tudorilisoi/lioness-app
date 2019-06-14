@@ -12,7 +12,7 @@
 /* global styles */
 
 button {
-  padding:.3em;
+  padding: .3em;
 }
 
 .flex-row {
@@ -28,7 +28,6 @@ button {
 .flexed {
   flex: 1;
 }
-
 
 .padded {
   padding: 1em;
@@ -53,18 +52,30 @@ button {
 
 /* these are reuseable across edit forms */
 
-.actionButtonsWrapper{
-  display:flex;
+.actionButtonsWrapper {
+  display: flex;
   align-items: center;
-  float:right;
-  padding-left:1em;
+  float: right;
+  padding-left: 1em;
 }
-.actionButton{
-  margin-left:.5em;
+
+.actionButton {
+  margin-left: .5em;
 }
-.closeButton{
-  color:red;
+
+.closeButton {
+  color: red;
   /* padding:.3em; */
-  font-size:20px;
-  margin-left:.5em;
+  font-size: 20px;
+  margin-left: .5em;
+}
+
+.editButtonsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editButtonsWrapper button {
+  margin: 0 .3em 0 .3em;
 }

@@ -97,7 +97,7 @@ export default class Project extends Component {
                                 </a>
                             </div>
                             <EditProject project={project} editMode={isEditing} />
-                            <div>
+                            <div className='editButtonsWrapper'>
                                 <button
                                     onClick={() => {
                                         //TODO write a saveProject function in ds
@@ -105,8 +105,8 @@ export default class Project extends Component {
                                         console.log(this.context)
                                         this.context.reloadProjects()
                                     }}
-                                    className={`saveButton ${editingModeClassName}`}>Save</button>
-                                <button onClick={() => this.cancelAddProject()} className={`saveButton ${editingModeClassName}`}>Cancel</button>
+                                    className={`saveButton flexed ${editingModeClassName}`}>Save</button>
+                                <button onClick={() => this.cancelAddProject()} className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>
                             </div>
                         </div>
                     </div>
