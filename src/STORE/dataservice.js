@@ -262,7 +262,7 @@ const ds = {
             totalItemCount,
         }))
     },
-    getUserLogin: (email, password) => {
+    doLogin: (email, password) => {
 
         let users = [...data.users]
         let findUser = users.find(user => user.email === email)

@@ -5,7 +5,7 @@ import ValidationErrors from '../ValidationErrors/ValidationErrors';
 import ds from '../../STORE/dataservice';
 import * as EmailValidator from 'email-validator'
 
-const { getUserLogin, setCookieLoginInfo, getCookieLoginInfo } = ds
+const { doLogin, setCookieLoginInfo, getCookieLoginInfo } = ds
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -94,7 +94,7 @@ export default class LoginForm extends Component {
     e && e.preventDefault();
     const { email, password } = this.state
     this.validateLogin(email, password)
-    getUserLogin(email, password)
+    doLogin(email, password)
       .catch((e) => {
         console.log(e)
         return false
