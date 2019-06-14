@@ -1,13 +1,11 @@
 /* eslint-disable import/first */
-import dataString from './flattenedData.json';
-import Cookie from "js.cookie"
-import fjs from 'flatted/cjs';
-import { default as deterministicStringify } from 'json-stable-stringify'
-import { reject } from 'q';
-import { history } from '../index';
 import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween'
-import moment from 'moment'
+import isBetween from 'dayjs/plugin/isBetween';
+import fjs from 'flatted/cjs';
+import Cookie from "js.cookie";
+import { default as deterministicStringify } from 'json-stable-stringify';
+import { history } from '../index';
+import dataString from './flattenedData.json';
 dayjs.extend(isBetween)
 const { parse, stringify } = fjs
 
