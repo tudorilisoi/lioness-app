@@ -3,6 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 // import { fab } from '@fortawesome/free-brands-svg-icons'
 
 // need to explicitly import all needed icons 
+//find icons @ https://fontawesome.com/icons?d=gallery&q=add%20user&m=free
 // NOTE copy-paste this line to library.add
 import {
   faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle
