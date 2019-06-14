@@ -96,12 +96,13 @@ export default class UserSearchBar extends Component {
 
   render() {
     return (
-      <div className="searchBar">
+      <div className="tab-navBar">
         <form onSubmit={e => this.handleSubmit(e)}>
-          <label htmlFor="search"> Search</label>
+          <div className='searchBar'>
+          <label htmlFor="search"> </label>
           <input type="text" id="search" name="search" />
           <button type="submit">Search! </button>
-          Sort by:
+          </div>
           <div className="sort-buttons">
             <button
               type="button"
@@ -139,10 +140,11 @@ export default class UserSearchBar extends Component {
             >
               Active Projects (Lowest)
             </button> : ''}
+            <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+        <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
           </div>
         </form>
-        <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
-        <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+        
       </div>
     );
   }

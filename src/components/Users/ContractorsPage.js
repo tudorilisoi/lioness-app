@@ -16,11 +16,11 @@ export default class ContractorsPage extends Component {
     return (
       <div className="tab-page">
         <h2>Contractors</h2>
-        <UserSearchBar role={opts.roleFilter} />
         <div className='user-buttons'>
                 <button onClick={ev=>{this.userRef && this.userRef.addUser()}}>Add Contractor</button>
                 <button>Email Contractor</button>
                 </div>
+        <UserSearchBar role={opts.roleFilter} />
                 <User ref={ref => this.userRef = ref} role={opts.roleFilter} />
       </div>
     );

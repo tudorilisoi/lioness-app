@@ -1,21 +1,41 @@
-.searchBar form{
+.user-buttons{
+  margin-top:10px;
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.user-buttons button{
+  background-color: #535355;
+  border:none;
+  border-radius: 8px;
+  color:#F1FFFA;
+  width:80px;
+  margin: 5px;
+
+}
+.searchBar{
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.tab-navBar form{
     display: flex;
     flex-direction: column;
 }
 .sort-buttons{
     display:flex;
-    align-items: center;
-    margin:auto;
+    
   
 }
-  .searchBar button{
-    background-color: #5A5A5B;
+.tab-navBar  button{
+    background-color: #535355;
     border:none;
     border-radius: 8px;
     color:#F1FFFA;
     width:80px;
   }
-  .searchBar button:hover{
+  .tab-navBar button:hover{
     opacity:0.8;
     cursor:pointer;
   }
+
+ 

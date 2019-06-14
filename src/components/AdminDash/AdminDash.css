@@ -9,7 +9,7 @@ nav {
 }
 .heading button{
   width:100px;
-  background-color: #5A5A5B;
+  background-color: #535355;
   border:none;
   border-radius: 8px;
   color:#F1FFFA;
@@ -39,7 +39,9 @@ nav ul {
 .tab-page {
   background-color: #8E745E;
 }
-
+.tab-page h2{
+  text-align: left;
+}
 .collapsible {
   background-color: #6CAE75;
 }

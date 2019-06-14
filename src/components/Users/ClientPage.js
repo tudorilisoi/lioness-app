@@ -14,11 +14,12 @@ export default class ClientPage extends Component {
         return (
             <div className='tab-page'>
                 <h2>Clients</h2>
-                <UserSearchBar role={opts.roleFilter} />
                 <div className='user-buttons'>
                 <button onClick={ev=>{this.userRef && this.userRef.addUser()}}>Add Client</button>
                 <button>Email Client</button>
                 </div>
+                <UserSearchBar role={opts.roleFilter} />
+                
                 <User ref={ref => this.userRef = ref} role={opts.roleFilter} />
             </div>
         )
