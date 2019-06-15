@@ -48,8 +48,8 @@ export default class EstimatesPage extends Component {
         return (
             <div className='tab-page'>
                 <h2>Estimates</h2>
-                <ProjectSearchBar status={EstimatesPage.opts.statusFilter} />
                 <button className='add-project' onClick={ev=>{this.projectRef && this.projectRef.addProject()}}>Add Project</button>
+                <ProjectSearchBar status={EstimatesPage.opts.statusFilter} />
                 <Project ref={ref => this.projectRef = ref} />
             </div>
         )

@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import "./ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
+import Select from "react-select";
 import 'react-dates/initialize';
 const { getProjects, getStatuses } = ds;
+
 export default class ProjectSearchBar extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -131,28 +133,36 @@ export default class ProjectSearchBar extends Component {
     return (
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>
-          <label htmlFor="search"> Search</label>
-          <input type="text" id="search" name="search" />
+          <div className='search-word-bar'>
+          <label htmlFor="search"></label>
+          <input type="text" id="search" name="search" placeholder='Search by keyword'/>
           <button type="submit">Search! </button>
-          Filter By:
-          <label htmlFor="sort">Type of Date</label>
+          </div>
+          <div className='dateFilter'>
+          <label htmlFor="sort">Filter By:</label>
           {dateTypes()}
-          <div className='dates'>
+          </div>
+          <div className='dates'><div>
             <label htmlFor="date">After</label>
             <input
               type="date"
               onChange={e => this.afterDateChange(e.target.value)}
             />
+            </div>
+            <div>
             <label htmlFor="date">Before</label>
             <input
               type="date"
               onChange={e => this.beforeDateChange(e.target.value)}
             />
+            </div>
+          
           </div>
           <button type="submit" className="submitProjectFilters">
             Submit
           </button>
-          Sort by:
+         <div>
+         Sort by:
           <div className="sort-buttons">
             <button
               type="button"
@@ -160,7 +170,7 @@ export default class ProjectSearchBar extends Component {
               value="asc"
               onClick={e => this.dateSortChange(e.target.value)}
             >
-              Date (Newest)
+              Date <br/>(Newest)
             </button>
             <button
               type="button"
@@ -168,7 +178,7 @@ export default class ProjectSearchBar extends Component {
               value="des"
               onClick={e => this.dateSortChange(e.target.value)}
             >
-              Date (Oldest)
+              Date <br/>(Oldest)
             </button>
             <button
               type="button"
@@ -176,7 +186,7 @@ export default class ProjectSearchBar extends Component {
               value="asc"
               onClick={e => this.budgetChange(e.target.value)}
             >
-              Budget (Highest)
+              Budget<br/> (Highest)
             </button>
             <button
               type="button"
@@ -184,15 +194,18 @@ export default class ProjectSearchBar extends Component {
               value="des"
               onClick={e => this.budgetChange(e.target.value)}
             >
-              Budget (Lowest)
+              Budget <br/>(Lowest)
             </button>
+            </div>
           </div>
         </form>
+        <div className='page-buttons'>
         <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
         <span className="paginationInfo">
           {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
         </span>
         <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+        </div>
       </div>
     );
   }

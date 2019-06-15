@@ -16,8 +16,8 @@ export default class BilledProjectsPage extends Component{
         return(
             <div className='tab-page'>               
                 <h2>Billed Projects</h2>
-                <ProjectSearchBar status={opts.statusFilter}/>
                 <button className='add-project'onClick={ev=>{this.projectRef && this.projectRef.addProject()}}>Add Project</button>
+                <ProjectSearchBar status={opts.statusFilter}/>
                 <Project ref={ref => this.projectRef = ref} />
                
             </div>
