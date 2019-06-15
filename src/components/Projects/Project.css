@@ -16,6 +16,8 @@
 
 .collapsibleInner {
   padding: 18px;
+  display:flex;
+  flex-direction: column;
 }
 
 .collapsible.hide {
@@ -57,6 +59,7 @@
   overflow: auto;
 }
 
+
 .button-content button {
   background-color: #535355;
   border: none;
@@ -71,4 +74,10 @@
 
 .editMode-buttons.show {
   display: block;
+}
+.details form{ 
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  margin-top:20px;
 }

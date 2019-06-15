@@ -147,9 +147,10 @@ export default class EditProject extends Component {
       return contractor.full_name;
     }).join(", ");
     return (
-      <div>
+      <div className='details'>
         <form>
-          <div>
+          
+            <p>
             <span>Status:</span>
             {!editMode ? (
               status.title
@@ -161,8 +162,9 @@ export default class EditProject extends Component {
                     this.context.statuses.find(i => i.id === option.value))}
                 />
               )}
-          </div>
-          <div>
+              </p>
+          
+          <p>
             <span>Client:</span>
             {!editMode ? (
               client.full_name
@@ -171,8 +173,10 @@ export default class EditProject extends Component {
                   onChange={value => this.onChange("client", [value])}
                   multiple={false} defaultValue={client} roleFilter={2} />
               )}
-          </div>
-          <div>
+              </p>
+          
+          
+            <p>
             <span>Project Manager:</span>
             {!editMode ? (
               projectManager.full_name
@@ -181,8 +185,10 @@ export default class EditProject extends Component {
                   onChange={value => this.onChange("projectManager", [value])}
                   multiple={false} defaultValue={projectManager} roleFilter={4} />
               )}
-          </div>
-          <div>
+              </p>
+          
+          
+            <p>
             <span>Contractors:</span>
             {!editMode ? (
               currentContractorNames
@@ -195,7 +201,10 @@ export default class EditProject extends Component {
                 />
 
               )}
-          </div>
+              </p>
+          
+
+          
           <p>
             <span>Title:</span>
             <ControlledInput
@@ -206,6 +215,8 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
+         
+          
           <p>
             <span>Description :</span>
             <ControlledInput
@@ -216,6 +227,7 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
+          
           <p>
             <span>Start Date :</span>
             <ControlledInput
@@ -227,6 +239,7 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
+          
           <p className={status.id === 2 || status.id === 3 ? 'show' : 'hide'}>
             <span>Estimated Due Date :</span>
             <ControlledInput
@@ -240,6 +253,7 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
+          
           {status.id === 3 ? <p>
             <span>Completion Date :</span>
             <ControlledInput
@@ -264,7 +278,7 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
-
+          
         </form>
 
       </div>

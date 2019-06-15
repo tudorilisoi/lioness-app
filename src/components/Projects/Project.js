@@ -3,6 +3,7 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import classnames from 'classnames'
 import LionessContext from '../../LionessContext/LionessContext';
 import EditProject from '../EditProject/EditProject'
+import dayjs from "dayjs";
 import './Project.css'
 const newProjectTemplate = {
     id: -1,
@@ -31,6 +32,9 @@ export default class Project extends Component {
             newProject: null,
         }
     }
+    dateForInput=(dateString)=> {
+        return dayjs(dateString).format("YYYY-MM-DD");
+      }
     toggle = (index) => {
         const { expandedIndex } = this.state
         this.setState({
@@ -80,9 +84,9 @@ export default class Project extends Component {
                             <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
                             {project.title}
                             {!this.state.newProject ? <span>${project.budget}</span> : ''}
-                            {project.status.id === 1 ? <span>Start Date: {project.startDate} </span> : ""}
-                            {project.status.id === 2 ? <span>Estimated Due Date: {project.estimatedDueDate} </span> : ""}
-                            {project.status.id === 3 ? <span>Completion Date: {project.completionDate} </span> : ""}
+                            {project.status.id === 1 ? <span>Start Date: {this.dateForInput(project.startDate)} </span> : ""}
+                            {project.status.id === 2 ? <span>Estimated Due Date: {this.dateForInput(project.estimatedDueDate)} </span> : ""}
+                            {project.status.id === 3 ? <span>Completion Date: {this.dateForInput(project.completionDate)} </span> : ""}
                         </div>
 
                     </div>
