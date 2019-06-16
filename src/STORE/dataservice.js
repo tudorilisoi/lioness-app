@@ -91,7 +91,12 @@ const ds = {
         if (!(userInfo && userInfo.id)) {
             return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
         }
-        return ds.getUsers({ idsFilter: [userInfo.id] })
+        return ds.getUsers({ idsFilter: [userInfo.id] }).then(res => {
+            if (!res.data.length) {
+                return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
+            }
+            return res
+        })
     },
     getRoles: (opts = {}) => {
         if (!ds.getStoredLoginInfo()) {
