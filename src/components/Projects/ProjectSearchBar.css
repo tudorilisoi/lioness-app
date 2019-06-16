@@ -31,15 +31,8 @@
     display: flex;
     flex-direction: column;
 }
-.sort-buttons{
-    display:flex;
-    margin:5px;
-justify-content: space-between
-
-  
-}
 .sort-buttons button{
-  padding:5px;
+  margin:5px, 10px,5px, 10px;
 }
 .tab-navBar  button{
     background-color: #535355;

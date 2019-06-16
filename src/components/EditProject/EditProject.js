@@ -248,7 +248,7 @@ export default class EditProject extends Component {
               type="date"
               required={true}
               initialValue={
-                estimatedDueDate === "Invalid Date" ? "" : estimatedDueDate
+                estimatedDueDate === "Invalid Date" ? "" : dateForInput(estimatedDueDate)
               }
               editMode={editMode}
             />
@@ -262,7 +262,7 @@ export default class EditProject extends Component {
               type="date"
               required={true}
               initialValue={
-                completionDate === "Invalid Date" ? "" : completionDate
+                completionDate === "Invalid Date" ? "" : dateForInput(completionDate)
               }
               editMode={editMode}
             />

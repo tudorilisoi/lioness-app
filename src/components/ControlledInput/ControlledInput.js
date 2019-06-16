@@ -35,7 +35,7 @@ export default class ControlledInput extends React.Component {
 
     render() {
         if (!this.props.editMode) {
-            return <span>{this.state.value}</span>
+            return <>{this.state.value}</>
         }
         const { editMode, initialValue, tag, onChange,required, ...rest } = this.props
         // console.log('value', initialValue)
