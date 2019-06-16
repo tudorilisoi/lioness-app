@@ -32,9 +32,8 @@ for (let i = 0; i < 2; i++) {
   const adminRole = roles[0];
   const admin = {
     // id: faker.random.uuid(),
-    id: i+1,
+    id: i + 1,
     email: unique(faker.internet.email, users, "email"),
-    username: unique(faker.internet.userName, users, "username"),
     full_name: faker.name.findName(),
     phone: faker.phone.phoneNumberFormat(),
     password: faker.internet.password(),
@@ -55,9 +54,8 @@ for (let i = 2; i < 102; i++) {
   const user = {
     //fields
     // id: faker.random.uuid(),
-    id: i+1,
+    id: i + 1,
     email: unique(faker.internet.email, users, "email"),
-    username: unique(faker.internet.userName, users, "username"),
     full_name: faker.name.findName(),
     phone: faker.phone.phoneNumberFormat(),
     password: faker.internet.password(),
@@ -95,17 +93,19 @@ for (let i = 0; i < 1000; i++) {
   const billedDate = faker.date.between(estimatedDate, faker.date.recent());
   const project = {
     //fields
-    id: i,
+    id: i + 1,
     title: unique(faker.company.companyName, projects, "title"),
     description: unique(faker.lorem.sentence, projects, "description"),
     budget: unique(faker.finance.amount, projects, "budget"),
-    status: projectStatus,
     startDate: beginDate,
     estimatedDueDate:
       projectStatus.id === 2 || projectStatus.id === 3 ? estimatedDate : null,
     completionDate: projectStatus.id === 3 ? billedDate : null,
     client_id: client.id,
+    status_id: projectStatus.id,
+    project_manager_id: projectManager.id,
     //associated objects
+    status: projectStatus,
     client: client, //relation based on client_id
     contractors: [contractor1, contractor2],
     projectManager: projectManager
