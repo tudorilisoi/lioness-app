@@ -167,7 +167,7 @@ export default class ProjectSearchBar extends Component {
             <button
               type="button"
               name="date-new"
-              value="asc"
+              value="desc"
               onClick={e => this.dateSortChange(e.target.value)}
             >
               Date <br/>(Newest)
@@ -175,7 +175,7 @@ export default class ProjectSearchBar extends Component {
             <button
               type="button"
               name="date-old"
-              value="des"
+              value="asc"
               onClick={e => this.dateSortChange(e.target.value)}
             >
               Date <br/>(Oldest)
