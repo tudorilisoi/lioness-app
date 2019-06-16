@@ -13,6 +13,14 @@ function unique(fn, arr, objKey) {
   }
   return value;
 }
+function uniqueRecord(fn, arr, objKey) {
+  const generatedRecord = fn();
+  const exists = arr.find(item => item[objKey] === generatedRecord[objKey]);
+  if (exists !== undefined) {
+    return uniqueRecord(fn, arr, objKey);
+  }
+  return generatedRecord;
+}
 
 const roles = [
   { id: 1, title: "Admin" },
@@ -79,10 +87,17 @@ const projectManagers = users.filter(user => {
 });
 const projects = [];
 for (let i = 0; i < 1000; i++) {
-  const contractor1 =
-    contractors[Math.floor(Math.random() * contractors.length)];
-  const contractor2 =
-    contractors[Math.floor(Math.random() * contractors.length)];
+  let contractorsArr = [
+    contractors[Math.floor(Math.random() * contractors.length)]
+  ]
+
+  const contractor2 = uniqueRecord(() => contractors[Math.floor(Math.random() * contractors.length)], contractorsArr, 'id')
+  contractorsArr.push(contractor2)
+  const contractor3 = uniqueRecord(() => contractors[Math.floor(Math.random() * contractors.length)], contractorsArr, 'id')
+  contractorsArr.push(contractor3)
+
+
+
   const client = clients[Math.floor(Math.random() * clients.length)];
   const manager =
     projectManagers[Math.floor(Math.random() * projectManagers.length)];
@@ -107,30 +122,38 @@ for (let i = 0; i < 1000; i++) {
     //associated objects
     status: projectStatus,
     client: client, //relation based on client_id
-    contractors: [contractor1, contractor2],
+    contractors: contractorsArr,
     manager: manager
   };
+  // contractorsArr.filter((i, index, arr) => {
+  //   const existing = arr.findIndex(e => e.id === i.id)
+  //   if (existing !== index) {
+  //     console.log(`duplicate contractor ${i.id} for project ${project.id}`)
+  //     return false
+  //   }
+  // })
 
-  contractor1.projects.push(project);
-  contractor2.projects.push(project);
+  contractorsArr.forEach(c => c.projects.push(project))
+
   client.projects.push(project);
   manager.projects.push(project);
   users.projects = [project];
   projects.push(project);
 
-  const collections = stringify({
-    users,
-    projects,
-    roles,
-    statuses
-  });
-
-  // console.log(collections);
-  fs.writeFile('./flattenedData.json', collections, (err) => {
-    // throws an error, you could also catch it here
-    if (err) throw err;
-
-    // success case, the file was saved
-    // console.log('Fake data saved!');
-  });
 }
+
+const collections = stringify({
+  users,
+  projects,
+  roles,
+  statuses
+});
+
+// console.log(collections);
+fs.writeFile('./flattenedData.json', collections, (err) => {
+  // throws an error, you could also catch it here
+  if (err) throw err;
+
+  // success case, the file was saved
+  // console.log('Fake data saved!');
+});
