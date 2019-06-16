@@ -5,7 +5,6 @@ import './editContent.css'
 const newUserTemplate = {
     id: -1,
     email: '',
-    username: '',
     full_name: '',
     phone: '',
     password: '',

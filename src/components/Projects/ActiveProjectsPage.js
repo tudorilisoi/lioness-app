@@ -13,7 +13,7 @@ export default class ActiveProjectsPage extends Component{
     static contextType= LionessContext;
  
     render(){
-        const opts= {statusFilter: 'in progress'}
+        const opts= {statusFilter: 2}
         return(
             <div className='tab-page'>               
                 <h2>Active Projects</h2>

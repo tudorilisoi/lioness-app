@@ -1,5 +1,6 @@
 /* eslint-disable import/first */
 import dayjs from 'dayjs';
+import queryString from 'query-string'
 import isBetween from 'dayjs/plugin/isBetween';
 import fjs from 'flatted/cjs';
 import Cookie from "js.cookie";
@@ -13,6 +14,11 @@ let data = parse(JSON.stringify(dataString));
 
 const SORT_ASC = 'ASC'
 const SORT_DESC = 'DESC'
+
+const STATUS_ESTIMATE = 1
+const STATUS_IN_PROGRESS = 2
+const STATUS_BILLED = 3
+const STATUS_OTHER = 4
 
 const projectsDefaultOptions = {
     statusFilter: null,
@@ -45,7 +51,12 @@ function delay(promiseObj, delayMillis = 1000) {
 
 console.log('parsed data', data)
 const ds = {
-
+    STATUS_IDS: {
+        STATUS_ESTIMATE,
+        STATUS_IN_PROGRESS,
+        STATUS_BILLED,
+        STATUS_OTHER,
+    },
     SORT_ASC,
     SORT_DESC,
     projectsDefaultOptions,
@@ -91,7 +102,12 @@ const ds = {
         if (!(userInfo && userInfo.id)) {
             return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
         }
-        return ds.getUsers({ idsFilter: [userInfo.id] })
+        return ds.getUsers({ idsFilter: [userInfo.id] }).then(res => {
+            if (!res.data.length) {
+                return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
+            }
+            return res
+        })
     },
     getRoles: (opts = {}) => {
         if (!ds.getStoredLoginInfo()) {
@@ -167,7 +183,19 @@ const ds = {
         }
         const mergedOpts = { ...projectsDefaultOptions, ...opts }
 
+        const qs = queryString.stringify(mergedOpts)
+        console.log(`QS is: ${qs}`)
+
+        return fetch('http://localhost:8000/api/projects/?' + qs)
+            .then(r => r.json())
+            .then(data => {
+                console.log('FETCH got: ', data)
+                return data
+            })
+
         console.log('getProjects filters:', mergedOpts)
+
+
 
         let res = [...data.projects]
 
@@ -175,78 +203,33 @@ const ds = {
         if (mergedOpts.statusFilter) {
             res = res.filter(project => {
                 // 
-                return project.status.title === mergedOpts.statusFilter
+                return project.status.id === mergedOpts.statusFilter
             })
         }
-        if (opts.searchQuery) {
-            res = res.filter(project => {
-                let res = false
-            })
-        }
+
         if (mergedOpts.beforeDate) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
-                res = res.filter(project => {
-                    return dayjs(project.startDate).isBefore(dayjs(mergedOpts.beforeDate))
-                })
-            }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                res = res.filter(project => {
-                    return dayjs(project.estimatedDueDate).isBefore(dayjs(mergedOpts.beforeDate))
-                })
-            }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
-                res = res.filter(project => {
-                    return dayjs(project.completionDate).isBefore(dayjs(mergedOpts.beforeDate))
-                })
-            }
+            res = res.filter(project => {
+                return dayjs(project[mergedOpts.dateTypeFilter]).isBefore(dayjs(mergedOpts.beforeDate))
+            })
         }
         if (mergedOpts.afterDate) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
-                res = res.filter(project => {
-                    return dayjs(project.startDate).isAfter(dayjs(mergedOpts.afterDate))
-                })
-            }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                res = res.filter(project => {
-                    return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.afterDate))
-                })
-            }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
-                res = res.filter(project => {
-                    return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.afterDate))
-                })
-            }
-        }
-        if (mergedOpts.afterDate && mergedOpts.beforeDate) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
-                res = res.filter(project => {
-                    return dayjs(project.startDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
-                })
-            }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                res = res.filter(project => {
-                    return dayjs(project.estimatedDueDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
-                })
-            }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
-                res = res.filter(project => {
-                    return dayjs(project.completionDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
-                })
-            }
+            res = res.filter(project => {
+                return dayjs(project[mergedOpts.dateTypeFilter]).isAfter(dayjs(mergedOpts.beforeDate))
+            })
         }
 
         if (mergedOpts.dateSort) {
             const direction = mergedOpts.dateSort === ds.SORT_ASC ? 1 : -1
-            if (mergedOpts.dateTypeFilter === 'startDate') {
-                res = res.sort((a, b) => direction * (new Date(b.startDate) - new Date(a.startDate)))
+            if (mergedOpts.dateTypeFilter === 'start_date') {
+                res = res.sort((a, b) => direction * (new Date(b.start_date) - new Date(a.start_date)))
 
             }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                res = res.sort((a, b) => direction * (new Date(b.estimatedDueDate) - new Date(a.estimatedDueDate)))
+            if (mergedOpts.dateTypeFilter === 'estimated_due_date') {
+                res = res.sort((a, b) => direction * (new Date(b.estimated_due_date) - new Date(a.estimated_due_date)))
 
             }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
-                res = res.sort((a, b) => direction * (new Date(b.completionDate) - new Date(a.completionDate)))
+            if (mergedOpts.dateTypeFilter === 'completion_date') {
+                res = res.sort((a, b) => direction * (new Date(b.completion_date) - new Date(a.completion_date)))
 
             }
         }
