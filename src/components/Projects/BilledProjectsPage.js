@@ -12,7 +12,7 @@ export default class BilledProjectsPage extends Component{
     }
     static contextType= LionessContext;
     render(){
-        const opts= {statusFilter: 'billed'}
+        const opts= {statusFilter: 3}
         return(
             <div className='tab-page'>               
                 <h2>Billed Projects</h2>

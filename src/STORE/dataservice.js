@@ -1,5 +1,6 @@
 /* eslint-disable import/first */
 import dayjs from 'dayjs';
+import queryString from 'query-string'
 import isBetween from 'dayjs/plugin/isBetween';
 import fjs from 'flatted/cjs';
 import Cookie from "js.cookie";
@@ -172,7 +173,19 @@ const ds = {
         }
         const mergedOpts = { ...projectsDefaultOptions, ...opts }
 
+        const qs = queryString.stringify(mergedOpts)
+        console.log(`QS is: ${qs}`)
+
+        return fetch('http://localhost:8000/api/projects/?' + qs)
+            .then(r => r.json())
+            .then(data => {
+                console.log('FETCH got: ', data)
+                return data
+            })
+
         console.log('getProjects filters:', mergedOpts)
+
+
 
         let res = [...data.projects]
 
@@ -180,7 +193,7 @@ const ds = {
         if (mergedOpts.statusFilter) {
             res = res.filter(project => {
                 // 
-                return project.status.title === mergedOpts.statusFilter
+                return project.status.id === mergedOpts.statusFilter
             })
         }
         if (opts.searchQuery) {

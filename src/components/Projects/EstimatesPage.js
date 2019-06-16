@@ -13,7 +13,7 @@ export default class EstimatesPage extends Component {
     }
     static contextType = LionessContext;
     static opts = {
-        statusFilter: 'estimate',
+        statusFilter: 1,
         //TODO make it filter with status number
     }
 
