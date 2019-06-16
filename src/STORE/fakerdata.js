@@ -103,7 +103,7 @@ for (let i = 0; i < 1000; i++) {
     completion_date: projectStatus.id === 3 ? billedDate : null,
     client_id: client.id,
     status_id: projectStatus.id,
-    project_manager_id: manager.id,
+    manager_id: manager.id,
     //associated objects
     status: projectStatus,
     client: client, //relation based on client_id
