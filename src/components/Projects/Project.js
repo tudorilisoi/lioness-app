@@ -10,13 +10,13 @@ const newProjectTemplate = {
     title: '',
     status: {},
     description: '',
-    startDate: '',
-    estimatedDueDate: '',
-    completionDate: '',
+    start_date: '',
+    estimated_due_date: '',
+    completion_date: '',
     budget: '',
-    estimatedDueDate: '',
+    estimated_due_date: '',
     client: {},
-    projectManager: {},
+    manager: {},
     contractors: []
 };
 
@@ -84,9 +84,9 @@ export default class Project extends Component {
                             <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
                             {project.title}
                             {!this.state.newProject ? <span>${project.budget}</span> : ''}
-                            {project.status.id === 1 ? <span>Start Date: {this.dateForInput(project.startDate)} </span> : ""}
-                            {project.status.id === 2 ? <span>Estimated Due Date: {this.dateForInput(project.estimatedDueDate)} </span> : ""}
-                            {project.status.id === 3 ? <span>Completion Date: {this.dateForInput(project.completionDate)} </span> : ""}
+                            {project.status.id === 1 ? <span>Start Date: {this.dateForInput(project.start_date)} </span> : ""}
+                            {project.status.id === 2 ? <span>Estimated Due Date: {this.dateForInput(project.estimated_due_date)} </span> : ""}
+                            {project.status.id === 3 ? <span>Completion Date: {this.dateForInput(project.completion_date)} </span> : ""}
                         </div>
 
                     </div>

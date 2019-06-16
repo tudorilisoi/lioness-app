@@ -84,7 +84,7 @@ for (let i = 0; i < 1000; i++) {
   const contractor2 =
     contractors[Math.floor(Math.random() * contractors.length)];
   const client = clients[Math.floor(Math.random() * clients.length)];
-  const projectManager =
+  const manager =
     projectManagers[Math.floor(Math.random() * projectManagers.length)];
 
   const projectStatus = statuses[Math.floor(Math.random() * statuses.length)];
@@ -97,24 +97,24 @@ for (let i = 0; i < 1000; i++) {
     title: unique(faker.company.companyName, projects, "title"),
     description: unique(faker.lorem.sentence, projects, "description"),
     budget: unique(faker.finance.amount, projects, "budget"),
-    startDate: beginDate,
-    estimatedDueDate:
+    start_date: beginDate,
+    estimated_due_date:
       projectStatus.id === 2 || projectStatus.id === 3 ? estimatedDate : null,
-    completionDate: projectStatus.id === 3 ? billedDate : null,
+    completion_date: projectStatus.id === 3 ? billedDate : null,
     client_id: client.id,
     status_id: projectStatus.id,
-    project_manager_id: projectManager.id,
+    project_manager_id: manager.id,
     //associated objects
     status: projectStatus,
     client: client, //relation based on client_id
     contractors: [contractor1, contractor2],
-    projectManager: projectManager
+    manager: manager
   };
 
   contractor1.projects.push(project);
   contractor2.projects.push(project);
   client.projects.push(project);
-  projectManager.projects.push(project);
+  manager.projects.push(project);
   users.projects = [project];
   projects.push(project);
 

@@ -80,15 +80,15 @@ export default class ProjectSearchBar extends Component {
     const isBilled = props.status === "billed"
     const isEstimate = props.status === "estimate"
     if (isEstimate) {
-      return 'startDate'
+      return 'start_date'
     }
     if (isInProgress) {
-      return 'estimatedDueDate'
+      return 'estimated_due_date'
     }
     if (isBilled) {
-      return 'completionDate'
+      return 'completion_date'
     }
-    return 'startDate'
+    return 'start_date'
   }
 
   componentDidMount() {
@@ -113,17 +113,17 @@ export default class ProjectSearchBar extends Component {
           onChange={e => this.dateTypeChange(e.target.value)}
         >
           <option disabled="">Choose One</option>
-          <option selected={'startDate' === selectedOption} value="startDate">Start Date</option>
+          <option selected={'start_date' === selectedOption} value="start_date">Start Date</option>
           {isInProgress || isBilled
             ? (
               <option
-                selected={'estimatedDueDate' === selectedOption}
-                value="estimatedDueDate">Estimated Due Date</option>
+                selected={'estimated_due_date' === selectedOption}
+                value="estimated_due_date">Estimated Due Date</option>
             ) : (
               ""
             )}
           {isBilled ? (
-            <option selected={'completionDate' === selectedOption} value="completionDate">Completion Date</option>
+            <option selected={'completion_date' === selectedOption} value="completion_date">Completion Date</option>
           ) : (
               ""
             )}

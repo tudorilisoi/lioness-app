@@ -189,69 +189,69 @@ const ds = {
             })
         }
         if (mergedOpts.beforeDate) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
+            if (mergedOpts.dateTypeFilter === 'start_date') {
                 res = res.filter(project => {
-                    return dayjs(project.startDate).isBefore(dayjs(mergedOpts.beforeDate))
+                    return dayjs(project.start_date).isBefore(dayjs(mergedOpts.beforeDate))
                 })
             }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
+            if (mergedOpts.dateTypeFilter === 'estimated_due_date') {
                 res = res.filter(project => {
-                    return dayjs(project.estimatedDueDate).isBefore(dayjs(mergedOpts.beforeDate))
+                    return dayjs(project.estimated_due_date).isBefore(dayjs(mergedOpts.beforeDate))
                 })
             }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
+            if (mergedOpts.dateTypeFilter === 'completion_date') {
                 res = res.filter(project => {
-                    return dayjs(project.completionDate).isBefore(dayjs(mergedOpts.beforeDate))
+                    return dayjs(project.completion_date).isBefore(dayjs(mergedOpts.beforeDate))
                 })
             }
         }
         if (mergedOpts.afterDate) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
+            if (mergedOpts.dateTypeFilter === 'start_date') {
                 res = res.filter(project => {
-                    return dayjs(project.startDate).isAfter(dayjs(mergedOpts.afterDate))
+                    return dayjs(project.start_date).isAfter(dayjs(mergedOpts.afterDate))
                 })
             }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
+            if (mergedOpts.dateTypeFilter === 'estimated_due_date') {
                 res = res.filter(project => {
-                    return dayjs(project.estimatedDueDate).isAfter(dayjs(mergedOpts.afterDate))
+                    return dayjs(project.estimated_due_date).isAfter(dayjs(mergedOpts.afterDate))
                 })
             }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
+            if (mergedOpts.dateTypeFilter === 'completion_date') {
                 res = res.filter(project => {
-                    return dayjs(project.completionDate).isAfter(dayjs(mergedOpts.afterDate))
+                    return dayjs(project.completion_date).isAfter(dayjs(mergedOpts.afterDate))
                 })
             }
         }
         if (mergedOpts.afterDate && mergedOpts.beforeDate) {
-            if (mergedOpts.dateTypeFilter === 'startDate') {
+            if (mergedOpts.dateTypeFilter === 'start_date') {
                 res = res.filter(project => {
-                    return dayjs(project.startDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
+                    return dayjs(project.start_date).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
                 })
             }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
+            if (mergedOpts.dateTypeFilter === 'estimated_due_date') {
                 res = res.filter(project => {
-                    return dayjs(project.estimatedDueDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
+                    return dayjs(project.estimated_due_date).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
                 })
             }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
+            if (mergedOpts.dateTypeFilter === 'completion_date') {
                 res = res.filter(project => {
-                    return dayjs(project.completionDate).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
+                    return dayjs(project.completion_date).isBetween(dayjs(mergedOpts.afterDate), dayjs(mergedOpts.beforeDate))
                 })
             }
         }
 
         if (mergedOpts.dateSort) {
             const direction = mergedOpts.dateSort === ds.SORT_ASC ? 1 : -1
-            if (mergedOpts.dateTypeFilter === 'startDate') {
-                res = res.sort((a, b) => direction * (new Date(b.startDate) - new Date(a.startDate)))
+            if (mergedOpts.dateTypeFilter === 'start_date') {
+                res = res.sort((a, b) => direction * (new Date(b.start_date) - new Date(a.start_date)))
 
             }
-            if (mergedOpts.dateTypeFilter === 'estimatedDueDate') {
-                res = res.sort((a, b) => direction * (new Date(b.estimatedDueDate) - new Date(a.estimatedDueDate)))
+            if (mergedOpts.dateTypeFilter === 'estimated_due_date') {
+                res = res.sort((a, b) => direction * (new Date(b.estimated_due_date) - new Date(a.estimated_due_date)))
 
             }
-            if (mergedOpts.dateTypeFilter === 'completionDate') {
-                res = res.sort((a, b) => direction * (new Date(b.completionDate) - new Date(a.completionDate)))
+            if (mergedOpts.dateTypeFilter === 'completion_date') {
+                res = res.sort((a, b) => direction * (new Date(b.completion_date) - new Date(a.completion_date)))
 
             }
         }

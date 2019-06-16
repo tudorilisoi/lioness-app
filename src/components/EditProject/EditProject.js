@@ -28,18 +28,18 @@ export default class EditProject extends Component {
         title: '',
         status: '',
         description: '',
-        startDate: '',
+        start_date: '',
         budget: '',
-        estimatedDueDate: '',
+        estimated_due_date: '',
         client: '',
-        projectManager: '',
+        manager: '',
         contractors: ''
 
 
       }
 
     };
-    "startDate completionDate estimatedDueDate"
+    "start_date completion_date estimated_due_date"
       .split(" ")
       .forEach(i => (this.state[i] = dateForInput(this.state[i])));
   }
@@ -86,15 +86,15 @@ export default class EditProject extends Component {
       status,
       id,
       description,
-      startDate,
+      start_date,
       budget,
-      estimatedDueDate,
+      estimated_due_date,
       client,
-      projectManager,
+      manager,
       contractors,
-      completionDate,
+      completion_date,
     } = this.state.project; //   //destructure the project since we're not spreading it in the astate anymore
-    const formattedStartDate = dateForInput(startDate);
+    const formattedStartDate = dateForInput(start_date);
     return (
       <div className={'padded'}>
         <div className={''}>
@@ -111,15 +111,15 @@ export default class EditProject extends Component {
       status,
       id,
       description,
-      startDate,
+      start_date,
       budget,
-      estimatedDueDate,
+      estimated_due_date,
       client,
-      projectManager,
+      manager,
       contractors,
-      completionDate,
+      completion_date,
     } = this.state.project; //   //destructure the project since we're not spreading it in the astate anymore
-    const formattedStartDate = dateForInput(startDate);
+    const formattedStartDate = dateForInput(start_date);
 
     // const jsStartDate = dateToJS(startDateString)
     // debugger
@@ -179,11 +179,11 @@ export default class EditProject extends Component {
             <p>
             <span>Project Manager:</span>
             {!editMode ? (
-              projectManager.full_name
+              manager.full_name
             ) : (
                 <UserSelector
-                  onChange={value => this.onChange("projectManager", [value])}
-                  multiple={false} defaultValue={projectManager} roleFilter={4} />
+                  onChange={value => this.onChange("manager", [value])}
+                  multiple={false} defaultValue={manager} roleFilter={4} />
               )}
               </p>
           
@@ -231,11 +231,11 @@ export default class EditProject extends Component {
           <p>
             <span>Start Date :</span>
             <ControlledInput
-              onChange={value => this.onChange("startDate", value)}
+              onChange={value => this.onChange("start_date", value)}
               tag="input"
               type="date"
               required={true}
-              initialValue={dateForInput(startDate)}
+              initialValue={dateForInput(start_date)}
               editMode={editMode}
             />
           </p>
@@ -243,12 +243,12 @@ export default class EditProject extends Component {
           <p className={status.id === 2 || status.id === 3 ? 'show' : 'hide'}>
             <span>Estimated Due Date :</span>
             <ControlledInput
-              onChange={value => this.onChange("estimatedDueDate", value)}
+              onChange={value => this.onChange("estimated_due_date", value)}
               tag="input"
               type="date"
               required={true}
               initialValue={
-                estimatedDueDate === "Invalid Date" ? "" : dateForInput(estimatedDueDate)
+                estimated_due_date === "Invalid Date" ? "" : dateForInput(estimated_due_date)
               }
               editMode={editMode}
             />
@@ -257,12 +257,12 @@ export default class EditProject extends Component {
           {status.id === 3 ? <p>
             <span>Completion Date :</span>
             <ControlledInput
-              onChange={value => this.onChange("estimatedDueDate", value)}
+              onChange={value => this.onChange("estimated_due_date", value)}
               tag="input"
               type="date"
               required={true}
               initialValue={
-                completionDate === "Invalid Date" ? "" : dateForInput(completionDate)
+                completion_date === "Invalid Date" ? "" : dateForInput(completion_date)
               }
               editMode={editMode}
             />
