@@ -186,12 +186,12 @@ const ds = {
         const qs = queryString.stringify(mergedOpts)
         console.log(`QS is: ${qs}`)
 
-        // return fetch('http://localhost:8000/api/projects/?' + qs)
-        //     .then(r => r.json())
-        //     .then(data => {
-        //         console.log('FETCH got: ', data)
-        //         return data
-        //     })
+        return fetch('http://localhost:8000/api/projects/?' + qs)
+            .then(r => r.json())
+            .then(data => {
+                console.log('FETCH got: ', data)
+                return data
+            })
 
         console.log('getProjects filters:', mergedOpts)
 
