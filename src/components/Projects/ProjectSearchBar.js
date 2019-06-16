@@ -76,9 +76,9 @@ export default class ProjectSearchBar extends Component {
   }
 
   getSelectedDateOption(props) {
-    const isInProgress = props.status === "in progress"
-    const isBilled = props.status === "billed"
-    const isEstimate = props.status === "estimate"
+    const isInProgress = props.status === ds.STATUS_IDS.STATUS_IN_PROGRESS
+    const isBilled = props.status === ds.STATUS_IDS.STATUS_BILLED
+    const isEstimate = props.status === ds.STATUS_IDS.STATUS_ESTIMATE
     if (isEstimate) {
       return 'start_date'
     }
@@ -98,9 +98,9 @@ export default class ProjectSearchBar extends Component {
   render() {
     console.log('render Searchbar')
 
-    const isInProgress = this.props.status === "in progress"
-    const isBilled = this.props.status === "billed"
-    const isEstimate = this.props.status === "estimate"
+    const isInProgress = this.props.status === ds.STATUS_IDS.STATUS_IN_PROGRESS
+    const isBilled = this.props.status === ds.STATUS_IDS.STATUS_BILLED
+    const isEstimate = this.props.status === ds.STATUS_IDS.STATUS_ESTIMATE
 
     const dateTypes = () => {
       const selectedOption = this.state.dateTypeFilter
@@ -134,13 +134,13 @@ export default class ProjectSearchBar extends Component {
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>
           <div className='search-word-bar'>
-          <label htmlFor="search"></label>
-          <input type="text" id="search" name="search" placeholder='Search by keyword'/>
-          <button type="submit">Search! </button>
+            <label htmlFor="search"></label>
+            <input type="text" id="search" name="search" placeholder='Search by keyword' />
+            <button type="submit">Search! </button>
           </div>
           <div className='dateFilter'>
-          <label htmlFor="sort">Filter By:</label>
-          {dateTypes()}
+            <label htmlFor="sort">Filter By:</label>
+            {dateTypes()}
           </div>
           <div className='dates'><div>
             <label htmlFor="date">After</label>
@@ -148,63 +148,63 @@ export default class ProjectSearchBar extends Component {
               type="date"
               onChange={e => this.afterDateChange(e.target.value)}
             />
-            </div>
+          </div>
             <div>
-            <label htmlFor="date">Before</label>
-            <input
-              type="date"
-              onChange={e => this.beforeDateChange(e.target.value)}
-            />
+              <label htmlFor="date">Before</label>
+              <input
+                type="date"
+                onChange={e => this.beforeDateChange(e.target.value)}
+              />
             </div>
-          
+
           </div>
           <button type="submit" className="submitProjectFilters">
             Submit
           </button>
-         <div>
-         Sort by:
+          <div>
+            Sort by:
           <div className="sort-buttons">
-            <button
-              type="button"
-              name="date-new"
-              value="desc"
-              onClick={e => this.dateSortChange(e.target.value)}
-            >
-              Date <br/>(Newest)
+              <button
+                type="button"
+                name="date-new"
+                value="desc"
+                onClick={e => this.dateSortChange(e.target.value)}
+              >
+                Date <br />(Newest)
             </button>
-            <button
-              type="button"
-              name="date-old"
-              value="asc"
-              onClick={e => this.dateSortChange(e.target.value)}
-            >
-              Date <br/>(Oldest)
+              <button
+                type="button"
+                name="date-old"
+                value="asc"
+                onClick={e => this.dateSortChange(e.target.value)}
+              >
+                Date <br />(Oldest)
             </button>
-            <button
-              type="button"
-              name="budget-high"
-              value="asc"
-              onClick={e => this.budgetChange(e.target.value)}
-            >
-              Budget<br/> (Highest)
+              <button
+                type="button"
+                name="budget-high"
+                value="asc"
+                onClick={e => this.budgetChange(e.target.value)}
+              >
+                Budget<br /> (Highest)
             </button>
-            <button
-              type="button"
-              name="budget-low"
-              value="des"
-              onClick={e => this.budgetChange(e.target.value)}
-            >
-              Budget <br/>(Lowest)
+              <button
+                type="button"
+                name="budget-low"
+                value="des"
+                onClick={e => this.budgetChange(e.target.value)}
+              >
+                Budget <br />(Lowest)
             </button>
             </div>
           </div>
         </form>
         <div className='page-buttons'>
-        <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
-        <span className="paginationInfo">
-          {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
-        </span>
-        <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+          <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+          <span className="paginationInfo">
+            {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
+          </span>
+          <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
         </div>
       </div>
     );
