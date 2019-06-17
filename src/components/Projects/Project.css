@@ -76,10 +76,11 @@
   display: block;
 }
 .details form{ 
-  display:flex;
+  /* display:flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;  */
   margin-top:20px;
+  clear:both;
 }
 .details p{
   font-size:14px;
