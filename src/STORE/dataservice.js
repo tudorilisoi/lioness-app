@@ -146,12 +146,12 @@ const ds = {
             res = res.filter(u => u.full_name.toLowerCase().indexOf(mergedOpts.searchQuery.toLowerCase()) === 0)
         }
 
-        if (mergedOpts.userNameSortAsc === true && !mergedOpts.noSorting) {
+        if (mergedOpts.userNameSortAsc === SORT_ASC && !mergedOpts.noSorting) {
             res = res.sort((a, b) => {
                 return a.full_name.localeCompare(b.full_name);
             })
         }
-        if (mergedOpts.userNameSortAsc === false && !mergedOpts.noSorting) {
+        if (mergedOpts.userNameSortAsc === SORT_DESC && !mergedOpts.noSorting) {
             res = res.sort((a, b) => {
                 return b.full_name.localeCompare(a.full_name);
             })
