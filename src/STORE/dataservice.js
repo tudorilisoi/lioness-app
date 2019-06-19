@@ -29,13 +29,12 @@ const projectsDefaultOptions = {
     afterDate: null,
     beforeDate: null,
     roleFilter: null,
-    activeProjSortAsc: null,
     pageNumber: 1,
 }
 const usersDefaultOptions = {
     idsFilter: null, // pass a non-empty array to fetch users by theirs ids
     searchQuery: null,
-    userNameSortAsc: null,
+    userNameSort: SORT_ASC,
     roleFilter: null,
     pageNumber: 1,
 }
@@ -146,12 +145,12 @@ const ds = {
             res = res.filter(u => u.full_name.toLowerCase().indexOf(mergedOpts.searchQuery.toLowerCase()) === 0)
         }
 
-        if (mergedOpts.userNameSortAsc === SORT_ASC && !mergedOpts.noSorting) {
+        if (mergedOpts.userNameSort === SORT_ASC && !mergedOpts.noSorting) {
             res = res.sort((a, b) => {
                 return a.full_name.localeCompare(b.full_name);
             })
         }
-        if (mergedOpts.userNameSortAsc === SORT_DESC && !mergedOpts.noSorting) {
+        if (mergedOpts.userNameSort === SORT_DESC && !mergedOpts.noSorting) {
             res = res.sort((a, b) => {
                 return b.full_name.localeCompare(a.full_name);
             })
