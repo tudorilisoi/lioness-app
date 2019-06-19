@@ -114,9 +114,7 @@ export default class Project extends Component {
                                 <button
                                     type="submit"
                                     onClick={() => {
-                                        //TODO write a saveProject function in ds
-                                        //TODO save and reload after that
-                                        // console.log(this.context)
+                                        //TODO reload after save, give some visual feedback
                                         // this.context.reloadProjects()
                                         if (!this.projectRefs[index]) {
                                             return
