@@ -83,7 +83,7 @@ export default class EditProject extends Component {
     const { client, manager, contractors, status, ...rawProject } = this.state.project
     const data = {
       project: rawProject,
-      contractors: contractors.map(c => c.id),
+      contractorIDs: contractors.map(c => c.id),
     }
     console.log(`Saving project:`, data)
     return ds.saveProject(data)
