@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import LionessContext from '../../LionessContext/LionessContext';
 import ProjectList from './ProjectList';
 import ProjectSearchBar from './ProjectSearchBar';
@@ -27,8 +28,10 @@ export default class ProjectsPage extends Component {
         return (
             <div className='tab-page'>
                 <div className="padded">
-                    <button className='add-button' onClick={ev => { this.projectRef && this.projectRef.addProject() }}>Add Project</button>
-                    <h2>{title}</h2>
+                    <button className='addButton' onClick={ev => { this.projectRef && this.projectRef.addProject() }}>
+                        <Icon icon="folder-plus" /> Add Project
+                        </button>
+                    <h2 className="barTitle">{title}</h2>
                     <ProjectSearchBar status={this.props.statusFilter} />
                 </div>
                 <ProjectList ref={ref => this.projectRef = ref} />

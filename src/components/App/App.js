@@ -3,7 +3,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 // need to explicitly import all needed icons 
 //find icons @ https://fontawesome.com/icons?d=gallery&q=add%20user&m=free
 // NOTE copy-paste this line to library.add
-import { faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus, faFolderPlus 
+} from '@fortawesome/free-solid-svg-icons';
 import React, { Component } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import LionessContext from "../../LionessContext/LionessContext";
@@ -15,7 +17,7 @@ import './App.css';
 
 
 library.add(
-  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle
+  faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus, faFolderPlus 
 )
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
