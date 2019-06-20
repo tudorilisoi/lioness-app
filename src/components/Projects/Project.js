@@ -109,7 +109,7 @@ export default class Project extends Component {
                             <EditProject
                                 ref={(r) => this.projectRefs[index] = r}
                                 project={project} editMode={isEditing} />
-                            <div className='buttonsRow'>
+                            {isEditing ? (<div className='buttonsRow'>
                                 <button
                                     type="submit"
                                     onClick={() => {
@@ -125,7 +125,7 @@ export default class Project extends Component {
                                     }}
                                     className={`saveButton flexed ${editingModeClassName}`}>Save</button>
                                 <button onClick={() => this.cancelAddProject()} className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>
-                            </div>
+                            </div>) : null}
                         </div>
                     </div>
 
