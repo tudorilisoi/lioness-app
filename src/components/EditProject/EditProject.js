@@ -132,7 +132,7 @@ export default class EditProject extends Component {
         <form>
 
           <p>
-            <span>Status:</span>
+            <span>Status: </span>
             {!editMode ? (
               status.title
             ) : (
@@ -146,7 +146,7 @@ export default class EditProject extends Component {
           </p>
 
           <p>
-            <span>Client:</span>
+            <span>Client: </span>
             {!editMode ? (
               client.full_name
             ) : (
@@ -158,7 +158,7 @@ export default class EditProject extends Component {
 
 
           <p>
-            <span>Project Manager:</span>
+            <span>Project Manager: </span>
             {!editMode ? (
               manager.full_name
             ) : (
@@ -170,7 +170,7 @@ export default class EditProject extends Component {
 
 
           <p>
-            <span>Contractors:</span>
+            <span>Contractors: </span>
             {!editMode ? (
               currentContractorNames
             ) : (
@@ -187,7 +187,7 @@ export default class EditProject extends Component {
 
 
           <p>
-            <span>Title:</span>
+            <span>Title: </span>
             <ControlledInput
               onChange={value => this.onChange("title", value)}
               tag="input"
@@ -199,7 +199,7 @@ export default class EditProject extends Component {
 
 
           <p>
-            <span>Description :</span>
+            <span>Description: </span>
             <ControlledInput
               onChange={value => this.onChange("description", value)}
               tag="input"
@@ -210,7 +210,7 @@ export default class EditProject extends Component {
           </p>
 
           <p>
-            <span>Start Date :</span>
+            <span>Start Date: </span>
             <ControlledInput
               onChange={value => this.onChange("start_date", value)}
               tag="input"
@@ -222,7 +222,7 @@ export default class EditProject extends Component {
           </p>
 
           <p className={status.id === 2 || status.id === 3 ? 'show' : 'hide'}>
-            <span>Estimated Due Date :</span>
+            <span>Estimated Due Date: </span>
             <ControlledInput
               onChange={value => this.onChange("estimated_due_date", value)}
               tag="input"
@@ -236,7 +236,7 @@ export default class EditProject extends Component {
           </p>
 
           {status.id === 3 ? <p>
-            <span>Completion Date :</span>
+            <span>Completion Date: </span>
             <ControlledInput
               onChange={value => this.onChange("estimated_due_date", value)}
               tag="input"
@@ -249,7 +249,7 @@ export default class EditProject extends Component {
             />
           </p> : ''}
           <p>
-            <span>Budget: :</span>
+            <span>Budget: </span>
             <ControlledInput
               onChange={value => this.onChange("budget", value)}
               tag="input"
