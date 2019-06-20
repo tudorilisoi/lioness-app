@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import Project from './Project'
-import ProjectSearchBar from './ProjectSearchBar'
+import LionessContext from '../../LionessContext/LionessContext';
 import ds from '../../STORE/dataservice';
-import DataLoader from '../DataLoader/DataLoader'
+import Project from './Project';
+import ProjectSearchBar from './ProjectSearchBar';
 
-import LionessContext from '../../LionessContext/LionessContext'
 const { getUsers, getProjects, handleFetchError, getRoles, getStatuses } = ds
 export default class EstimatesPage extends Component {
     constructor(props) {

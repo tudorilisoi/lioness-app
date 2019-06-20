@@ -29,13 +29,13 @@ const projectsDefaultOptions = {
     afterDate: null,
     beforeDate: null,
     roleFilter: null,
-    activeProjSortAsc: null,
     pageNumber: 1,
 }
 const usersDefaultOptions = {
     idsFilter: null, // pass a non-empty array to fetch users by theirs ids
     searchQuery: null,
-    userNameSortAsc: null,
+    userNameSortAsc: null, 
+    activeProjSortAsc: null,
     roleFilter: null,
     pageNumber: 1,
 }

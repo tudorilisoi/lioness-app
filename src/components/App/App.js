@@ -1,22 +1,18 @@
-import React, { Component } from "react";
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 // import { fab } from '@fortawesome/free-brands-svg-icons'
-
 // need to explicitly import all needed icons 
 //find icons @ https://fontawesome.com/icons?d=gallery&q=add%20user&m=free
 // NOTE copy-paste this line to library.add
-import {
-  faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle
-} from '@fortawesome/free-solid-svg-icons'
-
+import { faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import LionessContext from "../../LionessContext/LionessContext";
 import ds from "../../STORE/dataservice";
-import config from "../../config";
-import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
+import AdminDash from '../AdminDash/AdminDash';
 import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
-import AdminDash from '../AdminDash/AdminDash'
-import LionessContext from "../../LionessContext/LionessContext";
-import './App.css'
+import './App.css';
+
 
 library.add(
   faTrash, faEdit, faPlus, faMinus, faSave, faTimes, faChevronRight, faChevronDown, faUserPlus, faPlusCircle

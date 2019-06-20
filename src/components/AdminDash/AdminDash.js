@@ -1,20 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { NavTab } from "react-router-tabs";
-import EstimatesPage from '../Projects/EstimatesPage'
-import ClientPage from '../Users/ClientPage'
-import ActiveProjectsPage from '../Projects/ActiveProjectsPage'
-import BilledProjectsPage from '../Projects/BilledProjectsPage'
-import ProjectManagerPage from '../Users/ProjectManagerPage'
-import ContractorsPage from '../Users/ContractorsPage'
-import HomePage from '../Home/HomePage'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import ds from '../../STORE/dataservice';
-import './AdminDash.css'
-import LionessContext from '../../LionessContext/LionessContext'
-
 import "react-tabs/style/react-tabs.css";
-import { faInfo } from '@fortawesome/free-solid-svg-icons';
-const { deleteStoredLoginInfo, getStoredLoginInfo, getUsers } = ds
+import LionessContext from '../../LionessContext/LionessContext';
+import ds from '../../STORE/dataservice';
+import HomePage from '../Home/HomePage';
+import ActiveProjectsPage from '../Projects/ActiveProjectsPage';
+import BilledProjectsPage from '../Projects/BilledProjectsPage';
+import EstimatesPage from '../Projects/EstimatesPage';
+import ClientPage from '../Users/ClientPage';
+import ContractorsPage from '../Users/ContractorsPage';
+import ProjectManagerPage from '../Users/ProjectManagerPage';
+import './AdminDash.css';
+
+const { deleteStoredLoginInfo  } = ds
 export default class AdminDash extends Component {
     static contextType = LionessContext
     handleLogout = () => {

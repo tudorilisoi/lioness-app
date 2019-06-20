@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import AsyncSelect from "react-select/async";
 import ds from '../../STORE/dataservice';
-const { getUsers, getProjects, handleFetchError, getRoles, getStatuses } = ds
+const { getUsers } = ds
 
 const mapUsersToOptions = users =>
     users.map(u => { return { value: u.id, label: u.full_name } })
@@ -43,9 +43,9 @@ export default class UserSelector extends Component {
     }
 
     render() {
-        const { users } = this.state
-        const { onChange, roleFilter, defaultValue, multiple, renderFn } = this.props
+        const { roleFilter, multiple, renderFn } = this.props
 
+        //a placeholder function to display, for example, a non-editable version of the input
         if (renderFn) {
             return renderFn()
         }

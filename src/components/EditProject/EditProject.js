@@ -11,11 +11,11 @@ import LionessContext from "../../LionessContext/LionessContext";
 function dateForInput(dateString) {
   return dayjs(dateString).format("YYYY-MM-DD");
 }
-function dateFromInput(dateString) {
-  // return dayjs(dateString).format('YYYY-MM-DD')
-  return new Date(dateString).toUTCString();
-}
-const { getStatuses, getUsers } = ds;
+// function dateFromInput(dateString) {
+//   // return dayjs(dateString).format('YYYY-MM-DD')
+//   return new Date(dateString).toUTCString();
+// }
+// const { getStatuses, getUsers } = ds;
 
 export default class EditProject extends Component {
   static contextType = LionessContext;
@@ -93,7 +93,6 @@ export default class EditProject extends Component {
     const {
       title,
       status,
-      id,
       description,
       start_date,
       budget,
@@ -102,8 +101,7 @@ export default class EditProject extends Component {
       manager,
       contractors,
       completion_date,
-    } = this.state.project; //   //destructure the project since we're not spreading it in the astate anymore
-    const formattedStartDate = dateForInput(start_date);
+    } = this.state.project; //destructure the project
 
     // const jsStartDate = dateToJS(startDateString)
     // debugger

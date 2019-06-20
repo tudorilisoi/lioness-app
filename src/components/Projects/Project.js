@@ -15,7 +15,6 @@ const newProjectTemplate = {
     estimated_due_date: '',
     completion_date: '',
     budget: '',
-    estimated_due_date: '',
     client: {},
     client_id: null,
     manager: {},

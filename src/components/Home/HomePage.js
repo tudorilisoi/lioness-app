@@ -1,8 +1,6 @@
-import React, {Component} from 'react'
-import DataLoader from '../DataLoader/DataLoader'
-import ds from '../../STORE/dataservice';
-import LionessContext from '../../LionessContext/LionessContext'
-const {getUsers, getProjects, handleFetchError }  =ds
+import React, { Component } from 'react';
+// import ds from '../../STORE/dataservice';
+// const {getUsers, getProjects, handleFetchError }  =ds
 
 export default class HomePage extends Component{
     render(){

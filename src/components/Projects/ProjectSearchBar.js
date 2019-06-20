@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import "./ProjectSearchBar.css";
-import ds from "../../STORE/dataservice";
-import LionessContext from "../../LionessContext/LionessContext";
-import Select from "react-select";
 import 'react-dates/initialize';
+import LionessContext from "../../LionessContext/LionessContext";
+import ds from "../../STORE/dataservice";
+import "./ProjectSearchBar.css";
 const { getProjects, getStatuses } = ds;
 
 export default class ProjectSearchBar extends Component {
@@ -100,7 +99,7 @@ export default class ProjectSearchBar extends Component {
 
     const isInProgress = this.props.status === ds.STATUS_IDS.STATUS_IN_PROGRESS
     const isBilled = this.props.status === ds.STATUS_IDS.STATUS_BILLED
-    const isEstimate = this.props.status === ds.STATUS_IDS.STATUS_ESTIMATE
+    // const isEstimate = this.props.status === ds.STATUS_IDS.STATUS_ESTIMATE
 
     const dateTypes = () => {
       const selectedOption = this.state.dateTypeFilter
@@ -111,19 +110,18 @@ export default class ProjectSearchBar extends Component {
           name="sortResults-dropdown"
           aria-label="dropdown menu of sort options for results"
           onChange={e => this.dateTypeChange(e.target.value)}
+          value={selectedOption}
         >
           <option disabled="">Choose One</option>
-          <option selected={'start_date' === selectedOption} value="start_date">Start Date</option>
+          <option value="start_date">Start Date</option>
           {isInProgress || isBilled
             ? (
-              <option
-                selected={'estimated_due_date' === selectedOption}
-                value="estimated_due_date">Estimated Due Date</option>
+              <option value="estimated_due_date">Estimated Due Date</option>
             ) : (
               ""
             )}
           {isBilled ? (
-            <option selected={'completion_date' === selectedOption} value="completion_date">Completion Date</option>
+            <option value="completion_date">Completion Date</option>
           ) : (
               ""
             )}

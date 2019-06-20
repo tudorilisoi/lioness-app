@@ -1,10 +1,7 @@
-import React, {Component} from 'react';
-import Project from './Project'
-import ProjectSearchBar from './ProjectSearchBar'
-import ds from '../../STORE/dataservice';
-import DataLoader from '../DataLoader/DataLoader'
-import LionessContext from '../../LionessContext/LionessContext'
-const {getUsers, getProjects, handleFetchError }  =ds
+import React, { Component } from 'react';
+import LionessContext from '../../LionessContext/LionessContext';
+import Project from './Project';
+import ProjectSearchBar from './ProjectSearchBar';
 export default class BilledProjectsPage extends Component{
     constructor(props) {
         super(props)
