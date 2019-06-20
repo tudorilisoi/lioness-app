@@ -132,11 +132,11 @@ export default class ProjectSearchBar extends Component {
     return (
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>
-          <div className='search-word-bar'>
+          {/* <div className='search-word-bar'>
             <label htmlFor="search"></label>
             <input type="text" id="search" name="search" placeholder='Search by keyword' />
             <button type="submit">Search! </button>
-          </div>
+          </div> */}
           <div className='dateFilter'>
             <label htmlFor="sort">Filter By:</label>
             {dateTypes()}
@@ -198,7 +198,7 @@ export default class ProjectSearchBar extends Component {
             </div>
           </div>
         </form>
-        <div className='page-buttons'>
+        <div className='pageButtons'>
           <button value="prev" onClick={e => this.changePage(e.target.value)}>
             <Icon icon="arrow-left" /> Previous
           </button>

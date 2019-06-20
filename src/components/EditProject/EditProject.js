@@ -130,6 +130,28 @@ export default class EditProject extends Component {
     return (
       <div className='details'>
         <form>
+          <p>
+            <span>Title: </span>
+            <ControlledInput
+              onChange={value => this.onChange("title", value)}
+              tag="input"
+              required={true}
+              initialValue={title}
+              editMode={editMode}
+            />
+          </p>
+
+          <p>
+            <span>Description: </span>
+            <ControlledInput
+              onChange={value => this.onChange("description", value)}
+              tag="textarea"
+              required={true}
+              initialValue={description}
+              editMode={editMode}
+              rows={10}
+            />
+          </p>
 
           <p>
             <span>Status: </span>
@@ -183,31 +205,7 @@ export default class EditProject extends Component {
 
               )}
           </p>
-
-
-
-          <p>
-            <span>Title: </span>
-            <ControlledInput
-              onChange={value => this.onChange("title", value)}
-              tag="input"
-              required={true}
-              initialValue={title}
-              editMode={editMode}
-            />
-          </p>
-
-
-          <p>
-            <span>Description: </span>
-            <ControlledInput
-              onChange={value => this.onChange("description", value)}
-              tag="input"
-              required={true}
-              initialValue={description}
-              editMode={editMode}
-            />
-          </p>
+     
 
           <p>
             <span>Start Date: </span>

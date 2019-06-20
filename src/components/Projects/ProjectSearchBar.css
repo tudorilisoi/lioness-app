@@ -168,12 +168,12 @@
 	outline: none;
 }
 
-.page-buttons {
+.pageButtons {
 	display: flex;
 	justify-content: space-evenly;
 }
 
-.page-buttons button {
+.pageButtons button {
 	width: 60px;
 }
 
