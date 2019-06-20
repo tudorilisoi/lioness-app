@@ -88,7 +88,7 @@ export default class UserSearchBar extends Component {
             <input type="text" id="search" name="search" placeholder='Search by keyword' />
             <button type="submit">Search! </button>
           </div>
-          <div className="sort-buttons">
+          <div className="sortButtons">
             <button
               type="button"
               name="name-asc"

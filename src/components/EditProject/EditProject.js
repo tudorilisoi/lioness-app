@@ -142,18 +142,6 @@ export default class EditProject extends Component {
           </p>
 
           <p>
-            <span>Description: </span>
-            <ControlledInput
-              onChange={value => this.onChange("description", value)}
-              tag="textarea"
-              required={true}
-              initialValue={description}
-              editMode={editMode}
-              rows={10}
-            />
-          </p>
-
-          <p>
             <span>Status: </span>
             {!editMode ? (
               status.title
@@ -165,6 +153,18 @@ export default class EditProject extends Component {
                     this.context.statuses.find(i => i.id === option.value))}
                 />
               )}
+          </p>
+
+          <p>
+            <span>Description: </span>
+            <ControlledInput
+              onChange={value => this.onChange("description", value)}
+              tag="textarea"
+              required={true}
+              initialValue={description}
+              editMode={editMode}
+              rows={10}
+            />
           </p>
 
           <p>
@@ -205,7 +205,7 @@ export default class EditProject extends Component {
 
               )}
           </p>
-     
+
 
           <p>
             <span>Start Date: </span>

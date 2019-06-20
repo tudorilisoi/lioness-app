@@ -31,8 +31,28 @@
 	flex-direction: column;
 }
 
-.sort-buttons button {
-	margin: 5px, 10px, 5px, 10px;
+.sortButtons, .pageButtons, .dateFilter {
+	margin-bottom: 1em;
+	/* margin-top:.75em; */
+}
+
+.buttonsRow {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	/* compensate for button margins */
+	margin-left:-.3em;
+	
+}
+
+.buttonsRow>button, .pageButtons>span {
+	flex: 1;
+	text-align: center;	
+}
+
+.buttonsRow button {
+	margin: 5px, 10px, 5px, 0px;
 }
 
 .tab-navBar button {

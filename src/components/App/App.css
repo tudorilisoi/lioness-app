@@ -32,6 +32,9 @@ button {
 .padded {
   padding: 1em;
 }
+.padded-bottom {
+  padding-bottom: 1em;
+}
 
 .l-spaced {
   margin-left: 1em;

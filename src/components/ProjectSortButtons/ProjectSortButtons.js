@@ -85,7 +85,7 @@ export default class ProjectSortButtons extends Component{
     render(){
         return(
 <div className='sort-bar'>
-            <div className="sort-buttons">
+            <div className="sortButtons">
                 Sort by:
               <button
                 type="button"

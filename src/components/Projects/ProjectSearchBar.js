@@ -161,8 +161,8 @@ export default class ProjectSearchBar extends Component {
             Submit
           </button>
           <div>
-            Sort by:
-          <div className="sort-buttons">
+            <span className="buttonsRowLabel">Sort by:</span>
+            <div className="sortButtons buttonsRow">
               <button
                 type="button"
                 name="date-new"
@@ -198,7 +198,7 @@ export default class ProjectSearchBar extends Component {
             </div>
           </div>
         </form>
-        <div className='pageButtons'>
+        <div className='pageButtons buttonsRow'>
           <button value="prev" onClick={e => this.changePage(e.target.value)}>
             <Icon icon="arrow-left" /> Previous
           </button>
