@@ -132,7 +132,7 @@ export default class Project extends Component {
                 </section>
             return projectDetails
         })
-        console.log(`what is happening`, projects)
+        // console.log(`what is happening`, projects)
         return (
             <div className='tab-content'>
                 {projects}

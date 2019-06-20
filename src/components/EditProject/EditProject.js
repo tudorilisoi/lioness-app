@@ -65,6 +65,7 @@ export default class EditProject extends Component {
               title: 'Title can not be empty'
             }
           })
+        break;
       case "description":
         this.setState({
           validationMessages: {
