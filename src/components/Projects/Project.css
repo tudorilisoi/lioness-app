@@ -34,9 +34,13 @@
   float: right;
   font-size: 15px;
 }
-
-.active, .collapsible:hover {
-  opacity: 0.8;
+.link{
+  margin-bottom:.5em;
+  line-height:1.2;
+}
+.link.active, .collapsible:hover {
+  /* opacity: 0.8; */
+  border-bottom: .2em solid black;
 }
 
 .content {
