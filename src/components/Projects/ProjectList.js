@@ -24,7 +24,7 @@ const newProjectTemplate = {
 
 
 
-export default class Project extends Component {
+export default class ProjectList extends Component {
     static contextType = LionessContext
     constructor() {
         super()

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LionessContext from '../../LionessContext/LionessContext';
-import Project from './Project';
+import ProjectList from './ProjectList';
 import ProjectSearchBar from './ProjectSearchBar';
 export default class ProjectsPage extends Component {
     constructor(props) {
@@ -29,7 +29,7 @@ export default class ProjectsPage extends Component {
                 <button className='add-project' onClick={ev => { this.projectRef && this.projectRef.addProject() }}>Add Project</button>
                 <h2>{title}</h2>
                 <ProjectSearchBar status={this.props.statusFilter} />
-                <Project ref={ref => this.projectRef = ref} />
+                <ProjectList ref={ref => this.projectRef = ref} />
             </div>
         )
     }
