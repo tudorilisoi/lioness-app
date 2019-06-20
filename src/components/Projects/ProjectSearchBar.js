@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./ProjectSearchBar.css";
-import ds from "../../STORE/dataservice";
-import LionessContext from "../../LionessContext/LionessContext";
-import Select from "react-select";
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import 'react-dates/initialize';
+import LionessContext from "../../LionessContext/LionessContext";
+import ds from "../../STORE/dataservice";
+import "./ProjectSearchBar.css";
 const { getProjects, getStatuses } = ds;
 
 export default class ProjectSearchBar extends Component {
@@ -100,7 +100,7 @@ export default class ProjectSearchBar extends Component {
 
     const isInProgress = this.props.status === ds.STATUS_IDS.STATUS_IN_PROGRESS
     const isBilled = this.props.status === ds.STATUS_IDS.STATUS_BILLED
-    const isEstimate = this.props.status === ds.STATUS_IDS.STATUS_ESTIMATE
+    // const isEstimate = this.props.status === ds.STATUS_IDS.STATUS_ESTIMATE
 
     const dateTypes = () => {
       const selectedOption = this.state.dateTypeFilter
@@ -111,19 +111,18 @@ export default class ProjectSearchBar extends Component {
           name="sortResults-dropdown"
           aria-label="dropdown menu of sort options for results"
           onChange={e => this.dateTypeChange(e.target.value)}
+          value={selectedOption}
         >
           <option disabled="">Choose One</option>
-          <option selected={'start_date' === selectedOption} value="start_date">Start Date</option>
+          <option value="start_date">Start Date</option>
           {isInProgress || isBilled
             ? (
-              <option
-                selected={'estimated_due_date' === selectedOption}
-                value="estimated_due_date">Estimated Due Date</option>
+              <option value="estimated_due_date">Estimated Due Date</option>
             ) : (
               ""
             )}
           {isBilled ? (
-            <option selected={'completion_date' === selectedOption} value="completion_date">Completion Date</option>
+            <option value="completion_date">Completion Date</option>
           ) : (
               ""
             )}
@@ -133,11 +132,11 @@ export default class ProjectSearchBar extends Component {
     return (
       <div className="searchBar">
         <form onSubmit={e => this.handleSubmit(e)}>
-          <div className='search-word-bar'>
+          {/* <div className='search-word-bar'>
             <label htmlFor="search"></label>
             <input type="text" id="search" name="search" placeholder='Search by keyword' />
             <button type="submit">Search! </button>
-          </div>
+          </div> */}
           <div className='dateFilter'>
             <label htmlFor="sort">Filter By:</label>
             {dateTypes()}
@@ -162,8 +161,8 @@ export default class ProjectSearchBar extends Component {
             Submit
           </button>
           <div>
-            Sort by:
-          <div className="sort-buttons">
+            <span className="buttonsRowLabel">Sort by:</span>
+            <div className="sortButtons buttonsRow">
               <button
                 type="button"
                 name="date-new"
@@ -199,12 +198,16 @@ export default class ProjectSearchBar extends Component {
             </div>
           </div>
         </form>
-        <div className='page-buttons'>
-          <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+        <div className='pageButtons buttonsRow'>
+          <button value="prev" onClick={e => this.changePage(e.target.value)}>
+            <Icon icon="arrow-left" /> Previous
+          </button>
           <span className="paginationInfo">
             {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
           </span>
-          <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+          <button value="next" onClick={e => this.changePage(e.target.value)}>
+            Next <Icon icon="arrow-right" />
+          </button>
         </div>
       </div>
     );

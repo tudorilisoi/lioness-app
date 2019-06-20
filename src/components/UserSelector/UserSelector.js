@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import AsyncSelect from "react-select/async";
 import ds from '../../STORE/dataservice';
-const { getUsers, getProjects, handleFetchError, getRoles, getStatuses } = ds
+const { getUsers } = ds
 
 const mapUsersToOptions = users =>
     users.map(u => { return { value: u.id, label: u.full_name } })
@@ -10,7 +10,7 @@ const mapUsersToOptions = users =>
 
 export default class UserSelector extends Component {
     static propTypes = {
-        defaultValue: PropTypes.object, //an user object
+        defaultValue: PropTypes.object, //an user object or an users array
         roleFilter: PropTypes.any, //a role ID
         onChange: PropTypes.func,
         multiple: PropTypes.bool,
@@ -19,12 +19,13 @@ export default class UserSelector extends Component {
     constructor(props) {
         super(props)
         const { defaultValue, multiple } = this.props
-        const value = mapUsersToOptions(multiple ? defaultValue : [defaultValue])
+        const valueAsArray = multiple ? [...defaultValue] : [defaultValue]
+        const value = mapUsersToOptions(valueAsArray)
         this.state = {
             users: [],
             selected: value,
         }
-        this.cache = [] //keep all the loaded users here so we can map back to users
+        this.cache = valueAsArray //keep all the loaded users here so we can map back to users
     }
     onChange = (value) => {
         this.setState({ selected: value }, () => {
@@ -36,15 +37,15 @@ export default class UserSelector extends Component {
                 const isSelected = !selArr ? false : selArr.find(i => i.value === u.id)
                 return isSelected
             })
-            console.log(selectedUsers.map(u => u.full_name))
+            console.log('Selected users:', selectedUsers.map(u => u.full_name))
             onChange(!multiple ? selectedUsers[0] : selectedUsers)
         })
     }
 
     render() {
-        const { users } = this.state
-        const { onChange, roleFilter, defaultValue, multiple, renderFn } = this.props
+        const { roleFilter, multiple, renderFn } = this.props
 
+        //a placeholder function to display, for example, a non-editable version of the input
         if (renderFn) {
             return renderFn()
         }

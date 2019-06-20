@@ -11,11 +11,11 @@ import LionessContext from "../../LionessContext/LionessContext";
 function dateForInput(dateString) {
   return dayjs(dateString).format("YYYY-MM-DD");
 }
-function dateFromInput(dateString) {
-  // return dayjs(dateString).format('YYYY-MM-DD')
-  return new Date(dateString).toUTCString();
-}
-const { getStatuses, getUsers } = ds;
+// function dateFromInput(dateString) {
+//   // return dayjs(dateString).format('YYYY-MM-DD')
+//   return new Date(dateString).toUTCString();
+// }
+// const { getStatuses, getUsers } = ds;
 
 export default class EditProject extends Component {
   static contextType = LionessContext;
@@ -34,21 +34,20 @@ export default class EditProject extends Component {
         client: '',
         manager: '',
         contractors: ''
-
-
       }
 
     };
-    "start_date completion_date estimated_due_date"
-      .split(" ")
-      .forEach(i => (this.state[i] = dateForInput(this.state[i])));
+    this.state.project.start_date = dateForInput(this.state.project.start_date || new Date())
   }
 
   onChange = (fieldName, value) => {
     this.validateField(fieldName, value);
     const changedProject = { ...this.state.project, [fieldName]: value }
+    if ('status client manager'.split(' ').includes(fieldName)) {
+      changedProject[`${fieldName}_id`] = value.id
+    }
     this.setState(
-      changedProject,
+      { project: changedProject },
       () => {
         console.log("EDIT STATE", this.state);
       }
@@ -66,6 +65,7 @@ export default class EditProject extends Component {
               title: 'Title can not be empty'
             }
           })
+        break;
       case "description":
         this.setState({
           validationMessages: {
@@ -80,36 +80,20 @@ export default class EditProject extends Component {
     }
   };
 
-  renderNonEdit() {
-    const {
-      title,
-      status,
-      id,
-      description,
-      start_date,
-      budget,
-      estimated_due_date,
-      client,
-      manager,
-      contractors,
-      completion_date,
-    } = this.state.project; //   //destructure the project since we're not spreading it in the astate anymore
-    const formattedStartDate = dateForInput(start_date);
-    return (
-      <div className={'padded'}>
-        <div className={''}>
-          XXX
-        </div>
-      </div>
-    )
-
+  save() {
+    const { client, manager, contractors, status, ...rawProject } = this.state.project
+    const data = {
+      project: rawProject,
+      contractorIDs: contractors.map(c => c.id),
+    }
+    console.log(`Saving project:`, data)
+    return ds.saveProject(data)
   }
 
   render() {
     const {
       title,
       status,
-      id,
       description,
       start_date,
       budget,
@@ -118,15 +102,12 @@ export default class EditProject extends Component {
       manager,
       contractors,
       completion_date,
-    } = this.state.project; //   //destructure the project since we're not spreading it in the astate anymore
-    const formattedStartDate = dateForInput(start_date);
+    } = this.state.project; //destructure the project
 
     // const jsStartDate = dateToJS(startDateString)
     // debugger
     const { editMode } = this.props;
-    // if(!editMode){
-    //   return this.renderNonEdit()
-    // }
+
 
     // TODO pass statuses as a property
     // Do NOT use context any level deep, just on the *Page components
@@ -149,9 +130,19 @@ export default class EditProject extends Component {
     return (
       <div className='details'>
         <form>
-          
-            <p>
-            <span>Status:</span>
+          <p>
+            <span>Title: </span>
+            <ControlledInput
+              onChange={value => this.onChange("title", value)}
+              tag="input"
+              required={true}
+              initialValue={title}
+              editMode={editMode}
+            />
+          </p>
+
+          <p>
+            <span>Status: </span>
             {!editMode ? (
               status.title
             ) : (
@@ -162,74 +153,62 @@ export default class EditProject extends Component {
                     this.context.statuses.find(i => i.id === option.value))}
                 />
               )}
-              </p>
-          
+          </p>
+
           <p>
-            <span>Client:</span>
+            <span>Description: </span>
+            <ControlledInput
+              onChange={value => this.onChange("description", value)}
+              tag="textarea"
+              required={true}
+              initialValue={description}
+              editMode={editMode}
+              rows={10}
+            />
+          </p>
+
+          <p>
+            <span>Client: </span>
             {!editMode ? (
               client.full_name
             ) : (
                 <UserSelector
-                  onChange={value => this.onChange("client", [value])}
+                  onChange={value => this.onChange("client", value)}
                   multiple={false} defaultValue={client} roleFilter={2} />
               )}
-              </p>
-          
-          
-            <p>
-            <span>Project Manager:</span>
+          </p>
+
+
+          <p>
+            <span>Project Manager: </span>
             {!editMode ? (
               manager.full_name
             ) : (
                 <UserSelector
-                  onChange={value => this.onChange("manager", [value])}
+                  onChange={value => this.onChange("manager", value)}
                   multiple={false} defaultValue={manager} roleFilter={4} />
               )}
-              </p>
-          
-          
-            <p>
-            <span>Contractors:</span>
+          </p>
+
+
+          <p>
+            <span>Contractors: </span>
             {!editMode ? (
               currentContractorNames
             ) : (
                 <UserSelector
-                  onChange={value => this.onChange("contractors", [value])}
+                  onChange={value => this.onChange("contractors", value)}
                   multiple={true} defaultValue={contractors} roleFilter={3}
                   className="basic-multi-select"
                   classNamePrefix="select"
                 />
 
               )}
-              </p>
-          
+          </p>
 
-          
+
           <p>
-            <span>Title:</span>
-            <ControlledInput
-              onChange={value => this.onChange("title", value)}
-              tag="input"
-              required={true}
-              initialValue={title}
-              editMode={editMode}
-            />
-          </p>
-         
-          
-          <p>
-            <span>Description :</span>
-            <ControlledInput
-              onChange={value => this.onChange("description", value)}
-              tag="input"
-              required={true}
-              initialValue={description}
-              editMode={editMode}
-            />
-          </p>
-          
-          <p>
-            <span>Start Date :</span>
+            <span>Start Date: </span>
             <ControlledInput
               onChange={value => this.onChange("start_date", value)}
               tag="input"
@@ -239,9 +218,9 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
-          
+
           <p className={status.id === 2 || status.id === 3 ? 'show' : 'hide'}>
-            <span>Estimated Due Date :</span>
+            <span>Estimated Due Date: </span>
             <ControlledInput
               onChange={value => this.onChange("estimated_due_date", value)}
               tag="input"
@@ -253,9 +232,9 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
-          
+
           {status.id === 3 ? <p>
-            <span>Completion Date :</span>
+            <span>Completion Date: </span>
             <ControlledInput
               onChange={value => this.onChange("estimated_due_date", value)}
               tag="input"
@@ -268,7 +247,7 @@ export default class EditProject extends Component {
             />
           </p> : ''}
           <p>
-            <span>Budget: :</span>
+            <span>Budget: </span>
             <ControlledInput
               onChange={value => this.onChange("budget", value)}
               tag="input"
@@ -278,7 +257,7 @@ export default class EditProject extends Component {
               editMode={editMode}
             />
           </p>
-          
+
         </form>
 
       </div>

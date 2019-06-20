@@ -9,20 +9,22 @@ const newProjectTemplate = {
     id: -1,
     title: '',
     status: {},
+    status_id: null,
     description: '',
     start_date: '',
     estimated_due_date: '',
     completion_date: '',
     budget: '',
-    estimated_due_date: '',
     client: {},
+    client_id: null,
     manager: {},
+    manager_id: null,
     contractors: []
 };
 
 
 
-export default class Project extends Component {
+export default class ProjectList extends Component {
     static contextType = LionessContext
     constructor() {
         super()
@@ -31,10 +33,11 @@ export default class Project extends Component {
             editModeIndex: false,
             newProject: null,
         }
+        this.projectRefs = []
     }
-    dateForInput=(dateString)=> {
+    dateForInput = (dateString) => {
         return dayjs(dateString).format("YYYY-MM-DD");
-      }
+    }
     toggle = (index) => {
         const { expandedIndex } = this.state
         this.setState({
@@ -103,25 +106,33 @@ export default class Project extends Component {
                                     <Icon icon='times' />
                                 </a> */}
                             </div>
-                            <EditProject project={project} editMode={isEditing} />
-                            <div className='buttonsRow'>
+                            <EditProject
+                                ref={(r) => this.projectRefs[index] = r}
+                                project={project} editMode={isEditing} />
+                            {isEditing ? (<div className='buttonsRow'>
                                 <button
+                                    type="submit"
                                     onClick={() => {
-                                        //TODO write a saveProject function in ds
-                                        //TODO save and reload after that
-                                        console.log(this.context)
-                                        this.context.reloadProjects()
+                                        //TODO reload after save, give some visual feedback
+                                        // this.context.reloadProjects()
+                                        if (!this.projectRefs[index]) {
+                                            return
+                                        }
+                                        this.projectRefs[index].save()
+                                            .then(() => { })
+                                            .catch(() => { })
+                                            .finally(() => { })
                                     }}
                                     className={`saveButton flexed ${editingModeClassName}`}>Save</button>
                                 <button onClick={() => this.cancelAddProject()} className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>
-                            </div>
+                            </div>) : null}
                         </div>
                     </div>
 
                 </section>
             return projectDetails
         })
-        console.log(`what is happening`, projects)
+        // console.log(`what is happening`, projects)
         return (
             <div className='tab-content'>
                 {projects}

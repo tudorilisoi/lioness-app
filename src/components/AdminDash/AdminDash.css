@@ -37,9 +37,10 @@
   flex-wrap: wrap;
 }
 
-.links a {
+.links>a {
   text-decoration: none;
   padding: 10px;
+  padding-bottom:5px;
   color: black;
 }
 

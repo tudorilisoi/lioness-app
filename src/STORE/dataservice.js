@@ -175,6 +175,17 @@ const ds = {
         }))
 
     },
+
+    saveProject: (data) => {
+        return fetch('http://localhost:8000/api/projects/create', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+    },
+
     getProjects: (opts = {}) => {
         if (!ds.getStoredLoginInfo()) {
             // throw new Error(NOT_LOGGED_IN)
