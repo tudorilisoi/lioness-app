@@ -36,6 +36,13 @@
 	/* margin-top:.75em; */
 }
 
+.buttonsRowLabel{
+	display:block;
+	margin-top:.75em;
+	margin-bottom:.5em;
+
+}
+
 .buttonsRow {
 	display: flex;
 	flex-direction: row;
