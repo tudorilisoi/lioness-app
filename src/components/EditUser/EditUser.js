@@ -62,9 +62,9 @@ export default class EditUser extends Component {
     const { editMode } = this.props;
     //TODO add a role dropdown (cutom component)
     return (
-      <div className='edit-user'>
+      <div className='details'>
         <form>
-          <div className='name-input'> 
+         <p>
             <span>Name</span>
             {!editMode ? (
               full_name
@@ -77,9 +77,8 @@ export default class EditUser extends Component {
                   editMode={editMode}
                 />
               )}
-          </div>
-
-          <div className='email-input'>
+          </p>
+          <p>
             <span>Email:</span>
             <ControlledInput
               onChange={value => this.onChange("email", value)}
@@ -88,8 +87,8 @@ export default class EditUser extends Component {
               initialValue={email}
               editMode={editMode}
             />
-          </div>
-          <div className='phone-input'>
+          </p>
+          <p>
             <span>Phone:</span>
             <ControlledInput
               onChange={value => this.onChange("phone", value)}
@@ -98,7 +97,7 @@ export default class EditUser extends Component {
               initialValue={phone}
               editMode={editMode}
             />
-          </div>
+          </p>
 
         </form>
 

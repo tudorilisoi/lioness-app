@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import LionessContext from '../../LionessContext/LionessContext';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import classnames from 'classnames'
 import EditUser from '../EditUser/EditUser'
-import './editContent.css'
+import '../Projects/Project.css'
 const newUserTemplate = {
     id: -1,
     email: '',
@@ -62,30 +64,50 @@ export default class User extends Component {
         }
         const Users = UsersList.map((user, index) => {
             const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
+            const isExpanded = this.state.expandedIndex === index
             const isEditing = this.state.editModeIndex === index
             const editingModeClassName = isEditing ? 'show' : ''
             const UserDetails =
                 <section key={user.id}>
-                  { !this.state.newUser ? <button className={`collapsible ${expandedClassName}` }onClick={() => { this.toggle(index) }} ><a className='userName'>{user.full_name}</a>
+                    <div className={classnames('collapsible', isExpanded ? '' : null)}
+                        onClick={() => { this.toggle(index) }}>
+                        <div className='collapsibleInner'>
+                        <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
+                  { !this.state.newUser ? <span>{user.full_name}
                     {!this.state.newUser ? <>
                     { this.props.role !==2 ? 
                     
                     <p><em>Active Projects:{user.projects ? user.projects.filter(project=>project.status.title==='in progress').length : "0"}</em></p> : ''}
                     </> :''}
-                    </button> : ''}
-
-
-                    <div className={`button-content ${expandedClassName}`}>
-                    <div >
-                    {!this.state.newUser ?  <button>Delete</button> :''}
-                    {!this.state.newUser ?  <button onClick={() => this.toggleeditModeIndex(index)}>Edit</button> : ''}
+                    </span> : ''}
                     </div>
+                    </div>
+
+                    <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
+                    <div className='padded'>
+                    <div className='actionButtonsWrapper'>
+                                {!this.state.newProject ? <button className='actionButton'><Icon icon="trash" /> Delete</button> : ''}
+                                {!this.state.newProject ?
+                                    <button className='actionButton' onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
+                                {/* <a
+                                    onClick={() => { this.toggle(index) }}
+                                    href="#" className='closeButton'>
+                                    <Icon icon='times' />
+                                </a> */}
+                            </div>
                     
                         <EditUser user={user} editMode={isEditing} role={this.props.role} />
-                        <div className={`editMode-buttons ${editingModeClassName}`}>
-                        <button className='saveButton' >Save</button>
-                            <button className='saveButton' onClick={()=>this.cancelAddUser()}>Cancel</button>
+                        <div className='buttonsRow'>
+                        <button  onClick={() => {
+                                        //TODO write a saveProject function in ds
+                                        //TODO save and reload after that
+                                        console.log(this.context)
+                                        this.context.reloadProjects()
+                                    }}
+                                    className={`saveButton flexed ${editingModeClassName}`} >Save</button>
+                            <button onClick={()=>this.cancelAddUser()}className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>
                             </div>
+                    </div>
                     </div>
 
                 </section>

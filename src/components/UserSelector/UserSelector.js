@@ -54,7 +54,7 @@ export default class UserSelector extends Component {
         const loadUsersPromise = inputValue => {
             const opts = {
                 //TODO does not sort, though, why?
-                userNameSortAsc: true,
+                userNameSort: true,
                 roleFilter,
                 searchQuery: inputValue
             }

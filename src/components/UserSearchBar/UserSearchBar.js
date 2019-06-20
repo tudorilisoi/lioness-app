@@ -4,13 +4,13 @@ import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-const { getUsers, statuses } = ds;
+const { getUsers, getstatuses } = ds;
 export default class UserSearchBar extends Component {
   static contextType = LionessContext;
   constructor() {
     super();
     this.state = {
-      userNameSortAsc: null,
+      userNameSort: null,
       activeProjSortAsc: null,
       currentPageNumber: 1,
       totalPages: null,
@@ -34,7 +34,7 @@ export default class UserSearchBar extends Component {
   };
   userNameSortChange = (nameSort) => {
     this.setState({
-      userNameSortAsc: nameSort === "asc" ? true : false,
+      userNameSort: nameSort === "asc" ? ds.SORT_ASC : ds.SORT_DESC,
       activeProjSortAsc: null,
       noSorting: null,
       currentPageNumber: 1
@@ -44,8 +44,8 @@ export default class UserSearchBar extends Component {
   activeProjSortChange = (actProjSort) => {
 
     this.setState({
-      userNameSortAsc: null,
-      activeProjSortAsc: actProjSort === "asc" ? true : false,
+      userNameSort: null,
+      activeProjSortAsc: actProjSort === "asc" ? ds.SORT_ASC : ds.SORT_DESC,
       noSorting: null,
       currentPageNumber: 1
     }, () => { this.fetchData() });
@@ -58,7 +58,7 @@ export default class UserSearchBar extends Component {
 
     const opts = {
       pageNumber: this.state.currentPageNumber,
-      userNameSortAsc: this.state.userNameSortAsc,
+      userNameSort: this.state.userNameSort,
       noSorting: this.state.noSorting,
       activeProjSortAsc: this.state.activeProjSortAsc,
       roleFilter: this.props.role,
@@ -83,9 +83,9 @@ export default class UserSearchBar extends Component {
     return (
       <div className="tab-navBar">
         <form onSubmit={e => this.handleSubmit(e)}>
-          <div className='searchBar'>
-            <label htmlFor="search"> </label>
-            <input type="text" id="search" name="search" />
+        <div className='search-word-bar'>
+            <label htmlFor="search"></label>
+            <input type="text" id="search" name="search" placeholder='Search by keyword' />
             <button type="submit">Search! </button>
           </div>
           <div className="sort-buttons">
