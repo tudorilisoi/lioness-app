@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import "../Projects/ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
@@ -121,10 +122,10 @@ export default class ProjectSortButtons extends Component{
             </div>
           <div className='pagination-buttons'>
           <button value="prev" onClick={e => this.changePage(e.target.value)}>
-            Previous
+          <Icon icon="arrow-left" /> Previous
           </button>
           <button value="next" onClick={e => this.changePage(e.target.value)}>
-            Next
+            Next <Icon icon="arrow-right" />
           </button>
           </div>
           </div>

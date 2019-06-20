@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import 'react-dates/initialize';
 import LionessContext from "../../LionessContext/LionessContext";
 import ds from "../../STORE/dataservice";
@@ -198,11 +199,15 @@ export default class ProjectSearchBar extends Component {
           </div>
         </form>
         <div className='page-buttons'>
-          <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+          <button value="prev" onClick={e => this.changePage(e.target.value)}>
+            <Icon icon="arrow-left" /> Previous
+          </button>
           <span className="paginationInfo">
             {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
           </span>
-          <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+          <button value="next" onClick={e => this.changePage(e.target.value)}>
+            Next <Icon icon="arrow-right" />
+          </button>
         </div>
       </div>
     );

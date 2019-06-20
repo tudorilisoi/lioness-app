@@ -4,7 +4,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 //find icons @ https://fontawesome.com/icons?d=gallery&q=add%20user&m=free
 // NOTE copy-paste this line to library.add
 import { 
-  faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus, faFolderPlus 
+  faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus, faFolderPlus
+  ,faArrowLeft, faArrowRight 
 } from '@fortawesome/free-solid-svg-icons';
 import React, { Component } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
@@ -17,7 +18,8 @@ import './App.css';
 
 
 library.add(
-  faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus, faFolderPlus 
+  faChevronDown, faChevronRight, faEdit, faMinus, faPlus, faPlusCircle, faSave, faTimes, faTrash, faUserPlus, faFolderPlus
+  ,faArrowLeft, faArrowRight 
 )
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
