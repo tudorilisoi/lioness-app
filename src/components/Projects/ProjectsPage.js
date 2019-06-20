@@ -26,9 +26,11 @@ export default class ProjectsPage extends Component {
         }
         return (
             <div className='tab-page'>
-                <button className='add-project' onClick={ev => { this.projectRef && this.projectRef.addProject() }}>Add Project</button>
-                <h2>{title}</h2>
-                <ProjectSearchBar status={this.props.statusFilter} />
+                <div className="padded">
+                    <button className='add-button' onClick={ev => { this.projectRef && this.projectRef.addProject() }}>Add Project</button>
+                    <h2>{title}</h2>
+                    <ProjectSearchBar status={this.props.statusFilter} />
+                </div>
                 <ProjectList ref={ref => this.projectRef = ref} />
             </div>
         )

@@ -14,10 +14,8 @@
 
 }
 .searchBar{
-  margin-left: 10px;
-  margin-bottom: 10px;
-  display:flex;
-  flex-direction: column;
+  /* display:flex;
+  flex-direction: column; */
   
 }
 .searchBar button{
@@ -45,7 +43,7 @@
     opacity:0.8;
     cursor:pointer;
   }
-.add-project{
+.add-button{
   background-color: #535355;
   border: none;
   border-radius: 8px;
@@ -53,6 +51,7 @@
   width: 80px;
   margin-top: 5px;
   margin-bottom: 5px;
+  float:right;
 }
 
 .sortResults{
