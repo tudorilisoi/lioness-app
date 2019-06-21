@@ -4,6 +4,7 @@ const faker = require("faker");
 const fs = require('fs')
 faker.seed(123);
 const { parse, stringify } = require("flatted/cjs");
+const { ROLES: { ADMIN_ROLE, CLIENT_ROLE, MANAGER_ROLE, CONTRACTOR_ROLE } } = require('../config')
 
 function unique(fn, arr, objKey) {
   const value = fn();
@@ -54,11 +55,35 @@ for (let i = 0; i < 2; i++) {
   users.push(admin);
 }
 
-for (let i = 2; i < 102; i++) {
-  const remainingRoles = [...roles];
-  remainingRoles.shift();
-  const randomRole =
-    remainingRoles[Math.floor(Math.random() * remainingRoles.length)];
+const usersByRole = {
+  [CLIENT_ROLE]: [],
+  [CONTRACTOR_ROLE]: [],
+  [MANAGER_ROLE]: [],
+}
+
+const remainingRoles = [...roles];
+remainingRoles.shift();
+for (let i = 2; true; i++) {
+  // const roleID =
+  //   remainingRoles[Math.floor(Math.random() * remainingRoles.length)];
+  let roleID
+  let done = true;
+  if (usersByRole[CLIENT_ROLE].length < 33) {
+    roleID = CLIENT_ROLE
+    done = false
+  }
+  if (usersByRole[MANAGER_ROLE].length < 33) {
+    roleID = MANAGER_ROLE
+    done = false
+  }
+  if (usersByRole[CONTRACTOR_ROLE].length < 33) {
+    roleID = CONTRACTOR_ROLE
+    done = false
+  }
+  if (done) {
+    console.log('Generated users')
+    break;
+  }
   const user = {
     //fields
     // id: faker.random.uuid(),
@@ -67,13 +92,14 @@ for (let i = 2; i < 102; i++) {
     full_name: faker.name.findName(),
     phone: faker.phone.phoneNumberFormat(),
     password: faker.internet.password(),
-    role_id: randomRole.id,
+    role_id: roleID,
     // isAdmin: false,
     //associated objects
-    role: randomRole, //the role Object corresponding to the role_id
+    role: roles.find(r => r.id === roleID), //the role Object corresponding to the role_id
     // projects: []
     projects: []
   };
+  usersByRole[roleID].push(user)
   users.push(user);
 }
 const clients = users.filter(user => {
