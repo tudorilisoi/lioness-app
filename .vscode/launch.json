@@ -10,7 +10,7 @@
         "name": "nodemon",
         "runtimeExecutable": "nodemon",
         "runtimeVersion": "10.15.0",
-        "program": "${workspaceFolder}/src/STORE/fakerdata.js",
+        // "program": "${workspaceFolder}/src/STORE/fakerdata.js",
         "restart": true,
         "console": "integratedTerminal",
         "internalConsoleOptions": "neverOpen"

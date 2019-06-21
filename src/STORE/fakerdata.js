@@ -173,8 +173,10 @@ for (let i = 0; i < 1000; i++) {
 }
 //populate some of the projectless contractors
 contractors.forEach(c => {
+  // console.log(c.projects.length)
   if (c.projects.length === 0) {
-    const numProjects = random.integer(0, 5);
+    console.log(`Populate projects for contractor #${c.id}`)
+    const numProjects = random.integer(1, 5);
     for (let i = 0; i < numProjects; i++) {
       c.projects.push(uniqueRecord(() => rand(projects), c.projects, 'id'))
     }
