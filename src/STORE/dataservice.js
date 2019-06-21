@@ -141,24 +141,25 @@ const ds = {
             res = res.filter(user => user.role.id === mergedOpts.roleFilter)
         }
 
+        if (mergedOpts.idsFilter) {
+            res = res.filter(u => mergedOpts.idsFilter.includes(u.id))
+        }
+
         if (mergedOpts.searchQuery) {
             res = res.filter(u => u.full_name.toLowerCase().indexOf(mergedOpts.searchQuery.toLowerCase()) === 0)
         }
 
-        if (mergedOpts.userNameSort === SORT_ASC && !mergedOpts.noSorting) {
-            res = res.sort((a, b) => {
-                return a.full_name.localeCompare(b.full_name);
-            })
+        if (mergedOpts.userNameSort) {
+            const direction = mergedOpts.userNameSort === ds.SORT_ASC ? 1 : -1
+            res.sort((a, b) => direction * a.full_name.localeCompare(b.full_name))
         }
-        if (mergedOpts.userNameSort === SORT_DESC && !mergedOpts.noSorting) {
-            res = res.sort((a, b) => {
-                return b.full_name.localeCompare(a.full_name);
-            })
-
-        }
-
-        if (mergedOpts.idsFilter) {
-            res = res.filter(u => mergedOpts.idsFilter.includes(u.id))
+        if (mergedOpts.activeProjSort) {
+            function getActiveProjects(projectsArr) {
+                return projectsArr.filter(project => project.status.title === 'in progress').length
+            }
+            console.log('activeProjSort', mergedOpts.activeProjSort)
+            const direction = mergedOpts.activeProjSort === ds.SORT_ASC ? 1 : -1
+            res.sort((a, b) => direction * (getActiveProjects(b.projects) - getActiveProjects(a.projects)))
         }
 
         const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE

@@ -11,7 +11,7 @@ export default class UserSearchBar extends Component {
     super();
     this.state = {
       userNameSort: null,
-      activeProjSortAsc: null,
+      activeProjSort: null,
       currentPageNumber: 1,
       totalPages: null,
       noSorting: null,
@@ -35,7 +35,7 @@ export default class UserSearchBar extends Component {
   userNameSortChange = (nameSort) => {
     this.setState({
       userNameSort: nameSort === "asc" ? ds.SORT_ASC : ds.SORT_DESC,
-      activeProjSortAsc: null,
+      activeProjSort: null,
       noSorting: null,
       currentPageNumber: 1
     }, () => { this.fetchData() });
@@ -45,7 +45,7 @@ export default class UserSearchBar extends Component {
 
     this.setState({
       userNameSort: null,
-      activeProjSortAsc: actProjSort === "asc" ? ds.SORT_ASC : ds.SORT_DESC,
+      activeProjSort: actProjSort === "asc" ? ds.SORT_ASC : ds.SORT_DESC,
       noSorting: null,
       currentPageNumber: 1
     }, () => { this.fetchData() });
@@ -60,7 +60,7 @@ export default class UserSearchBar extends Component {
       pageNumber: this.state.currentPageNumber,
       userNameSort: this.state.userNameSort,
       noSorting: this.state.noSorting,
-      activeProjSortAsc: this.state.activeProjSortAsc,
+      activeProjSort: this.state.activeProjSort,
       roleFilter: this.props.role,
     };
     getUsers(opts).then(res => {
