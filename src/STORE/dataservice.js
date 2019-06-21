@@ -271,6 +271,7 @@ const ds = {
         let users = [...data.users]
         let findUser = users.find(user => user.email === email)
         if (!findUser) {
+            //TODO ditch the alert()s
             window.alert('Email does not match any user, please reenter your email and password')
             return Promise.reject(('No such user'))
 
