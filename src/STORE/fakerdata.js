@@ -5,15 +5,15 @@ const fs = require('fs')
 faker.seed(123);
 
 //better random numbers
-const MersenneTwister19937 = require("random-js").MersenneTwister19937;
+const nodeCrypto = require("random-js").nodeCrypto;
 const Random = require("random-js").Random;
-const random = new Random(MersenneTwister19937.autoSeed());
+const random = new Random(nodeCrypto);
 
 const { parse, stringify } = require("flatted/cjs");
 const { ROLES: { ADMIN_ROLE, CLIENT_ROLE, MANAGER_ROLE, CONTRACTOR_ROLE } } = require('../config')
 
 function rand(arr) {
-  const randomIndex = random.integer(0, arr.length);
+  const randomIndex = random.integer(0, arr.length - 1);
   return arr[randomIndex]
 }
 
@@ -35,10 +35,10 @@ function uniqueRecord(fn, arr, objKey) {
 }
 
 const roles = [
-  { id: 1, title: "Admin" },
-  { id: 2, title: "Client" },
-  { id: 3, title: "Contractor" },
-  { id: 4, title: "Project Manager" }
+  { id: ADMIN_ROLE, title: "Admin" },
+  { id: CLIENT_ROLE, title: "Client" },
+  { id: CONTRACTOR_ROLE, title: "Contractor" },
+  { id: MANAGER_ROLE, title: "Project Manager" }
 ];
 const statuses = [
   { id: 1, title: "estimate" },
@@ -112,32 +112,27 @@ for (let i = 2; true; i++) {
   users.push(user);
 }
 const clients = users.filter(user => {
-  return user.role.id === 2;
+  return user.role.id === CLIENT_ROLE;
 });
 const contractors = users.filter(user => {
-  return user.role.id === 3;
+  return user.role.id === CONTRACTOR_ROLE;
 });
+
 const projectManagers = users.filter(user => {
-  return user.role.id === 4;
+  return user.role.id === MANAGER_ROLE;
 });
 const projects = [];
 for (let i = 0; i < 1000; i++) {
-  let contractorsArr = [
-    contractors[Math.floor(Math.random() * contractors.length)]
-  ]
+  const contractorsArr = [];
+  [1, 2, 3].forEach(() => contractorsArr.push(
+    uniqueRecord(() => rand(contractors), contractorsArr, 'id')
+  )
+  )
 
-  const contractor2 = uniqueRecord(() => contractors[Math.floor(Math.random() * contractors.length)], contractorsArr, 'id')
-  contractorsArr.push(contractor2)
-  const contractor3 = uniqueRecord(() => contractors[Math.floor(Math.random() * contractors.length)], contractorsArr, 'id')
-  contractorsArr.push(contractor3)
+  const client = rand(clients);
+  const manager = rand(projectManagers)
 
-
-
-  const client = clients[Math.floor(Math.random() * clients.length)];
-  const manager =
-    projectManagers[Math.floor(Math.random() * projectManagers.length)];
-
-  const projectStatus = statuses[Math.floor(Math.random() * statuses.length)];
+  const projectStatus = rand(statuses)
   const beginDate = faker.date.recent(60);
   const estimatedDate = faker.date.between(beginDate, faker.date.recent());
   const billedDate = faker.date.between(estimatedDate, faker.date.recent());
@@ -176,6 +171,15 @@ for (let i = 0; i < 1000; i++) {
   projects.push(project);
 
 }
+//populate some of the projectless contractors
+contractors.forEach(c => {
+  if (c.projects.length === 0) {
+    const numProjects = random.integer(0, 5);
+    for (let i = 0; i < numProjects; i++) {
+      c.projects.push(uniqueRecord(() => rand(projects), c.projects, 'id'))
+    }
+  }
+})
 
 const collections = stringify({
   users,
@@ -185,7 +189,7 @@ const collections = stringify({
 });
 
 // console.log(collections);
-fs.writeFile('./flattenedData.json', collections, (err) => {
+fs.writeFile('./src/STORE/flattenedData.json', collections, (err) => {
   // throws an error, you could also catch it here
   if (err) throw err;
 
