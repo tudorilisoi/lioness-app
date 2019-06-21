@@ -199,13 +199,13 @@ export default class ProjectSearchBar extends Component {
           </div>
         </form>
         <div className='pageButtons buttonsRow'>
-          <button value="prev" onClick={e => this.changePage(e.target.value)}>
+          <button className="btnPrev" value="prev" onClick={e => this.changePage(e.target.value)}>
             <Icon icon="arrow-left" /> Previous
           </button>
           <span className="paginationInfo">
             {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
           </span>
-          <button value="next" onClick={e => this.changePage(e.target.value)}>
+          <button className="btnNext" value="next" onClick={e => this.changePage(e.target.value)}>
             Next <Icon icon="arrow-right" />
           </button>
         </div>

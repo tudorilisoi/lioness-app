@@ -36,11 +36,10 @@
 	/* margin-top:.75em; */
 }
 
-.buttonsRowLabel{
-	display:block;
-	margin-top:.75em;
-	margin-bottom:.5em;
-
+.buttonsRowLabel {
+	display: block;
+	margin-top: .75em;
+	margin-bottom: .5em;
 }
 
 .buttonsRow {
@@ -49,13 +48,22 @@
 	align-items: center;
 	justify-content: space-between;
 	/* compensate for button margins */
-	margin-left:-.3em;
-	
+	margin-left: -.3em;
 }
 
 .buttonsRow>button, .pageButtons>span {
 	flex: 1;
-	text-align: center;	
+	text-align: center;
+}
+
+.btnPrev svg {
+	float:left;
+	margin-left:.5em;
+}
+
+.btnNext svg  {
+	float:right;
+	margin-right:.5em;
 }
 
 .buttonsRow button {
