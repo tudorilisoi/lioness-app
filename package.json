@@ -17,6 +17,7 @@
     "json-stable-stringify": "^1.0.1",
     "prettyjson": "^1.2.1",
     "query-string": "^6.7.0",
+    "random-js": "^2.1.0",
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dates": "^20.2.2",

@@ -3,8 +3,19 @@
 const faker = require("faker");
 const fs = require('fs')
 faker.seed(123);
+
+//better random numbers
+const MersenneTwister19937 = require("random-js").MersenneTwister19937;
+const Random = require("random-js").Random;
+const random = new Random(MersenneTwister19937.autoSeed());
+
 const { parse, stringify } = require("flatted/cjs");
 const { ROLES: { ADMIN_ROLE, CLIENT_ROLE, MANAGER_ROLE, CONTRACTOR_ROLE } } = require('../config')
+
+function rand(arr) {
+  const randomIndex = random.integer(0, arr.length);
+  return arr[randomIndex]
+}
 
 function unique(fn, arr, objKey) {
   const value = fn();
@@ -64,11 +75,9 @@ const usersByRole = {
 const remainingRoles = [...roles];
 remainingRoles.shift();
 for (let i = 2; true; i++) {
-  // const roleID =
-  //   remainingRoles[Math.floor(Math.random() * remainingRoles.length)];
   let roleID
   let done = true;
-  if (usersByRole[CLIENT_ROLE].length < 33) {
+  if (usersByRole[CLIENT_ROLE].length < 34) {
     roleID = CLIENT_ROLE
     done = false
   }
