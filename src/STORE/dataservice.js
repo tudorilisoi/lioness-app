@@ -132,48 +132,15 @@ const ds = {
         }
         const mergedOpts = { ...usersDefaultOptions, ...opts }
 
-        console.log('getUsers filters:', mergedOpts)
+        const qs = queryString.stringify(mergedOpts)
+        console.log(`QS is: ${qs}`)
 
-        // console.log(`getUsers Opts`, mergedOpts)
-        let res = [...data.users]
-
-        if (mergedOpts.roleFilter) {
-            res = res.filter(user => user.role.id === mergedOpts.roleFilter)
-        }
-
-        if (mergedOpts.idsFilter) {
-            res = res.filter(u => mergedOpts.idsFilter.includes(u.id))
-        }
-
-        if (mergedOpts.searchQuery) {
-            res = res.filter(u => u.full_name.toLowerCase().indexOf(mergedOpts.searchQuery.toLowerCase()) === 0)
-        }
-
-        if (mergedOpts.userNameSort) {
-            const direction = mergedOpts.userNameSort === ds.SORT_ASC ? 1 : -1
-            res.sort((a, b) => direction * a.full_name.localeCompare(b.full_name))
-        }
-        if (mergedOpts.activeProjSort) {
-            function getActiveProjects(projectsArr) {
-                return projectsArr.filter(project => project.status.title === 'in progress').length
-            }
-            console.log('activeProjSort', mergedOpts.activeProjSort)
-            const direction = mergedOpts.activeProjSort === ds.SORT_ASC ? 1 : -1
-            res.sort((a, b) => direction * (getActiveProjects(b.projects) - getActiveProjects(a.projects)))
-        }
-
-        const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
-        const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
-        const numPages = Math.ceil(res.length / ITEMS_PER_PAGE)
-        const totalItemCount = res.length
-
-        res = res.slice(begin, end)
-
-        return delay(Promise.resolve({
-            data: res,
-            numPages,
-            totalItemCount,
-        }))
+        return fetch('http://localhost:8000/api/users/?' + qs)
+            .then(r => r.json())
+            .then(data => {
+                console.log('FETCH got: ', data)
+                return data
+            })
 
     },
 

@@ -10,11 +10,12 @@ export default class UserSearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      userNameSort: null,
-      activeProjSort: null,
-      currentPageNumber: 1,
-      totalPages: null,
-      noSorting: null,
+      ...ds.usersDefaultOptions,
+    
+      // activeProjSort: null,
+      // currentPageNumber: 1,
+      // totalPages: null,
+      // noSorting: null,
     };
   }
 
