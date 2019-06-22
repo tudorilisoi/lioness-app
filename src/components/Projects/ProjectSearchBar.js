@@ -182,7 +182,7 @@ export default class ProjectSearchBar extends Component {
               <button
                 type="button"
                 name="budget-high"
-                value="asc"
+                value="des"
                 onClick={e => this.budgetChange(e.target.value)}
               >
                 Budget<br /> (Highest)
@@ -190,7 +190,7 @@ export default class ProjectSearchBar extends Component {
               <button
                 type="button"
                 name="budget-low"
-                value="des"
+                value="asc"
                 onClick={e => this.budgetChange(e.target.value)}
               >
                 Budget <br />(Lowest)

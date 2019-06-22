@@ -23,7 +23,7 @@ const STATUS_OTHER = 4
 const projectsDefaultOptions = {
     statusFilter: null,
     searchQuery: null,
-    budgetSort: SORT_ASC,
+    budgetSort: SORT_DESC,
     dateTypeFilter: null,
     dateSort: null,
     afterDate: null,
