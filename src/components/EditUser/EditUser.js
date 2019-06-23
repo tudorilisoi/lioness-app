@@ -50,7 +50,9 @@ export default class EditUser extends Component {
     }
   };
   save() {
-    const { ...user} = this.state
+    // pluck out the projects and the role
+    const {projects, role, ...user} = {...this.state}
+
     const data = {
       user: user
     }
