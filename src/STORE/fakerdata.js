@@ -61,6 +61,7 @@ for (let i = 0; i < 2; i++) {
     //associated objects
     role: adminRole, //the role Object corresponding to the role_id
     // isAdmin: true,
+    inactive:false,
     projects: []
   };
   users.push(admin);
@@ -106,6 +107,7 @@ for (let i = 2; true; i++) {
     //associated objects
     role: roles.find(r => r.id === roleID), //the role Object corresponding to the role_id
     // projects: []
+    inactive:false,
     projects: []
   };
   usersByRole[roleID].push(user)
