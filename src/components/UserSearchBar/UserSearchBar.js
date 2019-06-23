@@ -66,7 +66,7 @@ export default class UserSearchBar extends Component {
     };
     getUsers(opts).then(res => {
       console.log(res)
-      this.context.setUsers(res);
+      this.context.setUsers(res, this.fetchData);
 
     });
   };

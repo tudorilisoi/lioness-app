@@ -143,6 +143,15 @@ const ds = {
             })
 
     },
+    saveUser: (data) => {
+        return fetch('http://localhost:8000/api/users/create', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+    },
 
     saveProject: (data) => {
         return fetch('http://localhost:8000/api/projects/create', {

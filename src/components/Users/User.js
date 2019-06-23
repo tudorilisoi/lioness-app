@@ -26,6 +26,7 @@ export default class User extends Component {
             expandedIndex: false,
             editModeIndex: false,
         }
+        this.userRefs=[]
     }
     toggle = (index) => {
         const { expandedIndex } = this.state
@@ -96,13 +97,20 @@ export default class User extends Component {
                                 </a> */}
                             </div>
                     
-                        <EditUser user={user} editMode={isEditing} role={this.props.role} />
+                        <EditUser ref={(r) => this.userRefs[index] = r} user={user} editMode={isEditing} role={this.props.role} />
                         <div className='buttonsRow'>
                         <button  onClick={() => {
                                         //TODO write a saveProject function in ds
                                         //TODO save and reload after that
-                                        console.log(this.context)
-                                        this.context.reloadProjects()
+                                        // console.log(this.context)
+                                        // this.context.reloadProjects()
+                                        if (!this.userRefs[index]) {
+                                            return
+                                        }
+                                        this.userRefs[index].save()
+                                            .then(() => { })
+                                            .catch(() => { })
+                                            .finally(() => { })
                                     }}
                                     className={`saveButton flexed ${editingModeClassName}`} >Save</button>
                             <button onClick={()=>this.cancelAddUser()}className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>

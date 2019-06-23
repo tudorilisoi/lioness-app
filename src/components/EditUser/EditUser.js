@@ -49,7 +49,14 @@ export default class EditUser extends Component {
         break;
     }
   };
-
+  save() {
+    const { ...user} = this.state
+    const data = {
+      user: user
+    }
+    console.log(`Saving project:`, data)
+    return ds.saveUser(data)
+  }
  
   render() {
     const {

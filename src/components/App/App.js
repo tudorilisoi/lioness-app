@@ -49,6 +49,7 @@ class App extends Component {
       projectsLoaded: false,
       currentUserLoaded: false,
       reloadProjects: null,
+      reloadUsers:null
     };
   }
   beforeProjectFetch = () => {
@@ -68,12 +69,13 @@ class App extends Component {
       projects
     });
   };
-  setUsers = users => {
+  setUsers = (users, reloadFn )=> {
     if (ds.areObjectsDeepEqual(users, this.state.users)) {
       console.log('setUsers(): SKIP')
       return
     }
     this.setState({
+      reloadUsers: reloadFn,
       usersLoaded: true,
       users
     });
@@ -113,6 +115,7 @@ class App extends Component {
     }
     const contextValue = {
       reloadProjects: this.state.reloadProjects,
+      reloadUsers: this.state.reloadUsers,
       projects: this.state.projects,
       users: this.state.users,
       roles: this.state.roles,
