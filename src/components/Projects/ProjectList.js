@@ -97,7 +97,17 @@ export default class ProjectList extends Component {
                     <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
                         <div className='padded'>
                             <div className='actionButtonsWrapper'>
-                                {!this.state.newProject ? <button className='actionButton'><Icon icon="trash" /> Delete</button> : ''}
+                                {!this.state.newProject ? <button className='actionButton'onClick={() => {
+                                        //TODO reload after save, give some visual feedback
+                                        // this.context.reloadProjects()
+                                        if (!this.projectRefs[index]) {
+                                            return
+                                        }
+                                        this.projectRefs[index].delete()
+                                            .then(() => { })
+                                            .catch(() => { })
+                                            .finally(() => { })
+                                    }}><Icon icon="trash" /> Delete</button> : ''}
                                 {!this.state.newProject ?
                                     <button className='actionButton' onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
                                 {/* <a

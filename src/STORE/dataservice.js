@@ -162,6 +162,12 @@ const ds = {
             },
         })
     },
+    deleteProject: (id) => {
+        return fetch(`http://localhost:8000/api/projects/id/${id}`, {
+            method: 'delete'
+           
+        })
+    },
 
     getProjects: (opts = {}) => {
         if (!ds.getStoredLoginInfo()) {

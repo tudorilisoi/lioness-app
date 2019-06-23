@@ -89,6 +89,16 @@ export default class EditProject extends Component {
     console.log(`Saving project:`, data)
     return ds.saveProject(data)
   }
+  delete() {
+    const { id} = this.state.project
+    // const data = {
+    //   project: rawProject,
+    //   contractorIDs: contractors.map(c => c.id),
+    // }
+    console.log(`deleting project:`, id)
+    return ds.deleteProject(id)
+  }
+
 
   render() {
     const {
