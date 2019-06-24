@@ -151,7 +151,7 @@ export default class EditProject extends Component {
             />
           </p>
 
-          <p>
+          
             <span>Status: </span>
             {!editMode ? (
               status.title
@@ -163,7 +163,7 @@ export default class EditProject extends Component {
                     this.context.statuses.find(i => i.id === option.value))}
                 />
               )}
-          </p>
+          
 
           <p>
             <span>Description: </span>
@@ -177,7 +177,7 @@ export default class EditProject extends Component {
             />
           </p>
 
-          <p>
+          
             <span>Client: </span>
             {!editMode ? (
               client.full_name
@@ -186,7 +186,7 @@ export default class EditProject extends Component {
                   onChange={value => this.onChange("client", value)}
                   multiple={false} defaultValue={client} roleFilter={2} />
               )}
-          </p>
+          
 
 
           <p>
