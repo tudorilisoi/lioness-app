@@ -102,20 +102,20 @@ export default class LoginForm extends Component {
       .then((data) => {
         if (data) {
           console.log('login: set user to ', data)
-          this.context.setCurrentUser(data)
-          const { id, email, full_name, password } = data
-          setStoredLoginInfo({
-            id, email, full_name, password
-          });
+          this.context.setCurrentUser(data.user)
+          setStoredLoginInfo(
+            {
+              authToken: data.authToken,
+              userID: data.user.id,
+            }
+          );
         }
-        return data
+        return data.user
       })
       .then((res) => {
-        if (res && res.role.id === 1) {
+        if (res && res.role_id === 1) {
           //TODO change to rely on role
           this.props.history.push('/admin-dash')
-        } if (res && res.role.id === 4) {
-          this.props.history.push('/project-manager:id')
         }
       })
 
