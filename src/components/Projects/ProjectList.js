@@ -11,9 +11,9 @@ const newProjectTemplate = {
     status: {},
     status_id: null,
     description: '',
-    start_date: '',
-    estimated_due_date: '',
-    completion_date: '',
+    start_date: null,
+    estimated_due_date: null,
+    completion_date: null,
     budget: '',
     client: {},
     client_id: null,
@@ -22,7 +22,7 @@ const newProjectTemplate = {
     contractors: []
 };
 
-
+// const p ={...newProjectTemplate, start_date: new Date()}
 
 export default class ProjectList extends Component {
     static contextType = LionessContext

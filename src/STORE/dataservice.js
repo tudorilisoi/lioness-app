@@ -48,6 +48,13 @@ function delay(promiseObj, delayMillis = 1000) {
     })
 }
 
+const addAuthTokenHeader = (headersObj = {}) => {
+    let headers = headersObj || new Headers()
+    const info = ds.getStoredLoginInfo()
+    headers.Authorization = `Bearer ${info.authToken}`
+    return headers
+}
+
 console.log('parsed data', data)
 const ds = {
     STATUS_IDS: {
@@ -88,20 +95,20 @@ const ds = {
         }
     },
     getStoredLoginInfo: () => {
-        return Cookie.get("credentials");
+        return Cookie.get("jwt_info");
     },
-    setStoredLoginInfo: (loginData) => {
-        Cookie.set("credentials", loginData);
+    setStoredLoginInfo: (data) => {
+        Cookie.set("jwt_info", data);
     },
     deleteStoredLoginInfo: () => {
-        Cookie.remove("credentials");
+        Cookie.remove("jwt_info");
     },
     loadCurrentUser: () => {
         const userInfo = ds.getStoredLoginInfo()
-        if (!(userInfo && userInfo.id)) {
+        if (!(userInfo && userInfo.userID)) {
             return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
         }
-        return ds.getUsers({ idsFilter: [userInfo.id] }).then(res => {
+        return ds.getUsers({ idsFilter: [userInfo.userID] }).then(res => {
             if (!res.data.length) {
                 return Promise.reject(new Error('BAD_STORED_CREDENTIALS'))
             }
@@ -135,7 +142,9 @@ const ds = {
         const qs = queryString.stringify(mergedOpts)
         console.log(`QS is: ${qs}`)
 
-        return fetch('http://localhost:8000/api/users/?' + qs)
+        return fetch('http://localhost:8000/api/users/?' + qs, {
+            headers: addAuthTokenHeader(),
+        })
             .then(r => r.json())
             .then(data => {
                 console.log('FETCH got: ', data)
@@ -147,9 +156,9 @@ const ds = {
         return fetch('http://localhost:8000/api/users/create', {
             method: 'post',
             body: JSON.stringify(data),
-            headers: {
+            headers: addAuthTokenHeader({
                 'Content-type': 'application/json'
-            },
+            }),
         })
     },
 
@@ -157,15 +166,15 @@ const ds = {
         return fetch('http://localhost:8000/api/projects/create', {
             method: 'post',
             body: JSON.stringify(data),
-            headers: {
+            headers: addAuthTokenHeader({
                 'Content-type': 'application/json'
-            },
+            }),
         })
     },
     deleteProject: (id) => {
         return fetch(`http://localhost:8000/api/projects/id/${id}`, {
-            method: 'delete'
-           
+            method: 'delete',
+            headers: addAuthTokenHeader(),
         })
     },
 
@@ -179,7 +188,9 @@ const ds = {
         const qs = queryString.stringify(mergedOpts)
         console.log(`QS is: ${qs}`)
 
-        return fetch('http://localhost:8000/api/projects/?' + qs)
+        return fetch('http://localhost:8000/api/projects/?' + qs, {
+            headers: addAuthTokenHeader(),
+        })
             .then(r => r.json())
             .then(data => {
                 console.log('FETCH got: ', data)
@@ -248,23 +259,38 @@ const ds = {
             totalItemCount,
         }))
     },
-    doLogin: (email, password) => {
+    doLogin: async (email, password) => {
 
-        let users = [...data.users]
-        let findUser = users.find(user => user.email === email)
-        if (!findUser) {
-            //TODO ditch the alert()s
-            window.alert('Email does not match any user, please reenter your email and password')
-            return Promise.reject(('No such user'))
+        const headers = new Headers({
+            'Content-Type': 'application/json',
+        });
 
-        } else if (password !== findUser.password) {
-            window.alert('Password does not match email, please reenter your email and password')
+        const tokenData = await fetch(
+            'http://localhost:8000/api/auth/login',
+            {
+                method: 'POST',
+                body: JSON.stringify({ email, password }),
+                headers,
+            }
+        )
+            .then(r => r.json())
+        return tokenData
 
-            return Promise.reject(('Wrong password'))
-        } else {
+        // let users = [...data.users]
+        // let findUser = users.find(user => user.email === email)
+        // if (!findUser) {
+        //     //TODO ditch the alert()s
+        //     window.alert('Email does not match any user, please reenter your email and password')
+        //     return Promise.reject(('No such user'))
 
-            return Promise.resolve(findUser)
-        }
+        // } else if (password !== findUser.password) {
+        //     window.alert('Password does not match email, please reenter your email and password')
+
+        //     return Promise.reject(('Wrong password'))
+        // } else {
+
+        //     return Promise.resolve(findUser)
+        // }
     },
 }
 export default ds
