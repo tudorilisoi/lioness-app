@@ -121,8 +121,14 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
 
-        let res = [...data.roles]
-        return Promise.resolve(res)
+        return fetch('http://localhost:8000/api/roles', {
+    
+        })
+            .then(r => r.json())
+            .then(data => {
+                console.log('FETCH got: ', data)
+                return data
+            })
     },
     getStatuses: (opts = {}) => {
         if (!ds.getStoredLoginInfo()) {

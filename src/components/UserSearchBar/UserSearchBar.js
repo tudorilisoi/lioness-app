@@ -4,7 +4,7 @@ import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-const { getUsers, getstatuses } = ds;
+const { getUsers, getRoles } = ds;
 export default class UserSearchBar extends Component {
   static contextType = LionessContext;
   constructor() {
@@ -68,6 +68,10 @@ export default class UserSearchBar extends Component {
       console.log(res)
       this.context.setUsers(res, this.fetchData);
 
+    });
+    getRoles().then(res => {
+      console.log(res)
+      this.context.setRoles(res);
     });
   };
   handleSubmit = e => {

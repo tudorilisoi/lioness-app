@@ -10,6 +10,7 @@ const newUserTemplate = {
     full_name: '',
     phone: '',
     password: '',
+    inactive:false,
     //associated objects
     role: null, //TODO add a role object
     // isAdmin: true,

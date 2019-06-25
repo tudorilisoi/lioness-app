@@ -24,10 +24,12 @@ export default class EditUser extends Component {
   onChange = (fieldName, value) => {
     this.validateField(fieldName, value);
 
+    const changedUser = { ...this.state, [fieldName]: value }
+    if ('role'.includes(fieldName)) {
+      changedUser[`${fieldName}_id`] = value.id
+    }
     this.setState(
-      {
-        [fieldName]: value
-      },
+      changedUser,
       () => {
         console.log("EDIT STATE", this.state);
       }
@@ -65,9 +67,22 @@ export default class EditUser extends Component {
       full_name,
       email,
       phone,
+      password,
+      role_id,
       id,
     } = this.state;
+    const roles = [...this.context.roles]
+    roles.shift()
+  
+    
+    const roleOpts=roles.map(role => {
+      const options = { value: role.id, label: role.title };
+      // { value: 'strawberry', label: 'Strawberry' },
+      // { value: 'vanilla', label: 'Vanilla' }
 
+      return options;
+    });
+    console.log(roleOpts)
     const { editMode } = this.props;
     //TODO add a role dropdown (cutom component)
     return (
@@ -81,6 +96,7 @@ export default class EditUser extends Component {
                 <ControlledInput
                   onChange={value => this.onChange("full_name", value)}
                   tag="input"
+                  type="text"
                   required={true}
                   initialValue={full_name}
                   editMode={editMode}
@@ -92,6 +108,7 @@ export default class EditUser extends Component {
             <ControlledInput
               onChange={value => this.onChange("email", value)}
               tag="input"
+              type="email"
               required={true}
               initialValue={email}
               editMode={editMode}
@@ -102,12 +119,35 @@ export default class EditUser extends Component {
             <ControlledInput
               onChange={value => this.onChange("phone", value)}
               tag="input"
+              type="tel"
               required={true}
               initialValue={phone}
               editMode={editMode}
             />
           </p>
-
+          {this.state.id===-1 ?
+          <>
+          <span>Role:</span>
+          <Select
+          options={roleOpts}
+          onChange={option => this.onChange("role",
+          this.context.roles.find(i => i.id === option.value))}
+        />
+          <p>
+            <span>Password:</span>
+            <ControlledInput
+              onChange={value => this.onChange("password", value)}
+              tag="input"
+              type="password"
+              required={true}
+              initialValue={password}
+              editMode={editMode}
+            />
+          </p>
+          
+       
+        </>
+:''}
         </form>
 
       </div>
