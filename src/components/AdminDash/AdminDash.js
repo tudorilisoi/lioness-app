@@ -32,7 +32,6 @@ export default class AdminDash extends Component {
     }
 
     render() {
-        console.log('ctx', this.context)
         const { path } = this.props.match
         let welcome = 'Loading...'
         if (this.context.currentUser) {

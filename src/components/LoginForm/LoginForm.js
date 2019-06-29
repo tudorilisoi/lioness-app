@@ -24,7 +24,7 @@ export default class LoginForm extends Component {
   componentDidMount() {
     const savedCredentials = getStoredLoginInfo();
     if (savedCredentials) {
-      console.log('Logging in with saved(cookie) credentials', savedCredentials)
+     
       this.setState(
         savedCredentials,
         this.handleLoginSubmit
@@ -96,12 +96,11 @@ export default class LoginForm extends Component {
     this.validateLogin(email, password)
     doLogin(email, password)
       .catch((e) => {
-        console.log(e)
+        
         return false
       })
       .then((data) => {
         if (data) {
-          console.log('login: set user to ', data)
           this.context.setCurrentUser(data.user)
           setStoredLoginInfo(
             {

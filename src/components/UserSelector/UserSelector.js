@@ -37,7 +37,7 @@ export default class UserSelector extends Component {
                 const isSelected = !selArr ? false : selArr.find(i => i.value === u.id)
                 return isSelected
             })
-            console.log('Selected users:', selectedUsers.map(u => u.full_name))
+           
             onChange(!multiple ? selectedUsers[0] : selectedUsers)
         })
     }
@@ -60,13 +60,13 @@ export default class UserSelector extends Component {
             }
 
             return getUsers(opts).then(response => {
-                console.log('Search: ', response)
+               
                 this.cache = [...this.cache, ...response.data]
                 function onlyUnique(item, index, self) {
                     return self.findIndex(i => i.id === item.id) === index;
                 }
                 this.cache = this.cache.filter(onlyUnique)
-                // console.log(this.cache);
+               
                 return mapUsersToOptions(response.data)
             })
         }

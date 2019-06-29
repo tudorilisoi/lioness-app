@@ -49,13 +49,13 @@ export default class EditProject extends Component {
     this.setState(
       { project: changedProject },
       () => {
-        console.log("EDIT STATE", this.state);
+      
       }
     );
   };
 
   validateField = (fieldName, value) => {
-    console.log(`validating "${fieldName}" against the value of: ${value}`);
+
 
     switch (fieldName) {
       case "title":
@@ -86,16 +86,12 @@ export default class EditProject extends Component {
       project: rawProject,
       contractorIDs: contractors.map(c => c.id),
     }
-    console.log(`Saving project:`, data)
+    
     return ds.saveProject(data)
   }
   delete() {
     const { id} = this.state.project
-    // const data = {
-    //   project: rawProject,
-    //   contractorIDs: contractors.map(c => c.id),
-    // }
-    console.log(`deleting project:`, id)
+   
     return ds.deleteProject(id)
   }
 

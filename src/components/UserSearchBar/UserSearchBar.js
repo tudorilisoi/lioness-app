@@ -55,7 +55,7 @@ export default class UserSearchBar extends Component {
 
   fetchData = () => {
 
-    console.log('Data fetched')
+
 
     const opts = {
       pageNumber: this.state.currentPageNumber,
@@ -65,12 +65,12 @@ export default class UserSearchBar extends Component {
       roleFilter: this.props.role,
     };
     getUsers(opts).then(res => {
-      console.log(res)
+   
       this.context.setUsers(res, this.fetchData);
 
     });
     getRoles().then(res => {
-      console.log(res)
+    
       this.context.setRoles(res);
     });
   };

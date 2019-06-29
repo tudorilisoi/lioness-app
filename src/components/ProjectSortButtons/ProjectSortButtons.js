@@ -67,7 +67,6 @@ export default class ProjectSortButtons extends Component{
               currentPageNumber: 1
             },
             () => {
-              console.log(`this is datesortChange true`, this.fetchData());
             }
           );
         } else {
@@ -77,7 +76,6 @@ export default class ProjectSortButtons extends Component{
               currentPageNumber: 1
             },
             () => {
-              console.log(`this is datesortChange false`, this.fetchData());
             }
           );
         }

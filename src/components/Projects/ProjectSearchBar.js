@@ -59,7 +59,7 @@ export default class ProjectSearchBar extends Component {
   }
   fetchData = () => {
 
-    console.log('Data fetched')
+   
 
     const opts = this.state;
     getProjects(opts).then(res => {
@@ -96,11 +96,10 @@ export default class ProjectSearchBar extends Component {
   }
 
   render() {
-    console.log('render Searchbar')
+    
 
     const isInProgress = this.props.status === ds.STATUS_IDS.STATUS_IN_PROGRESS
     const isBilled = this.props.status === ds.STATUS_IDS.STATUS_BILLED
-    // const isEstimate = this.props.status === ds.STATUS_IDS.STATUS_ESTIMATE
 
     const dateTypes = () => {
       const selectedOption = this.state.dateTypeFilter

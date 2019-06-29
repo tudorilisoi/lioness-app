@@ -101,10 +101,7 @@ export default class User extends Component {
                         <EditUser ref={(r) => this.userRefs[index] = r} user={user} editMode={isEditing} role={this.props.role} />
                         <div className='buttonsRow'>
                         <button  onClick={() => {
-                                        //TODO write a saveProject function in ds
-                                        //TODO save and reload after that
-                                        // console.log(this.context)
-                                        // this.context.reloadProjects()
+                                      
                                         if (!this.userRefs[index]) {
                                             return
                                         }

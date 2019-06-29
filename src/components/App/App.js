@@ -60,7 +60,7 @@ class App extends Component {
   }
   setProjects = (projects, reloadFn) => {
     if (ds.areObjectsDeepEqual(projects, this.state.projects)) {
-      console.log('Projects are up to date')
+     
       return
     }
     this.setState({
@@ -71,7 +71,7 @@ class App extends Component {
   };
   setUsers = (users, reloadFn )=> {
     if (ds.areObjectsDeepEqual(users, this.state.users)) {
-      console.log('setUsers(): SKIP')
+  
       return
     }
     this.setState({
@@ -101,7 +101,7 @@ class App extends Component {
     })
   }
   setCurrentUser = currentUser => {
-    console.log('setCurrentUser:', currentUser)
+    
     this.setState({
       currentUserLoaded: true,
       currentUser
@@ -135,7 +135,7 @@ class App extends Component {
       beforeUserFetch: this.beforeUserFetch,
       setViewProjectStatus: this.setViewProjectStatus,
     };
-    console.log(process.env)
+    
     return (
       <div className="App">
         <LionessContext.Provider value={contextValue}>

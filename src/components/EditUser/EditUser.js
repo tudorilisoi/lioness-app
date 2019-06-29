@@ -31,13 +31,13 @@ export default class EditUser extends Component {
     this.setState(
       changedUser,
       () => {
-        console.log("EDIT STATE", this.state);
+       
       }
     );
   };
 
   validateField = (fieldName, value) => {
-    console.log(`validating "${fieldName}" against the value of: ${value}`);
+
 
     switch (fieldName) {
       case "full_name":
@@ -58,7 +58,7 @@ export default class EditUser extends Component {
     const data = {
       user: user
     }
-    console.log(`Saving project:`, data)
+   
     return ds.saveUser(data)
   }
  
@@ -82,7 +82,7 @@ export default class EditUser extends Component {
 
       return options;
     });
-    console.log(roleOpts)
+    
     const { editMode } = this.props;
     //TODO add a role dropdown (cutom component)
     return (

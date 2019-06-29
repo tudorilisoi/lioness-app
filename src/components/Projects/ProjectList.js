@@ -70,7 +70,7 @@ export default class ProjectList extends Component {
         const projectsList = [...this.context.projects.data]
         if (this.state.newProject) {
             projectsList.unshift(this.state.newProject)
-            console.log(projectsList)
+            
         }
 
         const projects = projectsList.map((project, index) => {
@@ -142,7 +142,7 @@ export default class ProjectList extends Component {
                 </section>
             return projectDetails
         })
-        // console.log(`what is happening`, projects)
+        
         return (
             <div className='tab-content'>
                 {projects}

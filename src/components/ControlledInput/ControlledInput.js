@@ -15,7 +15,6 @@ export default class ControlledInput extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log(prevProps.initialValue, this.props.initialValue)
         if (prevProps.initialValue !== this.props.initialValue) {
             this.setState({ value: this.props.initialValue || '' })
         }
@@ -38,7 +37,6 @@ export default class ControlledInput extends React.Component {
             return <>{this.state.value}</>
         }
         const { editMode, initialValue, tag, onChange,required, ...rest } = this.props
-        // console.log('value', initialValue)
      
         const props = {
             ...rest,

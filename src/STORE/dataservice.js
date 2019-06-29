@@ -56,7 +56,7 @@ const addAuthTokenHeader = (headersObj = {}) => {
     return headers
 }
 
-console.log('parsed data', data)
+
 const ds = {
     STATUS_IDS: {
         STATUS_ESTIMATE,
@@ -127,7 +127,7 @@ const ds = {
         })
             .then(r => r.json())
             .then(data => {
-                console.log('FETCH got: ', data)
+                
                 return data
             })
     },
@@ -141,7 +141,7 @@ const ds = {
         })
             .then(r => r.json())
             .then(data => {
-                console.log('FETCH got: ', data)
+               
                 return data
             })
     },
@@ -153,14 +153,14 @@ const ds = {
         const mergedOpts = { ...usersDefaultOptions, ...opts }
 
         const qs = queryString.stringify(mergedOpts)
-        console.log(`QS is: ${qs}`)
+        
 
         return fetch(`${API_BASE_URL}/users?` + qs, {
             headers: addAuthTokenHeader(),
         })
             .then(r => r.json())
             .then(data => {
-                console.log('FETCH got: ', data)
+                
                 return data
             })
 
@@ -199,14 +199,14 @@ const ds = {
         const mergedOpts = { ...projectsDefaultOptions, ...opts }
 
         const qs = queryString.stringify(mergedOpts)
-        console.log(`QS is: ${qs}`)
+        
 
         return fetch(`${API_BASE_URL}/projects/?` + qs, {
             headers: addAuthTokenHeader(),
         })
             .then(r => r.json())
             .then(data => {
-                console.log('FETCH got: ', data)
+                
                 return data
             })
 
