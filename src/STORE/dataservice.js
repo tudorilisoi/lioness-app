@@ -7,6 +7,7 @@ import Cookie from "js.cookie";
 import { default as deterministicStringify } from 'json-stable-stringify';
 import { history } from '../index';
 import dataString from './flattenedData.json';
+import{API_BASE_URL} from '../config'
 dayjs.extend(isBetween)
 const { parse, stringify } = fjs
 
@@ -121,7 +122,7 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
 
-        return fetch('http://localhost:8000/api/roles', {
+        return fetch(`${API_BASE_URL}/roles`, {
     
         })
             .then(r => r.json())
@@ -135,8 +136,14 @@ const ds = {
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
-        let res = [...data.statuses]
-        return delay(Promise.resolve(res), 500)
+        return fetch(`${API_BASE_URL}/project-statuses`, {
+    
+        })
+            .then(r => r.json())
+            .then(data => {
+                console.log('FETCH got: ', data)
+                return data
+            })
     },
     getUsers: (opts = {}) => {
         if (!ds.getStoredLoginInfo()) {
@@ -148,7 +155,7 @@ const ds = {
         const qs = queryString.stringify(mergedOpts)
         console.log(`QS is: ${qs}`)
 
-        return fetch('http://localhost:8000/api/users/?' + qs, {
+        return fetch(`${API_BASE_URL}/users?` + qs, {
             headers: addAuthTokenHeader(),
         })
             .then(r => r.json())
@@ -159,7 +166,7 @@ const ds = {
 
     },
     saveUser: (data) => {
-        return fetch('http://localhost:8000/api/users/create', {
+        return fetch(`${API_BASE_URL}/users/create`, {
             method: 'post',
             body: JSON.stringify(data),
             headers: addAuthTokenHeader({
@@ -169,7 +176,7 @@ const ds = {
     },
 
     saveProject: (data) => {
-        return fetch('http://localhost:8000/api/projects/create', {
+        return fetch(`${API_BASE_URL}/projects/create`, {
             method: 'post',
             body: JSON.stringify(data),
             headers: addAuthTokenHeader({
@@ -178,7 +185,7 @@ const ds = {
         })
     },
     deleteProject: (id) => {
-        return fetch(`http://localhost:8000/api/projects/id/${id}`, {
+        return fetch(`${API_BASE_URL}/projects/id/${id}`, {
             method: 'delete',
             headers: addAuthTokenHeader(),
         })
@@ -194,7 +201,7 @@ const ds = {
         const qs = queryString.stringify(mergedOpts)
         console.log(`QS is: ${qs}`)
 
-        return fetch('http://localhost:8000/api/projects/?' + qs, {
+        return fetch(`${API_BASE_URL}/projects/?` + qs, {
             headers: addAuthTokenHeader(),
         })
             .then(r => r.json())
@@ -203,67 +210,6 @@ const ds = {
                 return data
             })
 
-        console.log('getProjects filters:', mergedOpts)
-
-
-
-        let res = [...data.projects]
-
-
-        if (mergedOpts.statusFilter) {
-            res = res.filter(project => {
-                // 
-                return project.status.id === mergedOpts.statusFilter
-            })
-        }
-
-        if (mergedOpts.beforeDate) {
-            res = res.filter(project => {
-                return dayjs(project[mergedOpts.dateTypeFilter]).isBefore(dayjs(mergedOpts.beforeDate))
-            })
-        }
-        if (mergedOpts.afterDate) {
-            res = res.filter(project => {
-                return dayjs(project[mergedOpts.dateTypeFilter]).isAfter(dayjs(mergedOpts.beforeDate))
-            })
-        }
-
-        if (mergedOpts.dateSort) {
-            const direction = mergedOpts.dateSort === ds.SORT_ASC ? 1 : -1
-            if (mergedOpts.dateTypeFilter === 'start_date') {
-                res = res.sort((a, b) => direction * (new Date(b.start_date) - new Date(a.start_date)))
-
-            }
-            if (mergedOpts.dateTypeFilter === 'estimated_due_date') {
-                res = res.sort((a, b) => direction * (new Date(b.estimated_due_date) - new Date(a.estimated_due_date)))
-
-            }
-            if (mergedOpts.dateTypeFilter === 'completion_date') {
-                res = res.sort((a, b) => direction * (new Date(b.completion_date) - new Date(a.completion_date)))
-
-            }
-        }
-
-
-        if (mergedOpts.budgetSort) {
-            const direction = mergedOpts.budgetSort === ds.SORT_ASC ? 1 : -1
-            res = res.sort((a, b) => direction * (b.budget - a.budget))
-        }
-
-        const begin = (mergedOpts.pageNumber - 1) * ITEMS_PER_PAGE
-        const end = (mergedOpts.pageNumber) * ITEMS_PER_PAGE
-        const numPages = Math.ceil(res.length / ITEMS_PER_PAGE)
-        const totalItemCount = res.length
-
-        res = res.slice(begin, end)
-
-
-
-        return delay(Promise.resolve({
-            data: res,
-            numPages,
-            totalItemCount,
-        }))
     },
     doLogin: async (email, password) => {
 
@@ -272,7 +218,7 @@ const ds = {
         });
 
         const tokenData = await fetch(
-            'http://localhost:8000/api/auth/login',
+            `${API_BASE_URL}/auth/login`,
             {
                 method: 'POST',
                 body: JSON.stringify({ email, password }),
@@ -282,21 +228,6 @@ const ds = {
             .then(r => r.json())
         return tokenData
 
-        // let users = [...data.users]
-        // let findUser = users.find(user => user.email === email)
-        // if (!findUser) {
-        //     //TODO ditch the alert()s
-        //     window.alert('Email does not match any user, please reenter your email and password')
-        //     return Promise.reject(('No such user'))
-
-        // } else if (password !== findUser.password) {
-        //     window.alert('Password does not match email, please reenter your email and password')
-
-        //     return Promise.reject(('Wrong password'))
-        // } else {
-
-        //     return Promise.resolve(findUser)
-        // }
     },
 }
 export default ds

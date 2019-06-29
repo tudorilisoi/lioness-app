@@ -135,6 +135,7 @@ class App extends Component {
       beforeUserFetch: this.beforeUserFetch,
       setViewProjectStatus: this.setViewProjectStatus,
     };
+    console.log(process.env)
     return (
       <div className="App">
         <LionessContext.Provider value={contextValue}>
