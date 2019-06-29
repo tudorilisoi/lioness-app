@@ -149,7 +149,10 @@ export default class LoginForm extends Component {
 
             <button type="submit">Submit</button>
           </form>
+          <p>Demo Email: Mervin.Graham@hotmail.com</p>
+          <p>Demo Password: GAfJ8cFYg2J1SdS</p>
         </div>
+       
       </div>
     );
   }
