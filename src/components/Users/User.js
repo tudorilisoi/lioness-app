@@ -10,7 +10,7 @@ const newUserTemplate = {
     full_name: '',
     phone: '',
     password: '',
-    inactive:false,
+    inactive: false,
     //associated objects
     role: null, //TODO add a role object
     // isAdmin: true,
@@ -27,7 +27,7 @@ export default class User extends Component {
             expandedIndex: false,
             editModeIndex: false,
         }
-        this.userRefs=[]
+        this.userRefs = []
     }
     toggle = (index) => {
         const { expandedIndex } = this.state
@@ -49,7 +49,7 @@ export default class User extends Component {
             newUser: { ...newUserTemplate }
         })
     }
-    cancelAddUser=()=>{
+    cancelAddUser = () => {
         this.setState({
             editModeIndex: false,
             expandedIndex: false,
@@ -74,20 +74,20 @@ export default class User extends Component {
                     <div className={classnames('collapsible', isExpanded ? '' : null)}
                         onClick={() => { this.toggle(index) }}>
                         <div className='collapsibleInner'>
-                        <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
-                  { !this.state.newUser ? <span>{user.full_name}
-                    {!this.state.newUser ? <>
-                    { this.props.role !==2 ? 
-                    
-                    <p><em>Active Projects:{user.projects ? user.projects.filter(project=>project.status_id===2).length : "0"}</em></p> : ''}
-                    </> :''}
-                    </span> : ''}
-                    </div>
+                            <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
+                            {!this.state.newUser ? <span>{user.full_name}
+                                {!this.state.newUser ? <>
+                                    {this.props.role !== 2 ?
+
+                                        <p><em>Active Projects:{user.projects ? user.projects.filter(project => project.status_id === 2).length : "0"}</em></p> : ''}
+                                </> : ''}
+                            </span> : ''}
+                        </div>
                     </div>
 
                     <div className={classnames('button-content', isExpanded ? 'expanded' : null)}>
-                    <div className='padded'>
-                    <div className='actionButtonsWrapper'>
+                        <div className='padded'>
+                            <div className='actionButtonsWrapper'>
                                 {!this.state.newProject ? <button className='actionButton'><Icon icon="trash" /> Delete</button> : ''}
                                 {!this.state.newProject ?
                                     <button className='actionButton' onClick={() => this.toggleeditModeIndex(index)}><Icon icon="edit" /> Edit</button> : ''}
@@ -97,23 +97,23 @@ export default class User extends Component {
                                     <Icon icon='times' />
                                 </a> */}
                             </div>
-                    
-                        <EditUser ref={(r) => this.userRefs[index] = r} user={user} editMode={isEditing} role={this.props.role} />
-                        <div className='buttonsRow'>
-                        <button  onClick={() => {
-                                      
-                                        if (!this.userRefs[index]) {
-                                            return
-                                        }
-                                        this.userRefs[index].save()
-                                            .then(() => { })
-                                            .catch(() => { })
-                                            .finally(() => { })
-                                    }}
+
+                            <EditUser ref={(r) => this.userRefs[index] = r} user={user} editMode={isEditing} role={this.props.role} />
+                            {!isEditing ? null : (<div className='buttonsRow'>
+                                <button onClick={() => {
+
+                                    if (!this.userRefs[index]) {
+                                        return
+                                    }
+                                    this.userRefs[index].save()
+                                        .then(() => { })
+                                        .catch(() => { })
+                                        .finally(() => { })
+                                }}
                                     className={`saveButton flexed ${editingModeClassName}`} >Save</button>
-                            <button onClick={()=>this.cancelAddUser()}className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>
-                            </div>
-                    </div>
+                                <button onClick={() => this.cancelAddUser()} className={`cancelButton flexed ${editingModeClassName}`}>Cancel</button>
+                            </div>)}
+                        </div>
                     </div>
 
                 </section>
