@@ -15,6 +15,7 @@ import AdminDash from '../AdminDash/AdminDash';
 import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import './App.css';
+import { ToastContainer,  } from 'react-toastify';
 
 
 library.add(
@@ -148,6 +149,7 @@ class App extends Component {
             </Switch>
           </BrowserRouter>
         </LionessContext.Provider>
+        <ToastContainer />
       </div>
     );
   }
