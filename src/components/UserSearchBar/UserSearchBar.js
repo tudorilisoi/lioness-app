@@ -4,14 +4,16 @@ import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import toast from '../Toast/toast'
 const { getUsers, getRoles } = ds;
+
 export default class UserSearchBar extends Component {
   static contextType = LionessContext;
   constructor() {
     super();
     this.state = {
       ...ds.usersDefaultOptions,
-    
+
       // activeProjSort: null,
       // currentPageNumber: 1,
       // totalPages: null,
@@ -54,8 +56,9 @@ export default class UserSearchBar extends Component {
   }
 
   fetchData = () => {
-
-
+    console.log('Fetching users and roles...')
+    // debugger
+    const promises = []
 
     const opts = {
       pageNumber: this.state.currentPageNumber,
@@ -64,15 +67,18 @@ export default class UserSearchBar extends Component {
       activeProjSort: this.state.activeProjSort,
       roleFilter: this.props.role,
     };
-    getUsers(opts).then(res => {
-   
+    const p1 = getUsers(opts).then(res => {
       this.context.setUsers(res, this.fetchData);
-
     });
-    getRoles().then(res => {
-    
+    promises.push(p1)
+    const p2 = getRoles().then(res => {
       this.context.setRoles(res);
     });
+    promises.push(p2)
+    Promise.all(promises).catch(e => {
+      toast.error('There was an error, please retry later ' + new Date().toLocaleTimeString())
+    })
+
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -80,7 +86,7 @@ export default class UserSearchBar extends Component {
   }
 
   componentDidMount() {
-    this.fetchData()
+    // this.fetchData()
   }
 
 
@@ -88,7 +94,7 @@ export default class UserSearchBar extends Component {
     return (
       <div className="tab-navBar">
         <form onSubmit={e => this.handleSubmit(e)}>
-        <div className='search-word-bar'>
+          <div className='search-word-bar'>
             <label htmlFor="search"></label>
             <input type="text" id="search" name="search" placeholder='Search by keyword' />
             <button type="submit">Search! </button>
