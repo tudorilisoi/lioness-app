@@ -71,7 +71,8 @@ export default class ProjectSearchBar extends Component {
     })
     promises.push(p2)
 
-    Promise.all(promises).catch(e => {
+    Promise.all(promises)
+    .catch(e => {
       toast.error('There was an error, please retry later')
     })
 

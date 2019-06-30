@@ -86,7 +86,7 @@ export default class UserSearchBar extends Component {
   }
 
   componentDidMount() {
-    // this.fetchData()
+    this.fetchData()
   }
 
 

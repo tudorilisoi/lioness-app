@@ -26,7 +26,7 @@ const toastMessage = (type, stringValue) => {
     toastIDs[type] = toast[type](stringValue, {
         position: toast.POSITION.TOP_CENTER,
         transition: Zoom,
-        autoClose: 5000,
+        autoClose: 3000,
         toastId: id,
     })
 }
