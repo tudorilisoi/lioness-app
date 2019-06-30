@@ -142,6 +142,7 @@ export default class LoginForm extends Component {
             />
             <label htmlFor="password"> Password:</label>
             <input
+              name="password"
               type="password"
               id="password"
               onChange={e => this.passwordChanged(e.target.value)}

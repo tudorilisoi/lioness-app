@@ -139,7 +139,7 @@ export default class UserSearchBar extends Component {
             >
               Name<br /> (Z-A)
             </button>
-            {this.props.role === 3 || this.props.role === 4 ? <button
+            {false && (this.props.role === 3 || this.props.role === 4) ? <button
               type="button"
               name="active-project-high"
               value="asc"
@@ -147,7 +147,7 @@ export default class UserSearchBar extends Component {
             >
               Active Projects (Highest)
         </button> : ''}
-            {this.props.role === 3 || this.props.role === 4 ? <button
+            {false && (this.props.role === 3 || this.props.role === 4) ? <button
               type="button"
               name="active-project-low"
               value="des"
