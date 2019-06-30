@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import "../Projects/ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import toast from '../Toast/toast'
+import { throwStatement } from "@babel/types";
 const { getUsers, getRoles } = ds;
 
 export default class UserSearchBar extends Component {
@@ -15,7 +17,8 @@ export default class UserSearchBar extends Component {
       ...ds.usersDefaultOptions,
 
       // activeProjSort: null,
-      // currentPageNumber: 1,
+      currentPageNumber: 1,
+      searchQuery: null,
       // totalPages: null,
       // noSorting: null,
     };
@@ -66,6 +69,7 @@ export default class UserSearchBar extends Component {
       noSorting: this.state.noSorting,
       activeProjSort: this.state.activeProjSort,
       roleFilter: this.props.role,
+      searchQuery: this.state.searchQuery,
     };
     const p1 = getUsers(opts).then(res => {
       this.context.setUsers(res, this.fetchData);
@@ -84,6 +88,15 @@ export default class UserSearchBar extends Component {
     e.preventDefault();
     this.fetchData();
   }
+  handleReset = e => {
+    // e.preventDefault();
+    this.setState(
+      {
+        currentPageNumber: 1,
+        searchQuery: null,
+      }, this.fetchData
+    )
+  }
 
   componentDidMount() {
     this.fetchData()
@@ -93,11 +106,17 @@ export default class UserSearchBar extends Component {
   render() {
     return (
       <div className="tab-navBar">
-        <form onSubmit={e => this.handleSubmit(e)}>
+        <form
+
+          onReset={this.handleReset}
+          onSubmit={this.handleSubmit}>
           <div className='search-word-bar'>
             <label htmlFor="search"></label>
-            <input type="text" id="search" name="search" placeholder='Search by keyword' />
+            <input
+              onChange={e => this.setState({ searchQuery: e.target.value })}
+              type="text" id="search" name="search" placeholder='Search by keyword' />
             <button type="submit">Search! </button>
+            <button type="reset">Clear </button>
           </div>
           <div className="sortButtons">
             <button
@@ -136,8 +155,19 @@ export default class UserSearchBar extends Component {
             >
               Active Projects (Lowest)
             </button> : ''}
-            <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
-            <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+            {/* <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+            <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button> */}
+            <div className='pageButtons buttonsRow'>
+              <button className="btnPrev" onClick={e => this.changePage('prev')}>
+                <Icon icon="arrow-left" /> Previous
+          </button>
+              <span className="paginationInfo">
+                {this.context.users && `page ${this.state.currentPageNumber} of ${this.context.users.numPages}`}
+              </span>
+              <button className="btnNext" onClick={e => this.changePage('next')}>
+                Next <Icon icon="arrow-right" />
+              </button>
+            </div>
           </div>
         </form>
 
