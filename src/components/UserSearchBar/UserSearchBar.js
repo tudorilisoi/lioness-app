@@ -115,8 +115,8 @@ export default class UserSearchBar extends Component {
             <input
               onChange={e => this.setState({ searchQuery: e.target.value })}
               type="text" id="search" name="search" placeholder='Search by keyword' />
-            <button type="submit">Search! </button>
-            <button type="reset">Clear </button>
+            <input className="formInput" type="submit" value="Search!" />
+            <input className="formInput" type="reset" value="Clear" />
           </div>
           <div className="sortButtons">
             <button
