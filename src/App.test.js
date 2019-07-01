@@ -8,11 +8,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from "react-router-dom"
 import './index.css';
+import { history } from './history'
 
 import App from '../src/components/App/App';
-import * as serviceWorker from './serviceWorker';
-const history = createBrowserHistory();
-// export {history}
+// import * as serviceWorker from './serviceWorker';
+
+
+
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
