@@ -139,18 +139,18 @@ export default class UserSearchBar extends Component {
             >
               Name<br /> (Z-A)
             </button>
-            {false && (this.props.role === 3 || this.props.role === 4) ? <button
+            {true || (this.props.role === 3 || this.props.role === 4) ? <button
               type="button"
               name="active-project-high"
-              value="asc"
+              value="desc"
               onClick={e => this.activeProjSortChange(e.target.value)}
             >
               Active Projects (Highest)
         </button> : ''}
-            {false && (this.props.role === 3 || this.props.role === 4) ? <button
+            {true || (this.props.role === 3 || this.props.role === 4) ? <button
               type="button"
               name="active-project-low"
-              value="des"
+              value="asc"
               onClick={e => this.activeProjSortChange(e.target.value)}
             >
               Active Projects (Lowest)
