@@ -126,6 +126,7 @@ export default class LoginForm extends Component {
     return (
       <div className="LoginPage-Container">
         <div className="LoginPage padded">
+          <div className="logo"></div>
           <h2>Welcome to Lioness!</h2>
           <p>
             Lioness is a project management tool, built to organize your

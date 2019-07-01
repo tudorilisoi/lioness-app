@@ -15,6 +15,30 @@ html {
   max-width: 1200px;
   margin: 0 auto;
 }
+.appInfo{
+
+  align-items: center;
+  justify-items: left;
+
+}
+.appInfo h3 {
+  display: inline-block;
+}
+
+.logo {
+  background-image: url("/lion.png");
+  height: 15vmin;
+  width: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.logo.small {
+  display: inline-block;
+  height: 6vmin;
+  width: 6vmin;
+}
 
 /* global styles */
 
