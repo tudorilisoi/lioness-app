@@ -211,7 +211,7 @@
 	margin-bottom: 5px;
 }
 .submitProjectFilters{
-	width:40vw;
+	width:70px;
 }
 .sortResults:hover {
 	border-color: #888;
@@ -234,4 +234,6 @@
 	width: 60px;
 }
 
-@media only screen and (min-width: 475px) {}
+@media only screen and (min-width: 475px) {
+	
+}
