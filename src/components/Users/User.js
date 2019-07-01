@@ -77,7 +77,7 @@ export default class User extends Component {
                             <Icon className='r-spaced' icon={isExpanded ? 'chevron-down' : 'chevron-right'} />
                             {!this.state.newUser ? <span>{user.full_name}
                                 {!this.state.newUser ? <>
-                                    {this.props.role !== 2 ?
+                                    {true || this.props.role !== 2 ?
 
                                         <p><em>Active Projects:{user.projects ? user.projects.filter(project => project.status_id === 2).length : "0"}</em></p> : ''}
                                 </> : ''}
