@@ -41,8 +41,8 @@ export default class AdminDash extends Component {
             <div>
                 <div className="navBar">
                     <header className='heading padded'>
-                        <div className='flexed appInfo flex-row'>
-                            <div className='logo small flexed'>
+                        <div className='appInfo flex-row'>
+                            <div className='logo small '>
                             </div>
                             <h3 className="flexed">Lioness</h3>
                         </div>

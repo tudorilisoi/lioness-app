@@ -105,7 +105,7 @@ export default class UserSearchBar extends Component {
 
   render() {
     return (
-      <div className="tab-navBar">
+      <div className="searchBar">
         <form
 
           onReset={this.handleReset}
@@ -118,7 +118,9 @@ export default class UserSearchBar extends Component {
             <input className="formInput" type="submit" value="Search!" />
             <input className="formInput" type="reset" value="Clear" />
           </div>
-          <div className="sortButtons">
+          <div>
+          <span className="buttonsRowLabel">Sort by:</span>
+          <div className="sortButtons buttonsRow">
             <button
               type="button"
               name="name-asc"
@@ -155,6 +157,7 @@ export default class UserSearchBar extends Component {
             >
               Active Projects (Lowest)
             </button> : ''}
+            </div>
             {/* <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
             <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button> */}
             <div className='pageButtons buttonsRow'>

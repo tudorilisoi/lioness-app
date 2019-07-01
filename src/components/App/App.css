@@ -17,7 +17,7 @@ html {
 }
 .appInfo{
 
-  align-items: center;
+  
   justify-items: left;
 
 }
@@ -38,6 +38,7 @@ html {
   display: inline-block;
   height: 6vmin;
   width: 6vmin;
+  margin-right: 10px;
 }
 
 /* global styles */

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LionessContext from "../../LionessContext/LionessContext";
 import ds from "../../STORE/dataservice";
 import "../AdminDash/AdminDash.css";
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import User from './User'
 import UserSearchBar from "../UserSearchBar/UserSearchBar";
 const { getUsers, getProjects, handleFetchError } = ds;
@@ -15,12 +16,17 @@ export default class ContractorsPage extends Component {
     const opts = { roleFilter: 3 };
     return (
       <div className="tab-page">
-        <h2>Contractors</h2>
-        <div className='user-buttons'>
-                <button onClick={ev=>{this.userRef && this.userRef.addUser()}}>Add Contractor</button>
-                <button>Email Contractor</button>
-                </div>
+        <div className="padded">
+        <button className='addButton' onClick={ev=>{this.userRef && this.userRef.addUser()}}>
+        <Icon icon="user-plus" />
+          Add Contractor</button>
+        <h2 className="barTitle">Contractors</h2>
+       
+               
+                {/* <button>Email Contractor</button> */}
+                
         <UserSearchBar role={opts.roleFilter} />
+        </div>
                 <User ref={ref => this.userRef = ref} role={opts.roleFilter} />
       </div>
     );
