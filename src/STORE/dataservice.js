@@ -7,7 +7,7 @@ import Cookie from "js.cookie";
 import { default as deterministicStringify } from 'json-stable-stringify';
 import { history } from '../index';
 import dataString from './flattenedData.json';
-import{API_BASE_URL} from '../config'
+import { API_BASE_URL } from '../config'
 dayjs.extend(isBetween)
 const { parse, stringify } = fjs
 
@@ -123,11 +123,11 @@ const ds = {
         }
 
         return fetch(`${API_BASE_URL}/roles`, {
-    
+
         })
             .then(r => r.json())
             .then(data => {
-                
+
                 return data
             })
     },
@@ -137,11 +137,11 @@ const ds = {
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
         return fetch(`${API_BASE_URL}/project-statuses`, {
-    
+
         })
             .then(r => r.json())
             .then(data => {
-               
+
                 return data
             })
     },
@@ -153,14 +153,14 @@ const ds = {
         const mergedOpts = { ...usersDefaultOptions, ...opts }
 
         const qs = queryString.stringify(mergedOpts)
-        
+
 
         return fetch(`${API_BASE_URL}/users?` + qs, {
             headers: addAuthTokenHeader(),
         })
             .then(r => r.json())
             .then(data => {
-                
+
                 return data
             })
 
@@ -199,14 +199,14 @@ const ds = {
         const mergedOpts = { ...projectsDefaultOptions, ...opts }
 
         const qs = queryString.stringify(mergedOpts)
-        
+
 
         return fetch(`${API_BASE_URL}/projects/?` + qs, {
             headers: addAuthTokenHeader(),
         })
             .then(r => r.json())
             .then(data => {
-                
+
                 return data
             })
 
@@ -225,6 +225,12 @@ const ds = {
                 headers,
             }
         )
+            .then(r => {
+                if (r.status === 400) {
+                    throw new Error('Invalid email or password')
+                }
+                return r
+            })
             .then(r => r.json())
         return tokenData
 

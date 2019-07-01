@@ -99,7 +99,12 @@ export default class LoginForm extends Component {
     this.validateLogin(email, password)
     doLogin(email, password)
       .catch((e) => {
-        toast.error('There was an error, please retry or reload the page')
+        let errorMsg = 'There was an error, please retry or reload the page'
+        if (e && e.message) {
+          errorMsg = e.message
+        }
+        // debugger
+        toast.error(errorMsg)
         return false
       })
       .then((data) => {
