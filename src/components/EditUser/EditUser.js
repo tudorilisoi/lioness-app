@@ -40,7 +40,7 @@ export default class EditUser extends Component {
 
     switch (fieldName) {
       case "full_name":
-
+break;
       case "email":
 
         //TODO setState with proper validation messages

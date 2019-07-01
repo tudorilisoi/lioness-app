@@ -57,7 +57,7 @@ export default class UserSearchBar extends Component {
   }
 
   fetchData = () => {
-    console.log('Fetching users and roles...')
+   
     // debugger
     const promises = []
 

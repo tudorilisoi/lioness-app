@@ -6,10 +6,9 @@ import fjs from 'flatted/cjs';
 import Cookie from "js.cookie";
 import { default as deterministicStringify } from 'json-stable-stringify';
 import { history } from '../history';
-import dataString from './flattenedData.json';
 import { API_BASE_URL } from '../config'
 dayjs.extend(isBetween)
-const { parse, stringify } = fjs
+const { stringify } = fjs
 
 const SORT_ASC = 'ASC'
 const SORT_DESC = 'DESC'

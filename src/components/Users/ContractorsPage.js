@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import LionessContext from "../../LionessContext/LionessContext";
-import ds from "../../STORE/dataservice";
+
 import "../AdminDash/AdminDash.css";
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import User from './User'
