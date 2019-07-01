@@ -162,7 +162,7 @@ export default class ProjectSearchBar extends Component {
                 onChange={e => this.beforeDateChange(e.target.value)}
               />
             </div>
-
+           
           </div>
           <button type="submit" className="submitProjectFilters">
             Submit
@@ -210,7 +210,7 @@ export default class ProjectSearchBar extends Component {
             <Icon icon="arrow-left" /> Previous
           </button>
           <span className="paginationInfo">
-            {this.context.projects && `page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
+            {this.context.projects && `Page ${this.state.pageNumber} of ${this.context.projects.numPages}`}
           </span>
           <button className="btnNext" value="next" onClick={e => this.changePage(e.target.value)}>
             Next <Icon icon="arrow-right" />

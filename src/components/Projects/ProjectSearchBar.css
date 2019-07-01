@@ -190,8 +190,8 @@
 	color: #444;
 	line-height: 1.3;
 	padding: 0em 1em 0em .8em;
-	width: 100%;
-	max-width: 80vw;
+	width: 90%;
+	max-width: 60vw;
 	box-sizing: border-box;
 	margin: 0;
 	border: 1px solid #aaa;
@@ -210,7 +210,9 @@
 	display: flex;
 	margin-bottom: 5px;
 }
-
+.submitProjectFilters{
+	width:40vw;
+}
 .sortResults:hover {
 	border-color: #888;
 }
