@@ -143,7 +143,7 @@ class App extends Component {
           <BrowserRouter>
             <Switch>
               <Route exact path="/login" component={LoginForm} />
-              <PrivateRoute exact path="/" component={LandingPage} />
+              <Route exact path="/" component={LoginForm} />
               <PrivateRoute path='/admin-dash'
                 component={AdminDash} />
             </Switch>

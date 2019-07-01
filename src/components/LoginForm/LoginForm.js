@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import "./LoginForm.css";
 import LionessContext from "../../LionessContext/LionessContext";
-import ValidationErrors from '../ValidationErrors/ValidationErrors';
-import ds from '../../STORE/dataservice';
-import * as EmailValidator from 'email-validator'
-import toast from '../Toast/toast'
+import ValidationErrors from "../ValidationErrors/ValidationErrors";
+import ds from "../../STORE/dataservice";
+import * as EmailValidator from "email-validator";
+import toast from "../Toast/toast";
 
-
-const { doLogin, setStoredLoginInfo, getStoredLoginInfo } = ds
+const { doLogin, setStoredLoginInfo, getStoredLoginInfo, loadCurrentUser } = ds;
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {
@@ -20,21 +19,20 @@ export default class LoginForm extends Component {
       passwordValid: null,
       formValid: null,
       emailValidationMessage: "",
-      passwordValidationMessage: "",
+      passwordValidationMessage: ""
     };
   }
   componentDidMount() {
+      ds.loadCurrentUser()
+            .then(res => {
+                this.context.setCurrentUser(res.data[0])
+                this.props.history.push('/admin-dash')
 
-    const savedCredentials = getStoredLoginInfo();
-    if (savedCredentials) {
-
-      this.setState(
-        savedCredentials,
-        this.handleLoginSubmit
-      )
-    } else {
-      console.warn('There are no saved credentials')
-    }
+            }).catch((e) => {
+                console.error(e)
+            
+            })
+    
   }
   emailChanged(email) {
     this.setState({ email });
@@ -43,12 +41,11 @@ export default class LoginForm extends Component {
     this.setState({ password });
   }
 
-
   validateLogin(email, password) {
-    let emailErrors = { ...this.state.emailValidationMessage }
-    let passwordErrors = { ...this.state.passwordValidationMessage }
-    let isEmailValid = null
-    let isPasswordValid = null
+    let emailErrors = { ...this.state.emailValidationMessage };
+    let passwordErrors = { ...this.state.passwordValidationMessage };
+    let isEmailValid = null;
+    let isPasswordValid = null;
     email = email.trim();
     if (email.length === 0) {
       emailErrors = "Login email is required";
@@ -65,11 +62,9 @@ export default class LoginForm extends Component {
     if (password.length === 0) {
       passwordErrors = "Login password is required";
       isPasswordValid = false;
-    }
-    else {
+    } else {
       passwordErrors = "";
       isPasswordValid = true;
-
     }
 
     this.setState(
@@ -80,59 +75,62 @@ export default class LoginForm extends Component {
         passwordValid: isPasswordValid
       },
       this.formValid
-    )
+    );
   }
 
   formValid() {
     this.setState({
       formValid: this.state.emailValid && this.state.passwordValid
-    })
+    });
   }
   isAdmin() {
     if (this.state.currentUser.isAdmin) {
-      this.props.history.push('/admin-dash')
+      this.props.history.push("/admin-dash");
     }
   }
-  handleLoginSubmit(e) {
+  handleLoginSubmit(e, showToast = true) {
     e && e.preventDefault();
-    const { email, password } = this.state
-    this.validateLogin(email, password)
+    const { email, password } = this.state;
+    this.validateLogin(email, password);
     doLogin(email, password)
-      .catch((e) => {
-        let errorMsg = 'There was an error, please retry or reload the page'
+      .catch(e => {
+        let errorMsg = "There was an error, please retry or reload the page";
         if (e && e.message) {
-          errorMsg = e.message
+          errorMsg = e.message;
         }
         // debugger
-        toast.error(errorMsg)
-        return false
-      })
-      .then((data) => {
-        if (data) {
-          this.context.setCurrentUser(data.user)
-          setStoredLoginInfo(
-            {
-              authToken: data.authToken,
-              userID: data.user.id,
-            }
-          );
+        if (showToast === true) {
+          toast.error(errorMsg);
+          return false;
         }
-        return data.user
       })
-      .then((res) => {
+      .then(data => {
+        if (data) {
+          this.context.setCurrentUser(data.user);
+          setStoredLoginInfo({
+            authToken: data.authToken,
+            userID: data.user.id
+          });
+        }
+        return data.user;
+      })
+      .then(res => {
         if (res && res.role_id === 1) {
           //TODO change to rely on role
-          this.props.history.push('/admin-dash')
-          toast.info('Welcome!')
+          this.props.history.push("/admin-dash");
+          toast.info("Welcome!");
         }
-      })
-
-
+      });
   }
   render() {
     return (
       <div className="LoginPage-Container">
-        <div className='LoginPage'>
+        <div className="LoginPage">
+          <h2>Welcome to Lioness!</h2>
+          <p>
+            Lioness is a project management tool, built to organize your
+            organization's clients, project managers and contractors
+          </p>
           <h2>Login</h2>
           <form className="LoginForm" onSubmit={e => this.handleLoginSubmit(e)}>
             <label htmlFor="email"> Email:</label>
@@ -162,7 +160,6 @@ export default class LoginForm extends Component {
           <p>Demo Email: Mervin.Graham@hotmail.com</p>
           <p>Demo Password: GAfJ8cFYg2J1SdS</p>
         </div>
-
       </div>
     );
   }

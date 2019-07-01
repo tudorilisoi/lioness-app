@@ -53,7 +53,7 @@ export default class AdminDash extends Component {
                     </header>
                     <nav className='links'>
 
-                        <NavTab to={`${path}/home`} className='link'>Home</NavTab>
+                        {/* <NavTab to={`${path}/home`} className='link'>Home</NavTab> */}
                         <NavTab to={`${path}/estimates`} className='link'>Estimates</NavTab>
                         <NavTab to={`${path}/active-projects`} className='link'>Active Projects</NavTab>
                         <NavTab to={`${path}/billed-projects`} className='link'>Billed Projects</NavTab>
@@ -66,9 +66,9 @@ export default class AdminDash extends Component {
                             <Route
                                 exact
                                 path={`${path}`}
-                                render={() => <Redirect replace to={`${path}/home`} />}
+                                render={() => <Redirect replace to={`${path}/estimates`} />}
                             />
-                            <Route path={`${path}/home`} exact component={HomePage}></Route>
+                            {/* <Route path={`${path}/home`} exact component={HomePage}></Route> */}
                             <Route path={`${path}/clients`} exact component={ClientPage}></Route>
                             <Route path={`${path}/estimates`} exact component={EstimatesPage}></Route>
                             <Route path={`${path}/active-projects`} exact component={ActiveProjectsPage}></Route>
