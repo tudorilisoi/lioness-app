@@ -26,7 +26,7 @@ export default class AdminDash extends Component {
             .then(res => {
                 this.context.setCurrentUser(res.data[0])
             }).catch((e) => {
-                console.error(e)
+                // console.error(e)
                 this.handleLogout()
             })
     }

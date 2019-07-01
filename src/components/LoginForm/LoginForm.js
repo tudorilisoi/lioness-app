@@ -29,7 +29,7 @@ export default class LoginForm extends Component {
         this.props.history.push('/admin-dash')
 
       }).catch((e) => {
-        console.error(e)
+        // console.error(e)
 
       })
 
@@ -159,8 +159,8 @@ export default class LoginForm extends Component {
             <button type="submit">Submit</button>
           </form>
           <div className="padded-top">
-            <p>Demo Email: Mervin.Graham@hotmail.com</p>
-            <p>Demo Password: GAfJ8cFYg2J1SdS</p>
+            <p>Demo Email: demo@demo.com</p>
+            <p>Demo Password: demo</p>
           </div>
         </div>
       </div>
