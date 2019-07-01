@@ -1,19 +1,24 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
 import "../Projects/ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import toast from '../Toast/toast'
+import { throwStatement } from "@babel/types";
 const { getUsers, getRoles } = ds;
+
 export default class UserSearchBar extends Component {
   static contextType = LionessContext;
   constructor() {
     super();
     this.state = {
       ...ds.usersDefaultOptions,
-    
+
       // activeProjSort: null,
-      // currentPageNumber: 1,
+      currentPageNumber: 1,
+      searchQuery: null,
       // totalPages: null,
       // noSorting: null,
     };
@@ -54,8 +59,9 @@ export default class UserSearchBar extends Component {
   }
 
   fetchData = () => {
-
-
+    console.log('Fetching users and roles...')
+    // debugger
+    const promises = []
 
     const opts = {
       pageNumber: this.state.currentPageNumber,
@@ -63,20 +69,33 @@ export default class UserSearchBar extends Component {
       noSorting: this.state.noSorting,
       activeProjSort: this.state.activeProjSort,
       roleFilter: this.props.role,
+      searchQuery: this.state.searchQuery,
     };
-    getUsers(opts).then(res => {
-   
+    const p1 = getUsers(opts).then(res => {
       this.context.setUsers(res, this.fetchData);
-
     });
-    getRoles().then(res => {
-    
+    promises.push(p1)
+    const p2 = getRoles().then(res => {
       this.context.setRoles(res);
     });
+    promises.push(p2)
+    Promise.all(promises).catch(e => {
+      toast.error('There was an error, please retry later ' + new Date().toLocaleTimeString())
+    })
+
   };
   handleSubmit = e => {
     e.preventDefault();
     this.fetchData();
+  }
+  handleReset = e => {
+    // e.preventDefault();
+    this.setState(
+      {
+        currentPageNumber: 1,
+        searchQuery: null,
+      }, this.fetchData
+    )
   }
 
   componentDidMount() {
@@ -87,11 +106,17 @@ export default class UserSearchBar extends Component {
   render() {
     return (
       <div className="tab-navBar">
-        <form onSubmit={e => this.handleSubmit(e)}>
-        <div className='search-word-bar'>
+        <form
+
+          onReset={this.handleReset}
+          onSubmit={this.handleSubmit}>
+          <div className='search-word-bar'>
             <label htmlFor="search"></label>
-            <input type="text" id="search" name="search" placeholder='Search by keyword' />
-            <button type="submit">Search! </button>
+            <input
+              onChange={e => this.setState({ searchQuery: e.target.value })}
+              type="text" id="search" name="search" placeholder='Search by keyword' />
+            <input className="formInput" type="submit" value="Search!" />
+            <input className="formInput" type="reset" value="Clear" />
           </div>
           <div className="sortButtons">
             <button
@@ -114,7 +139,7 @@ export default class UserSearchBar extends Component {
             >
               Name<br /> (Z-A)
             </button>
-            {this.props.role === 3 || this.props.role === 4 ? <button
+            {false && (this.props.role === 3 || this.props.role === 4) ? <button
               type="button"
               name="active-project-high"
               value="asc"
@@ -122,7 +147,7 @@ export default class UserSearchBar extends Component {
             >
               Active Projects (Highest)
         </button> : ''}
-            {this.props.role === 3 || this.props.role === 4 ? <button
+            {false && (this.props.role === 3 || this.props.role === 4) ? <button
               type="button"
               name="active-project-low"
               value="des"
@@ -130,8 +155,19 @@ export default class UserSearchBar extends Component {
             >
               Active Projects (Lowest)
             </button> : ''}
-            <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
-            <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button>
+            {/* <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
+            <button value="next" onClick={e => this.changePage(e.target.value)}>Next</button> */}
+            <div className='pageButtons buttonsRow'>
+              <button className="btnPrev" onClick={e => this.changePage('prev')}>
+                <Icon icon="arrow-left" /> Previous
+          </button>
+              <span className="paginationInfo">
+                {this.context.users && `page ${this.state.currentPageNumber} of ${this.context.users.numPages}`}
+              </span>
+              <button className="btnNext" onClick={e => this.changePage('next')}>
+                Next <Icon icon="arrow-right" />
+              </button>
+            </div>
           </div>
         </form>
 

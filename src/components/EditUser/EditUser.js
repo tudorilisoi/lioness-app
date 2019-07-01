@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ControlledInput from "../ControlledInput/ControlledInput";
 import dayjs from "dayjs";
 import ds from "../../STORE/dataservice";
+import toast from '../Toast/toast'
 
 // see https://react-select.com/home#getting-started
 import Select from "react-select";
@@ -31,7 +32,7 @@ export default class EditUser extends Component {
     this.setState(
       changedUser,
       () => {
-       
+
       }
     );
   };
@@ -53,15 +54,22 @@ export default class EditUser extends Component {
   };
   save() {
     // pluck out the projects and the role
-    const {projects, role, ...user} = {...this.state}
+    const { projects, role, ...user } = { ...this.state }
 
     const data = {
       user: user
     }
-   
+
     return ds.saveUser(data)
+      .then(res => {
+        toast.info('User saved')
+        return res
+      })
+      .catch(e => {
+        toast.error('There was an error, please retry later')
+      })
   }
- 
+
   render() {
     const {
       full_name,
@@ -73,22 +81,22 @@ export default class EditUser extends Component {
     } = this.state;
     const roles = [...this.context.roles]
     roles.shift()
-  
-    
-    const roleOpts=roles.map(role => {
+
+
+    const roleOpts = roles.map(role => {
       const options = { value: role.id, label: role.title };
       // { value: 'strawberry', label: 'Strawberry' },
       // { value: 'vanilla', label: 'Vanilla' }
 
       return options;
     });
-    
+
     const { editMode } = this.props;
     //TODO add a role dropdown (cutom component)
     return (
       <div className='details'>
         <form>
-         <p>
+          <p>
             <span>Name</span>
             {!editMode ? (
               full_name
@@ -125,29 +133,29 @@ export default class EditUser extends Component {
               editMode={editMode}
             />
           </p>
-          {this.state.id===-1 ?
-          <>
-          <span>Role:</span>
-          <Select
-          options={roleOpts}
-          onChange={option => this.onChange("role",
-          this.context.roles.find(i => i.id === option.value))}
-        />
-          <p>
-            <span>Password:</span>
-            <ControlledInput
-              onChange={value => this.onChange("password", value)}
-              tag="input"
-              type="password"
-              required={true}
-              initialValue={password}
-              editMode={editMode}
-            />
-          </p>
-          
-       
-        </>
-:''}
+          {this.state.id === -1 ?
+            <>
+              <span>Role:</span>
+              <Select
+                options={roleOpts}
+                onChange={option => this.onChange("role",
+                  this.context.roles.find(i => i.id === option.value))}
+              />
+              <p>
+                <span>Password:</span>
+                <ControlledInput
+                  onChange={value => this.onChange("password", value)}
+                  tag="input"
+                  type="password"
+                  required={true}
+                  initialValue={password}
+                  editMode={editMode}
+                />
+              </p>
+
+
+            </>
+            : ''}
         </form>
 
       </div>

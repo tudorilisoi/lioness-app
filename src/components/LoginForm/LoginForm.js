@@ -4,6 +4,8 @@ import LionessContext from "../../LionessContext/LionessContext";
 import ValidationErrors from '../ValidationErrors/ValidationErrors';
 import ds from '../../STORE/dataservice';
 import * as EmailValidator from 'email-validator'
+import toast from '../Toast/toast'
+
 
 const { doLogin, setStoredLoginInfo, getStoredLoginInfo } = ds
 export default class LoginForm extends Component {
@@ -22,9 +24,10 @@ export default class LoginForm extends Component {
     };
   }
   componentDidMount() {
+
     const savedCredentials = getStoredLoginInfo();
     if (savedCredentials) {
-     
+
       this.setState(
         savedCredentials,
         this.handleLoginSubmit
@@ -96,7 +99,7 @@ export default class LoginForm extends Component {
     this.validateLogin(email, password)
     doLogin(email, password)
       .catch((e) => {
-        
+        toast.error('There was an error, please retry or reload the page')
         return false
       })
       .then((data) => {
@@ -115,6 +118,7 @@ export default class LoginForm extends Component {
         if (res && res.role_id === 1) {
           //TODO change to rely on role
           this.props.history.push('/admin-dash')
+          toast.info('Welcome!')
         }
       })
 
@@ -138,6 +142,7 @@ export default class LoginForm extends Component {
             />
             <label htmlFor="password"> Password:</label>
             <input
+              name="password"
               type="password"
               id="password"
               onChange={e => this.passwordChanged(e.target.value)}
@@ -152,7 +157,7 @@ export default class LoginForm extends Component {
           <p>Demo Email: Mervin.Graham@hotmail.com</p>
           <p>Demo Password: GAfJ8cFYg2J1SdS</p>
         </div>
-       
+
       </div>
     );
   }

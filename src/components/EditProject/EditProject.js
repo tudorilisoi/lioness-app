@@ -3,6 +3,7 @@ import ControlledInput from "../ControlledInput/ControlledInput";
 import UserSelector from "../UserSelector/UserSelector";
 import dayjs from "dayjs";
 import ds from "../../STORE/dataservice";
+import toast from '../Toast/toast'
 
 // see https://react-select.com/home#getting-started
 import Select from "react-select";
@@ -49,7 +50,7 @@ export default class EditProject extends Component {
     this.setState(
       { project: changedProject },
       () => {
-      
+
       }
     );
   };
@@ -86,12 +87,20 @@ export default class EditProject extends Component {
       project: rawProject,
       contractorIDs: contractors.map(c => c.id),
     }
-    
+
     return ds.saveProject(data)
+      .then(res => {
+        toast.info('Project saved')
+        return res
+      })
+      .catch(e => {
+        toast.error('There was an error, please retry later')
+      })
+
   }
   delete() {
-    const { id} = this.state.project
-   
+    const { id } = this.state.project
+
     return ds.deleteProject(id)
   }
 
@@ -147,19 +156,19 @@ export default class EditProject extends Component {
             />
           </p>
 
-          
-            <span>Status: </span>
-            {!editMode ? (
-              status.title
-            ) : (
-                <Select
-                  options={statusesOpts}
-                  defaultValue={prevStatus}
-                  onChange={option => this.onChange("status",
-                    this.context.statuses.find(i => i.id === option.value))}
-                />
-              )}
-          
+
+          <span>Status: </span>
+          {!editMode ? (
+            status.title
+          ) : (
+              <Select
+                options={statusesOpts}
+                defaultValue={prevStatus}
+                onChange={option => this.onChange("status",
+                  this.context.statuses.find(i => i.id === option.value))}
+              />
+            )}
+
 
           <p>
             <span>Description: </span>
@@ -173,16 +182,16 @@ export default class EditProject extends Component {
             />
           </p>
 
-          
-            <span>Client: </span>
-            {!editMode ? (
-              client.full_name
-            ) : (
-                <UserSelector
-                  onChange={value => this.onChange("client", value)}
-                  multiple={false} defaultValue={client} roleFilter={2} />
-              )}
-          
+
+          <span>Client: </span>
+          {!editMode ? (
+            client.full_name
+          ) : (
+              <UserSelector
+                onChange={value => this.onChange("client", value)}
+                multiple={false} defaultValue={client} roleFilter={2} />
+            )}
+
 
 
           <p>

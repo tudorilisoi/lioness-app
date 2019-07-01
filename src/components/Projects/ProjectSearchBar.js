@@ -4,6 +4,7 @@ import 'react-dates/initialize';
 import LionessContext from "../../LionessContext/LionessContext";
 import ds from "../../STORE/dataservice";
 import "./ProjectSearchBar.css";
+import toast from '../Toast/toast'
 const { getProjects, getStatuses } = ds;
 
 export default class ProjectSearchBar extends Component {
@@ -57,17 +58,24 @@ export default class ProjectSearchBar extends Component {
   beforeDateChange(date) {
     this.setState({ beforeDate: date });
   }
-  fetchData = () => {
+  fetchData = async () => {
 
-   
-
+    const promises = []
     const opts = this.state;
-    getProjects(opts).then(res => {
+    const p1 = getProjects(opts).then(res => {
       this.context.setProjects(res, this.fetchData);
     });
-    getStatuses().then(res => {
+    promises.push(p1)
+    const p2 = getStatuses().then(res => {
       this.context.setStatuses(res);
     })
+    promises.push(p2)
+
+    Promise.all(promises)
+    .catch(e => {
+      toast.error('There was an error, please retry later')
+    })
+
 
   };
   handleSubmit = e => {
@@ -96,7 +104,7 @@ export default class ProjectSearchBar extends Component {
   }
 
   render() {
-    
+
 
     const isInProgress = this.props.status === ds.STATUS_IDS.STATUS_IN_PROGRESS
     const isBilled = this.props.status === ds.STATUS_IDS.STATUS_BILLED
