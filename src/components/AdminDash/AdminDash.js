@@ -13,7 +13,7 @@ import ContractorsPage from '../Users/ContractorsPage';
 import ProjectManagerPage from '../Users/ProjectManagerPage';
 import './AdminDash.css';
 
-const { deleteStoredLoginInfo  } = ds
+const { deleteStoredLoginInfo } = ds
 export default class AdminDash extends Component {
     static contextType = LionessContext
     handleLogout = () => {
@@ -39,10 +39,12 @@ export default class AdminDash extends Component {
         }
         return (
             <div>
-                <div  className="navBar">
+                <div className="navBar">
                     <header className='heading padded'>
-                        <div className='logo flexed'>
-                            <h3>Lioness</h3>
+                        <div className='flexed appInfo flex-row'>
+                            <div className='logo small flexed'>
+                            </div>
+                            <h3 className="flexed">Lioness</h3>
                         </div>
                         <div className='userInfo flexed'>
                             <h4 className='r-spaced'>{
