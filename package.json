@@ -37,7 +37,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "now --name 'lioness-app' ./build",
+    "deploy": "cp -f now.json ./build/ && now ./build",
     "generate-fake-data": "node src/STORE/fakerdata.js"
   },
   "eslintConfig": {
