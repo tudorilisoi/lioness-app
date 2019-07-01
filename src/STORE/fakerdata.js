@@ -61,9 +61,13 @@ for (let i = 0; i < 2; i++) {
     //associated objects
     role: adminRole, //the role Object corresponding to the role_id
     // isAdmin: true,
-    inactive:false,
+    inactive: false,
     projects: []
   };
+  if (i === 0) {
+    admin.password = "demo"
+    admin.email = "demo@demo.com"
+  }
   users.push(admin);
 }
 
@@ -107,7 +111,7 @@ for (let i = 2; true; i++) {
     //associated objects
     role: roles.find(r => r.id === roleID), //the role Object corresponding to the role_id
     // projects: []
-    inactive:false,
+    inactive: false,
     projects: []
   };
   usersByRole[roleID].push(user)
