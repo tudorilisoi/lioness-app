@@ -112,11 +112,13 @@ export default class UserSearchBar extends Component {
           onSubmit={this.handleSubmit}>
           <div className='search-word-bar'>
             <label htmlFor="search"></label>
-            <input
+            <input className='search-keyword'
               onChange={e => this.setState({ searchQuery: e.target.value })}
               type="text" id="search" name="search" placeholder='Search by keyword' />
+           <div className="searchSubmitReset flexed">
             <input className="formInput" type="submit" value="Search!" />
             <input className="formInput" type="reset" value="Clear" />
+            </div>
           </div>
           <div>
           <span className="buttonsRowLabel">Sort by:</span>
@@ -147,7 +149,7 @@ export default class UserSearchBar extends Component {
               value="desc"
               onClick={e => this.activeProjSortChange(e.target.value)}
             >
-              Active Projects (Highest)
+              Active Projects <br />(Highest)
         </button> : ''}
             {true || (this.props.role === 3 || this.props.role === 4) ? <button
               type="button"
@@ -155,7 +157,7 @@ export default class UserSearchBar extends Component {
               value="asc"
               onClick={e => this.activeProjSortChange(e.target.value)}
             >
-              Active Projects (Lowest)
+              Active Projects<br /> (Lowest)
             </button> : ''}
             </div>
             {/* <button value="prev" onClick={e => this.changePage(e.target.value)}>Previous</button>
