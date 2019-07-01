@@ -23,16 +23,16 @@ export default class LoginForm extends Component {
     };
   }
   componentDidMount() {
-      ds.loadCurrentUser()
-            .then(res => {
-                this.context.setCurrentUser(res.data[0])
-                this.props.history.push('/admin-dash')
+    ds.loadCurrentUser()
+      .then(res => {
+        this.context.setCurrentUser(res.data[0])
+        this.props.history.push('/admin-dash')
 
-            }).catch((e) => {
-                console.error(e)
-            
-            })
-    
+      }).catch((e) => {
+        console.error(e)
+
+      })
+
   }
   emailChanged(email) {
     this.setState({ email });
@@ -125,7 +125,7 @@ export default class LoginForm extends Component {
   render() {
     return (
       <div className="LoginPage-Container">
-        <div className="LoginPage">
+        <div className="LoginPage padded">
           <h2>Welcome to Lioness!</h2>
           <p>
             Lioness is a project management tool, built to organize your
@@ -157,8 +157,10 @@ export default class LoginForm extends Component {
 
             <button type="submit">Submit</button>
           </form>
-          <p>Demo Email: Mervin.Graham@hotmail.com</p>
-          <p>Demo Password: GAfJ8cFYg2J1SdS</p>
+          <div className="padded-top">
+            <p>Demo Email: Mervin.Graham@hotmail.com</p>
+            <p>Demo Password: GAfJ8cFYg2J1SdS</p>
+          </div>
         </div>
       </div>
     );
