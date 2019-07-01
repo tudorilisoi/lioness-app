@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { toast, cssTransition, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

@@ -4,7 +4,6 @@ import { NavTab } from "react-router-tabs";
 import "react-tabs/style/react-tabs.css";
 import LionessContext from '../../LionessContext/LionessContext';
 import ds from '../../STORE/dataservice';
-import HomePage from '../Home/HomePage';
 import ActiveProjectsPage from '../Projects/ActiveProjectsPage';
 import BilledProjectsPage from '../Projects/BilledProjectsPage';
 import EstimatesPage from '../Projects/EstimatesPage';

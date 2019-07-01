@@ -5,7 +5,6 @@ import "../AdminDash/AdminDash.css";
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import User from './User'
 import UserSearchBar from "../UserSearchBar/UserSearchBar";
-const { getUsers, getProjects, handleFetchError } = ds;
 export default class ContractorsPage extends Component {
   constructor(props) {
     super(props)

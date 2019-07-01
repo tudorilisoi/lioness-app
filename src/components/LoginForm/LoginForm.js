@@ -6,7 +6,7 @@ import ds from "../../STORE/dataservice";
 import * as EmailValidator from "email-validator";
 import toast from "../Toast/toast";
 
-const { doLogin, setStoredLoginInfo, getStoredLoginInfo, loadCurrentUser } = ds;
+const { doLogin, setStoredLoginInfo, } = ds;
 export default class LoginForm extends Component {
   static contextType = LionessContext;
   constructor(props) {

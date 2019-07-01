@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ControlledInput from "../ControlledInput/ControlledInput";
-import dayjs from "dayjs";
 import ds from "../../STORE/dataservice";
 import toast from '../Toast/toast'
 
@@ -8,7 +7,6 @@ import toast from '../Toast/toast'
 import Select from "react-select";
 import LionessContext from "../../LionessContext/LionessContext";
 
-const { getStatuses, getUsers } = ds;
 
 export default class EditUser extends Component {
   static contextType = LionessContext;
@@ -76,8 +74,7 @@ export default class EditUser extends Component {
       email,
       phone,
       password,
-      role_id,
-      id,
+      
     } = this.state;
     const roles = [...this.context.roles]
     roles.shift()

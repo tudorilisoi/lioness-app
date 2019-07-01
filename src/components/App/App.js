@@ -12,7 +12,6 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import LionessContext from "../../LionessContext/LionessContext";
 import ds from "../../STORE/dataservice";
 import AdminDash from '../AdminDash/AdminDash';
-import LandingPage from "../LandingPage/LandingPage";
 import LoginForm from "../LoginForm/LoginForm";
 import './App.css';
 import { ToastContainer,  } from 'react-toastify';

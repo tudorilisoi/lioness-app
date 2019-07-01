@@ -11,8 +11,6 @@ import { API_BASE_URL } from '../config'
 dayjs.extend(isBetween)
 const { parse, stringify } = fjs
 
-let data = parse(JSON.stringify(dataString));
-
 const SORT_ASC = 'ASC'
 const SORT_DESC = 'DESC'
 
@@ -41,13 +39,13 @@ const usersDefaultOptions = {
 }
 
 const NOT_LOGGED_IN = 'NOT_LOGGED_IN'
-const ITEMS_PER_PAGE = 10
 
-function delay(promiseObj, delayMillis = 1000) {
-    return new Promise(resolve => {
-        window.setTimeout(() => resolve(promiseObj), delayMillis)
-    })
-}
+
+// function delay(promiseObj, delayMillis = 1000) {
+//     return new Promise(resolve => {
+//         window.setTimeout(() => resolve(promiseObj), delayMillis)
+//     })
+// }
 
 const addAuthTokenHeader = (headersObj = {}) => {
     let headers = headersObj || new Headers()

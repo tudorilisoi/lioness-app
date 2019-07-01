@@ -65,7 +65,6 @@ export default class User extends Component {
             UsersList.unshift(this.state.newUser)
         }
         const Users = UsersList.map((user, index) => {
-            const expandedClassName = this.state.expandedIndex === index ? 'expanded' : ''
             const isExpanded = this.state.expandedIndex === index
             const isEditing = this.state.editModeIndex === index
             const editingModeClassName = isEditing ? 'show' : ''

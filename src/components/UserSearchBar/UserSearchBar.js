@@ -4,9 +4,7 @@ import "../Projects/ProjectSearchBar.css";
 import ds from "../../STORE/dataservice";
 import LionessContext from "../../LionessContext/LionessContext";
 import 'react-dates/initialize';
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import toast from '../Toast/toast'
-import { throwStatement } from "@babel/types";
 const { getUsers, getRoles } = ds;
 
 export default class UserSearchBar extends Component {
