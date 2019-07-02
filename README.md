@@ -36,11 +36,10 @@ https://lioness-app.jchmai21.now.sh/login
 ![Alt text](Readme.Screenshots/ProjectPage.png?raw=true "Lioness Project Page")
 
 ### Project View Details
-![Alt text](Readme.Screenshots/ProjectViewDetails.png?raw=true 
-"Lioness project details")
+![Alt text](Readme.Screenshots/ProjectPage.png?raw=true "Lioness Project Page")
 
 ### Project Edit 
-![Alt text](Readme.Screenshots/Project-Edit.png?raw=true "Project Edit")
+![Alt text](Readme.Screenshots/ProjectViewDetails.png?raw=true "Project Edit")
 
 ### Add New Project
 ![Alt text](Readme.Screenshots/ProjectsAddNew.png?raw=true "Lioness Project Page")
