@@ -1,12 +1,12 @@
-#Lioness
+# Lioness
 Lioness is a project management tool, built to organize your organization's projects, clients, project managers and contractors.
 
-##Description
+## Description
 I love organization and getting work done efficiently. I currently work as a translation project manager, At the end of the day my team and I are doing the same tasks over and over again. I wanted to build an app that would help us with project management and managing our clients and contractors.
 
 Lioness is a useful application that allows users to manage their organization's projects based on which phase they are in, being estimate, in progress or billed. Lioness also manages the people working on projects based on their role of project manager, client, or contractor. 
 
-##Functionality
+## Functionality
 This application's functionality includes:
 * Access to a demo account to see Lioness in action
 * Six tabbed layout where the user can choose between their projects or users 
@@ -29,31 +29,42 @@ This application's functionality includes:
 ## Application Website
 https://lioness-app.jchmai21.now.sh/login
 
-###LandingPage 
+### LandingPage 
 ![Alt text](Readme.Screenshots/Lioness-LandingPage.png?raw=true "Lioness-LandingPage")
 
-###Project Page
+### Project Page
 ![Alt text](Readme.Screenshots/ProjectPage.png?raw=true "Lioness Project Page")
 
-###Project View Details
-![Alt text](Readme.Screenshots/Project-view-details.png?raw=true 
-"Lioness project-details")
+### Project View Details
+![Alt text](Readme.Screenshots/ProjectViewDetails.png?raw=true 
+"Lioness project details")
 
-###Project Edit 
+### Project Edit 
 ![Alt text](Readme.Screenshots/Project-Edit.png?raw=true "Project Edit")
 
-###Add New Project
+### Add New Project
 ![Alt text](Readme.Screenshots/ProjectsAddNew.png?raw=true "Lioness Project Page")
 
-###User Page
+### User Page
 ![Alt text](Readme.Screenshots/UsersPage.png?raw=true "Lioness Project Page")
 
+### User View Details
+![Alt text](Readme.Screenshots/Users-view.png?raw=true 
+"Lioness project details")
+
+### User Edit 
+![Alt text](Readme.Screenshots/Users-Edit.png?raw=true "Project Edit")
+
+### Add New User
+![Alt text](Readme.Screenshots/Users-add-new.png?raw=true "Lioness Project Page")
 
 
-##Security
+
+
+## Security
 Application uses JWT authentication
 
-##Front End
+## Technology Used
 * HTML
 * CSS
 * JavaScript
@@ -61,12 +72,4 @@ Application uses JWT authentication
 * Jest
 * Enzyme
 
-##Back End
-* Node.js
-* Express
-* Mocha
-* Chai
-* Postgres
-* Passport
-* Knex.js
 
