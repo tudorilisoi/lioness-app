@@ -6,14 +6,14 @@
 html::before {
   content: "";
   position: absolute;
-  top: 0; 
+  top: 0;
   left: 0;
-  width: 100%; 
-  height: 100%;  
-  opacity: .4; 
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
   z-index: -1;
   background-image: url("/Portland-background.jpeg");
- background-size:cover;
+  background-size: cover;
 }
 
 .App {
@@ -21,11 +21,8 @@ html::before {
   max-width: 1200px;
   margin: 0 auto;
 }
-.appInfo{
-
-  
+.appInfo {
   justify-items: left;
-
 }
 .appInfo h3 {
   display: inline-block;
@@ -50,7 +47,7 @@ html::before {
 /* global styles */
 
 button {
-  padding: .3em;
+  padding: 0.3em;
 }
 
 .flex-row {
@@ -110,14 +107,14 @@ button {
 }
 
 .actionButton {
-  margin-left: .5em;
+  margin-left: 0.5em;
 }
 
 .closeButton {
   color: teal;
   /* padding:.3em; */
   font-size: 20px;
-  margin-left: .5em;
+  margin-left: 0.5em;
 }
 
 .buttonsRow {
@@ -127,5 +124,5 @@ button {
 }
 
 .buttonsRow button {
-  margin: 0 .3em 0 .3em;
+  margin: 0 0.3em 0 0.3em;
 }
