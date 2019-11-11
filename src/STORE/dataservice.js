@@ -189,7 +189,7 @@ const ds = {
     },
 
     getProjects: (opts = {}) => {
-        if (!ds.getStoredLoginInfo()) {
+        if (!ds.getStoredLoginInfo()) { 
             // throw new Error(NOT_LOGGED_IN)
             return Promise.reject(new Error(NOT_LOGGED_IN))
         }
